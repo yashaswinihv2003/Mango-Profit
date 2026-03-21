@@ -180,28 +180,39 @@ st.markdown("""
 .stTextInput>label{display:none!important;}
 
 /* ALL STREAMLIT BUTTONS — yellow by default */
-.stButton>button{
-    font-family:'Poppins',sans-serif!important;font-weight:700!important;
-    border-radius:6px!important;transition:all 0.2s!important;cursor:pointer!important;
+.stButton>button,
+.stButton>button:not([kind="secondary"]),
+div[data-testid="stButton"] button,
+div[data-testid="stButton"]>button,
+[data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-secondary"]:not([kind="secondary"]) {
+    font-family:'Poppins',sans-serif!important;font-weight:800!important;
+    border-radius:8px!important;transition:all 0.2s!important;cursor:pointer!important;
     width:100%!important;
-    background:#f5a623!important;color:#1a1a1a!important;border:none!important;
-    font-size:15px!important;padding:14px 20px!important;
-    box-shadow:0 6px 24px rgba(245,166,35,0.4)!important;
-    text-transform:uppercase!important;letter-spacing:1px!important;
+    background-color:#f5a623!important;background:#f5a623!important;
+    color:#111111!important;border:none!important;
+    font-size:16px!important;padding:16px 20px!important;
+    box-shadow:0 6px 24px rgba(245,166,35,0.5)!important;
+    text-transform:uppercase!important;letter-spacing:1.2px!important;
 }
 .stButton>button:hover{
-    background:#e8920f!important;transform:translateY(-2px)!important;
-    box-shadow:0 10px 32px rgba(245,166,35,0.55)!important;
+    background-color:#e8920f!important;background:#e8920f!important;
+    transform:translateY(-2px)!important;
+    box-shadow:0 10px 32px rgba(245,166,35,0.6)!important;
 }
-/* Secondary = ghost */
+/* Secondary = ghost white for login page */
 .stButton>button[kind="secondary"]{
-    background:rgba(255,255,255,0.1)!important;color:rgba(255,255,255,0.75)!important;
+    background-color:rgba(255,255,255,0.1)!important;
+    background:rgba(255,255,255,0.1)!important;
+    color:rgba(255,255,255,0.75)!important;
     border:1.5px solid rgba(255,255,255,0.25)!important;
     font-size:12px!important;padding:10px!important;
     box-shadow:none!important;text-transform:none!important;letter-spacing:0!important;
 }
 .stButton>button[kind="secondary"]:hover{
-    background:rgba(255,255,255,0.18)!important;color:white!important;transform:none!important;
+    background-color:rgba(255,255,255,0.18)!important;
+    background:rgba(255,255,255,0.18)!important;
+    color:white!important;transform:none!important;
 }
 /* Login inputs */
 .stTextInput>div>div>input{
@@ -249,7 +260,7 @@ if not st.session_state.logged_in:
     .stApp{
         background-image:
             linear-gradient(rgba(5,25,8,0.72),rgba(5,25,8,0.72)),
-            url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop')!important;
+            url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=90&fit=crop')!important;
         background-size:cover!important;background-position:center!important;min-height:100vh!important;
     }
     .main .block-container{padding-top:0!important;}
@@ -550,8 +561,8 @@ hero_html='<br>'.join(hero_lines)
 st.markdown(f"""
 <div style="
     background-image:
-        linear-gradient(rgba(3,20,6,0.52),rgba(3,20,6,0.62)),
-        url('https://images.unsplash.com/photo-1553279768-865429fa0078?w=1920&q=95&fit=crop&crop=center');
+        linear-gradient(rgba(3,20,6,0.40),rgba(3,20,6,0.52)),
+        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=top');
     background-size:cover;background-position:center;
     padding:80px 48px 72px;text-align:center;">
     <h1 style="font-family:'Poppins',sans-serif;font-size:60px;color:white;font-weight:900;
@@ -593,8 +604,28 @@ with fc3:
     st.markdown(f'<p style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;">⚖️ {tx["quantity"]}</p>',unsafe_allow_html=True)
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
 
-# YELLOW RUN BUTTON — full width, below form
+# YELLOW RUN BUTTON — force yellow via JS targeting the key
 st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
+st.markdown("""
+<style>
+button[kind="primary"], [data-testid="baseButton-primary"],
+div[data-testid="stButton"] button,
+button {
+    background-color: #f5a623 !important;
+    background: #f5a623 !important;
+    color: #111111 !important;
+    border: none !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    padding: 18px !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 8px 28px rgba(245,166,35,0.55) !important;
+    border-radius: 8px !important;
+}
+button:hover { background-color: #e8920f !important; background: #e8920f !important; }
+</style>
+""", unsafe_allow_html=True)
 run_clicked=st.button(f"🔍  {tx['analyze_btn']}",key="run_btn",use_container_width=True)
 
 if run_clicked:
