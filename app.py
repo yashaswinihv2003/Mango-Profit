@@ -337,11 +337,6 @@ if not st.session_state.logged_in:
     with hero_col:
         st.markdown(f"""
         <div style="padding:70px 40px 40px 48px;">
-            <div style="display:inline-flex;align-items:center;gap:8px;
-                background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.3);
-                border-radius:24px;padding:5px 16px;margin-bottom:22px;">
-                <span style="font-size:10px;color:#4ade80;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;">AI-Powered · 4 Languages · Real Markets</span>
-            </div>
             <div style="font-family:'Merriweather',serif;font-size:46px;color:white;font-weight:700;
                 line-height:1.18;margin-bottom:18px;letter-spacing:-1px;">
                 Find Your Most<br><span style="color:#4ade80;">Profitable</span><br>Mango Market
@@ -349,20 +344,6 @@ if not st.session_state.logged_in:
             <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;max-width:440px;margin-bottom:32px;">
                 {tx['hero_sub']}
             </p>
-            <div style="display:flex;flex-direction:column;gap:12px;max-width:340px;">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:36px;height:36px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🗺️</div>
-                    <div style="font-size:13px;color:rgba(255,255,255,0.75);font-weight:600;">Real road routes to nearest markets</div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:36px;height:36px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📊</div>
-                    <div style="font-size:13px;color:rgba(255,255,255,0.75);font-weight:600;">AI profit ranking across 8 market types</div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:36px;height:36px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🌐</div>
-                    <div style="font-size:13px;color:rgba(255,255,255,0.75);font-weight:600;">English, Telugu, Hindi, Kannada</div>
-                </div>
-            </div>
         </div>""", unsafe_allow_html=True)
 
     with form_col:
@@ -717,12 +698,6 @@ st.markdown(f"""
     background-size:cover;background-position:center;
     padding:44px 32px 36px;">
     <div style="max-width:520px;">
-        <div style="display:inline-block;background:rgba(74,222,128,0.15);
-            border:1px solid rgba(74,222,128,0.35);border-radius:20px;
-            padding:4px 14px;font-size:11px;color:#4ade80;font-weight:800;
-            letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">
-            Smart Market Finder
-        </div>
         <h1 style="font-family:'Merriweather',serif;font-size:36px;color:white;
             font-weight:700;line-height:1.22;margin-bottom:10px;">
             {tx['fill_details']}
