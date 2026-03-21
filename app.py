@@ -24,7 +24,7 @@ T = {
         "name":"Full Name","place":"Village / District","reg_btn":"Create Account",
         "select_lang":"Language","village_sel":"Select Your Village",
         "variety":"Mango Variety","quantity":"Quantity (Tonnes)",
-        "analyze_btn":"Find My Best Market",
+        "analyze_btn":"Find My Best Market & Profit",
         "top3":"Top 3 Most Profitable Destinations",
         "bar_title":"Net Profit Comparison","pie_title":"Market Share",
         "map_title":"Route Map to Best Market",
@@ -43,17 +43,16 @@ T = {
         "variety_lbl":"Variety","qty_lbl":"Quantity",
         "best_market":"Best Market","est_profit":"Est. Profit",
         "farmer_tip":"Expert Insight",
-        "tip_text":"Abroad Export gives the highest return (+7%) but needs quality grading. Local Export hubs are nearest and easiest to access.",
+        "tip_text":"Abroad Export gives the highest return (+7%) but needs quality grading. Local Export hubs are nearest and easiest to access for most farmers.",
         "no_results":"No markets found within 150km. Try a different village or variety.",
         "welcome":"Welcome back",
         "hero_title":"Find Your Most Profitable Mango Market",
-        "hero_sub":"Select your village, variety and quantity — our system analyses all nearby markets and finds your best profit.",
+        "hero_sub":"Select your village, variety and quantity below to discover your best market and maximum profit.",
         "fill_details":"Enter Your Farm Details",
-        "btn_village":"Select Your Village","btn_variety":"Select Variety","btn_qty":"Enter Quantity",
     },
     "Telugu":{
         "title":"MangoNav","tagline":"రైతు లాభం సమాచారం",
-        "sign_in":"లాగిన్","create_account":"నమోదు చేయండి",
+        "sign_in":"లాగిన్","create_account":"నమోదు",
         "phone":"ఫోన్ నంబర్","password":"పాస్‌వర్డ్",
         "phone_ph":"10 అంకెల నంబర్","pass_ph":"మీ పాస్‌వర్డ్",
         "login_btn":"లాగిన్ చేయండి","forgot":"పాస్‌వర్డ్ మర్చిపోయారా?",
@@ -62,7 +61,7 @@ T = {
         "name":"పూర్తి పేరు","place":"గ్రామం / జిల్లా","reg_btn":"ఖాతా తెరవండి",
         "select_lang":"భాష","village_sel":"మీ గ్రామం ఎంచుకోండి",
         "variety":"మామిడి రకం","quantity":"పరిమాణం (టన్నులు)",
-        "analyze_btn":"ఉత్తమ మార్కెట్ కనుగొనండి",
+        "analyze_btn":"ఉత్తమ మార్కెట్ & లాభం కనుగొనండి",
         "top3":"అగ్ర 3 లాభ గమ్యాలు",
         "bar_title":"నికర లాభం పోలిక","pie_title":"మార్కెట్ వాటా",
         "map_title":"ఉత్తమ మార్కెట్‌కు మార్గ మ్యాప్",
@@ -85,9 +84,8 @@ T = {
         "no_results":"150 కి.మీ పరిధిలో మార్కెట్లు కనుగొనబడలేదు.",
         "welcome":"స్వాగతం",
         "hero_title":"మీ అత్యంత లాభదాయక మామిడి మార్కెట్ కనుగొనండి",
-        "hero_sub":"మీ గ్రామం, రకం మరియు పరిమాణాన్ని ఎంచుకోండి — మా వ్యవస్థ మీకు ఉత్తమ లాభాన్ని కనుగొంటుంది.",
+        "hero_sub":"మీ గ్రామం, రకం మరియు పరిమాణాన్ని ఎంచుకోండి.",
         "fill_details":"మీ పొలం వివరాలు నమోదు చేయండి",
-        "btn_village":"మీ గ్రామం ఎంచుకోండి","btn_variety":"రకం ఎంచుకోండి","btn_qty":"పరిమాణం నమోదు చేయండి",
     },
     "Hindi":{
         "title":"MangoNav","tagline":"किसान लाभ सूचना",
@@ -100,7 +98,7 @@ T = {
         "name":"पूरा नाम","place":"गाँव / जिला","reg_btn":"खाता बनाएं",
         "select_lang":"भाषा","village_sel":"अपना गाँव चुनें",
         "variety":"आम की किस्म","quantity":"मात्रा (टन)",
-        "analyze_btn":"मेरा सर्वोत्तम बाज़ार खोजें",
+        "analyze_btn":"मेरा सर्वोत्तम बाज़ार और लाभ खोजें",
         "top3":"शीर्ष 3 लाभदायक गंतव्य",
         "bar_title":"शुद्ध लाभ तुलना","pie_title":"बाज़ार हिस्सेदारी",
         "map_title":"सर्वोत्तम बाज़ार का मार्ग",
@@ -123,9 +121,8 @@ T = {
         "no_results":"150 कि.मी. के भीतर कोई बाज़ार नहीं मिला।",
         "welcome":"स्वागत है",
         "hero_title":"अपना सबसे लाभदायक आम बाज़ार खोजें",
-        "hero_sub":"अपना गाँव, किस्म और मात्रा चुनें — हमारी प्रणाली आपके लिए सर्वोत्तम लाभ खोजेगी।",
+        "hero_sub":"अपना गाँव, किस्म और मात्रा चुनें।",
         "fill_details":"अपने खेत की जानकारी दर्ज करें",
-        "btn_village":"अपना गाँव चुनें","btn_variety":"किस्म चुनें","btn_qty":"मात्रा दर्ज करें",
     },
     "Kannada":{
         "title":"MangoNav","tagline":"ರೈತ ಲಾಭ ಮಾಹಿತಿ",
@@ -161,9 +158,8 @@ T = {
         "no_results":"150 ಕಿ.ಮೀ ಪರಿಧಿಯಲ್ಲಿ ಮಾರುಕಟ್ಟೆ ಕಂಡುಬಂದಿಲ್ಲ.",
         "welcome":"ಸ್ವಾಗತ",
         "hero_title":"ನಿಮ್ಮ ಅತ್ಯಂತ ಲಾಭದಾಯಕ ಮಾವಿನ ಮಾರುಕಟ್ಟೆ ಹುಡುಕಿ",
-        "hero_sub":"ನಿಮ್ಮ ಗ್ರಾಮ, ತಳಿ ಮತ್ತು ಪ್ರಮಾಣ ಆಯ್ಕೆ ಮಾಡಿ — ನಮ್ಮ ವ್ಯವಸ್ಥೆ ನಿಮಗೆ ಉತ್ತಮ ಲಾಭ ಕಂಡುಹಿಡಿಯುತ್ತದೆ.",
+        "hero_sub":"ನಿಮ್ಮ ಗ್ರಾಮ, ತಳಿ ಮತ್ತು ಪ್ರಮಾಣ ಆಯ್ಕೆ ಮಾಡಿ.",
         "fill_details":"ನಿಮ್ಮ ಹೊಲದ ವಿವರಗಳು",
-        "btn_village":"ನಿಮ್ಮ ಗ್ರಾಮ ಆಯ್ಕೆ ಮಾಡಿ","btn_variety":"ತಳಿ ಆಯ್ಕೆ","btn_qty":"ಪ್ರಮಾಣ ನಮೂದಿಸಿ",
     },
 }
 
@@ -175,8 +171,7 @@ def init_db():
     conn.execute("CREATE TABLE IF NOT EXISTS users (name TEXT,place TEXT,phone TEXT PRIMARY KEY,password TEXT)")
     conn.commit();conn.close()
 def reg(n,p,ph,pw):
-    conn=sqlite3.connect("farmers.db")
-    h=bcrypt.hashpw(pw.encode(),bcrypt.gensalt())
+    conn=sqlite3.connect("farmers.db");h=bcrypt.hashpw(pw.encode(),bcrypt.gensalt())
     try: conn.execute("INSERT INTO users VALUES(?,?,?,?)",(n,p,ph,h));conn.commit();return True
     except: return False
     finally: conn.close()
@@ -189,14 +184,10 @@ def get_u(ph):
     conn=sqlite3.connect("farmers.db");c=conn.cursor()
     c.execute("SELECT * FROM users WHERE phone=?",(ph,));u=c.fetchone();conn.close();return u
 def upd_pw(ph,pw):
-    conn=sqlite3.connect("farmers.db")
-    h=bcrypt.hashpw(pw.encode(),bcrypt.gensalt())
+    conn=sqlite3.connect("farmers.db");h=bcrypt.hashpw(pw.encode(),bcrypt.gensalt())
     conn.execute("UPDATE users SET password=? WHERE phone=?",(h,ph));conn.commit();conn.close()
 init_db()
 
-# ══════════════════════════════════════════════════════════════
-# SESSION STATE
-# ══════════════════════════════════════════════════════════════
 for k,v in {"logged_in":False,"auth_mode":"login","otp_mode":False,"otp_sent":False,
             "otp_code":None,"otp_phone":None,"forgot":False,"f_otp_sent":False,
             "f_otp_ok":False,"f_code":None,"lang":"English","run":False,
@@ -204,200 +195,272 @@ for k,v in {"logged_in":False,"auth_mode":"login","otp_mode":False,"otp_sent":Fa
     if k not in st.session_state: st.session_state[k]=v
 
 # ══════════════════════════════════════════════════════════════
-# GLOBAL CSS
+# BASE CSS — Poppins font, green buttons
 # ══════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;}
 #MainMenu,footer,header,[data-testid="stDecoration"]{visibility:hidden;display:none!important;}
-.stApp{font-family:'Nunito',sans-serif;}
+.stApp{font-family:'Poppins',sans-serif;}
 .main .block-container{padding:0!important;max-width:100%!important;}
 .stTextInput>label{display:none!important;}
+
+/* GREEN PRIMARY BUTTON */
 .stButton>button{
-    font-family:'Nunito',sans-serif!important;font-size:13px!important;font-weight:800!important;
-    border-radius:10px!important;padding:12px 20px!important;transition:all 0.2s!important;cursor:pointer!important;
+    font-family:'Poppins',sans-serif!important;font-size:14px!important;
+    font-weight:700!important;border-radius:8px!important;
+    padding:13px 24px!important;transition:all 0.18s!important;cursor:pointer!important;
+    width:100%!important;
 }
 .stButton>button:not([kind="secondary"]){
-    background:linear-gradient(135deg,#16a34a,#15803d)!important;color:white!important;
-    border:none!important;box-shadow:0 4px 16px rgba(22,163,74,0.45)!important;
+    background:#16a34a!important;color:white!important;border:none!important;
+    box-shadow:0 4px 18px rgba(22,163,74,0.45)!important;
 }
-.stButton>button:not([kind="secondary"]):hover{background:linear-gradient(135deg,#15803d,#166534)!important;transform:translateY(-1px)!important;}
-.stButton>button[kind="secondary"]{background:rgba(255,255,255,0.09)!important;color:rgba(255,255,255,0.7)!important;border:1px solid rgba(255,255,255,0.22)!important;font-size:12px!important;padding:10px 14px!important;}
-.stButton>button[kind="secondary"]:hover{color:white!important;border-color:rgba(255,255,255,0.5)!important;}
-/* Dashboard selectbox — white background */
-.stSelectbox>label{font-size:11px!important;font-weight:800!important;color:#374151!important;letter-spacing:0.5px!important;text-transform:uppercase!important;}
-.stSelectbox>div>div{background:white!important;border:2px solid #d1d5db!important;border-radius:10px!important;color:#111827!important;font-family:'Nunito',sans-serif!important;font-size:14px!important;}
-.stSelectbox>div>div:focus-within{border-color:#16a34a!important;}
-.stNumberInput>label{font-size:11px!important;font-weight:800!important;color:#374151!important;letter-spacing:0.5px!important;text-transform:uppercase!important;}
-.stNumberInput>div>div>input{background:white!important;border:2px solid #d1d5db!important;border-radius:10px!important;color:#111827!important;font-family:'Nunito',sans-serif!important;font-size:14px!important;padding:10px 14px!important;}
+.stButton>button:not([kind="secondary"]):hover{
+    background:#15803d!important;transform:translateY(-1px)!important;
+    box-shadow:0 6px 24px rgba(22,163,74,0.55)!important;
+}
+.stButton>button[kind="secondary"]{
+    background:rgba(255,255,255,0.12)!important;color:rgba(255,255,255,0.8)!important;
+    border:1.5px solid rgba(255,255,255,0.25)!important;
+    font-size:12px!important;padding:10px!important;
+}
+.stButton>button[kind="secondary"]:hover{
+    background:rgba(255,255,255,0.18)!important;color:white!important;
+}
+
+/* LOGIN inputs */
+.stTextInput>div>div>input{
+    background:rgba(255,255,255,0.12)!important;
+    border:1.5px solid rgba(255,255,255,0.25)!important;
+    border-radius:8px!important;color:white!important;
+    font-family:'Poppins',sans-serif!important;font-size:14px!important;padding:13px 16px!important;
+}
+.stTextInput>div>div>input:focus{border-color:#4ade80!important;outline:none!important;}
+.stTextInput>div>div>input::placeholder{color:rgba(255,255,255,0.4)!important;}
+
+/* SIDEBAR */
 [data-testid="stSidebar"]{background:linear-gradient(180deg,#052e16,#14532d)!important;border-right:none!important;}
 [data-testid="stSidebar"] label{color:#86efac!important;font-size:10px!important;letter-spacing:1.5px!important;text-transform:uppercase!important;}
 [data-testid="stSidebar"] .stSelectbox>div>div{background:rgba(255,255,255,0.07)!important;border:1px solid rgba(134,239,172,0.2)!important;color:#dcfce7!important;border-radius:8px!important;}
+
+/* DASHBOARD form selects */
+.dash-select .stSelectbox>label{font-size:11px!important;font-weight:700!important;color:#1f2937!important;letter-spacing:0.3px!important;text-transform:uppercase!important;}
+.dash-select .stSelectbox>div>div{background:white!important;border:2px solid #d1d5db!important;border-radius:8px!important;color:#111827!important;font-family:'Poppins',sans-serif!important;font-size:14px!important;}
+.dash-select .stNumberInput>label{font-size:11px!important;font-weight:700!important;color:#1f2937!important;letter-spacing:0.3px!important;text-transform:uppercase!important;}
+.dash-select .stNumberInput>div>div>input{background:white!important;border:2px solid #d1d5db!important;border-radius:8px!important;color:#111827!important;font-family:'Poppins',sans-serif!important;font-size:14px!important;padding:10px 14px!important;}
+
+/* DASHBOARD run button — force green on white bg */
+.run-area .stButton>button{
+    background:linear-gradient(135deg,#16a34a,#15803d)!important;
+    color:white!important;border:none!important;font-size:15px!important;
+    padding:16px 24px!important;border-radius:10px!important;
+    box-shadow:0 6px 24px rgba(22,163,74,0.45)!important;
+    font-weight:700!important;
+}
+.run-area .stButton>button:hover{
+    background:linear-gradient(135deg,#15803d,#166534)!important;
+    transform:translateY(-2px)!important;
+    box-shadow:0 10px 30px rgba(22,163,74,0.55)!important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
-# LOGIN
+# LOGIN PAGE
 # ══════════════════════════════════════════════════════════════
 if not st.session_state.logged_in:
     lang=st.session_state.lang; tx=T[lang]
+
+    # Full-page agricultural field background (green paddy/crop field)
     st.markdown("""
     <style>
     [data-testid="stSidebar"],[data-testid="collapsedControl"]{display:none!important;}
     .stApp{
         background-image:
-            linear-gradient(135deg,rgba(2,30,8,0.80) 0%,rgba(3,46,12,0.75) 50%,rgba(2,24,6,0.88) 100%),
-            url('https://images.unsplash.com/photo-1553279768-865429fa0078?w=1920&q=90&fit=crop&crop=center')!important;
+            linear-gradient(to right, rgba(5,46,22,0.92) 0%, rgba(5,46,22,0.75) 50%, rgba(5,46,22,0.55) 100%),
+            url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop&crop=center')!important;
         background-size:cover!important;background-position:center!important;
         background-repeat:no-repeat!important;min-height:100vh!important;
     }
-    /* Login page inputs dark */
-    .stTextInput>div>div>input{
-        background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.22)!important;
-        border-radius:10px!important;color:white!important;font-family:'Nunito',sans-serif!important;
-        font-size:14px!important;padding:13px 16px!important;
-    }
-    .stTextInput>div>div>input:focus{border-color:#4ade80!important;outline:none!important;}
-    .stTextInput>div>div>input::placeholder{color:rgba(255,255,255,0.35)!important;}
-    .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.22)!important;color:white!important;border-radius:10px!important;}
-    .stSelectbox>label{color:rgba(255,255,255,0.55)!important;}
+    .stSelectbox>div>div{background:rgba(255,255,255,0.12)!important;border:1.5px solid rgba(255,255,255,0.25)!important;color:white!important;border-radius:8px!important;}
+    .stSelectbox>label{color:rgba(255,255,255,0.6)!important;font-size:10px!important;letter-spacing:1px!important;}
     .main .block-container{padding-top:0!important;}
     </style>""", unsafe_allow_html=True)
 
-    # NAV
+    # ── TOP GREEN NAV BAR ──
     st.markdown(f"""
-    <div style="background:rgba(2,20,6,0.55);backdrop-filter:blur(14px);
-        padding:14px 36px;display:flex;align-items:center;justify-content:space-between;
-        border-bottom:1px solid rgba(74,222,128,0.12);">
-        <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:40px;height:40px;background:linear-gradient(135deg,#16a34a,#4ade80);
-                border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;">🥭</div>
+    <div style="background:rgba(5,46,22,0.7);backdrop-filter:blur(12px);
+        padding:14px 40px;display:flex;align-items:center;justify-content:space-between;
+        border-bottom:1px solid rgba(74,222,128,0.15);">
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,#16a34a,#4ade80);
+                border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;
+                box-shadow:0 4px 16px rgba(22,163,74,0.4);">🥭</div>
             <div>
-                <div style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:white;">{tx['title']}</div>
-                <div style="font-size:10px;color:rgba(74,222,128,0.65);letter-spacing:2px;text-transform:uppercase;">{tx['tagline']}</div>
+                <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:white;line-height:1;">{tx['title']}</div>
+                <div style="font-size:10px;color:rgba(74,222,128,0.7);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">{tx['tagline']}</div>
             </div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.35);">AP · Telangana · Karnataka</div>
+        <div style="display:flex;align-items:center;gap:32px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);font-weight:500;">Home</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);font-weight:500;">About</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);font-weight:500;">Contact</div>
+        </div>
     </div>""", unsafe_allow_html=True)
 
-    # Language
-    _,lc = st.columns([5,1])
-    with lc:
-        c=st.selectbox(tx["select_lang"],["English","Telugu","Hindi","Kannada"],
-            index=["English","Telugu","Hindi","Kannada"].index(lang),key="lang_sel",label_visibility="collapsed")
-        if c!=lang: st.session_state.lang=c; st.rerun()
+    # ── MAIN LAYOUT: LEFT HERO + RIGHT FORM ──
+    left_col, right_col = st.columns([1.2, 0.9])
 
-    hcol,fcol = st.columns([1.3,1])
-    with hcol:
+    with left_col:
+        # Language picker at top of left column
+        lc1, lc2 = st.columns([3, 1])
+        with lc2:
+            c = st.selectbox(tx["select_lang"], ["English","Telugu","Hindi","Kannada"],
+                index=["English","Telugu","Hindi","Kannada"].index(lang),
+                key="lang_sel", label_visibility="collapsed")
+            if c != lang: st.session_state.lang=c; st.rerun()
+
         st.markdown(f"""
-        <div style="padding:60px 40px 40px 48px;">
-            <div style="font-family:'Merriweather',serif;font-size:48px;color:white;font-weight:700;line-height:1.18;margin-bottom:16px;letter-spacing:-1px;text-shadow:0 2px 16px rgba(0,0,0,0.4);">
-                {tx['hero_title'].replace(chr(10),'<br>')}
+        <div style="padding:50px 40px 40px 48px;">
+            <h1 style="font-family:'Poppins',sans-serif;font-size:52px;color:white;
+                font-weight:800;line-height:1.1;margin-bottom:20px;
+                text-shadow:0 4px 20px rgba(0,0,0,0.3);">
+                {tx['hero_title']}
+            </h1>
+            <p style="font-size:16px;color:rgba(255,255,255,0.75);line-height:1.8;
+                max-width:420px;margin-bottom:36px;">
+                {tx['hero_sub']}
+            </p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+                    border-radius:50px;padding:8px 20px;font-size:13px;color:white;font-weight:600;">
+                    ✅ Real Market Data
+                </div>
+                <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+                    border-radius:50px;padding:8px 20px;font-size:13px;color:white;font-weight:600;">
+                    📍 Route Maps
+                </div>
+                <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+                    border-radius:50px;padding:8px 20px;font-size:13px;color:white;font-weight:600;">
+                    🌐 4 Languages
+                </div>
             </div>
-            <p style="font-size:15px;color:rgba(255,255,255,0.65);line-height:1.8;max-width:440px;">{tx['hero_sub']}</p>
         </div>""", unsafe_allow_html=True)
 
-    with fcol:
+    with right_col:
+        st.markdown('<div style="height:30px"></div>', unsafe_allow_html=True)
+        # LOGIN CARD
         st.markdown("""
-        <div style="background:rgba(2,18,6,0.80);backdrop-filter:blur(28px);
-            border:1px solid rgba(74,222,128,0.15);border-radius:20px;
-            padding:36px 36px 28px;margin:28px 36px 20px 0;
-            box-shadow:0 32px 80px rgba(0,0,0,0.55);">""", unsafe_allow_html=True)
+        <div style="background:rgba(5,30,12,0.88);backdrop-filter:blur(30px);
+            border:1px solid rgba(74,222,128,0.2);border-radius:20px;
+            padding:36px 32px 28px;margin:0 32px 0 0;
+            box-shadow:0 30px 80px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);">
+        """, unsafe_allow_html=True)
 
-        tb1,tb2=st.columns(2)
+        tb1, tb2 = st.columns(2)
         with tb1:
-            if st.button(tx["sign_in"],key="tab_si",use_container_width=True,
+            if st.button(tx["sign_in"], key="tab_si", use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="login" else "secondary"):
-                st.session_state.auth_mode="login";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="login"; st.session_state.otp_mode=False
+                st.session_state.forgot=False; st.rerun()
         with tb2:
-            if st.button(tx["create_account"],key="tab_ca",use_container_width=True,
+            if st.button(tx["create_account"], key="tab_ca", use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="register" else "secondary"):
-                st.session_state.auth_mode="register";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="register"; st.session_state.otp_mode=False
+                st.session_state.forgot=False; st.rerun()
 
-        st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
+        st.markdown('<div style="height:22px"></div>', unsafe_allow_html=True)
 
         def lbl(t):
-            st.markdown(f'<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(74,222,128,0.7);margin-bottom:6px;font-weight:700;">{t}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(74,222,128,0.75);margin-bottom:7px;font-weight:600;">{t}</div>', unsafe_allow_html=True)
 
+        # FORGOT
         if st.session_state.forgot:
             lbl(tx["reset_pw"])
-            fph=st.text_input("_fph",placeholder=tx["phone_ph"],key="fp_ph",label_visibility="collapsed")
+            fph = st.text_input("_fph", placeholder=tx["phone_ph"], key="fp_ph", label_visibility="collapsed")
             if not st.session_state.f_otp_sent:
-                if st.button(tx["send_otp"],key="fp_send",use_container_width=True):
+                if st.button(tx["send_otp"], key="fp_send", use_container_width=True):
                     if fph and len(fph)==10 and fph.isdigit():
                         u=get_u(fph)
                         if u:
                             code=str(random.randint(100000,999999))
-                            st.session_state.f_code=code;st.session_state.f_otp_sent=True;st.session_state.otp_phone=fph
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
+                            st.session_state.f_code=code; st.session_state.f_otp_sent=True; st.session_state.otp_phone=fph
+                            st.info(f"Demo OTP: **{code}**"); st.rerun()
                         else: st.error("No account found.")
                     else: st.warning("Enter valid 10-digit number.")
             elif not st.session_state.f_otp_ok:
                 lbl(tx["otp_ph"])
-                eo=st.text_input("_fov",placeholder=tx["otp_ph"],key="fp_ov",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="fp_ver",use_container_width=True):
-                    if eo==st.session_state.f_code: st.session_state.f_otp_ok=True;st.rerun()
+                eo = st.text_input("_fov", placeholder=tx["otp_ph"], key="fp_ov", label_visibility="collapsed")
+                if st.button(tx["verify_otp"], key="fp_ver", use_container_width=True):
+                    if eo==st.session_state.f_code: st.session_state.f_otp_ok=True; st.rerun()
                     else: st.error("Incorrect OTP.")
             else:
-                lbl(tx["new_pw"]);np_=st.text_input("_npw",placeholder=tx["new_pw"],type="password",key="fp_np",label_visibility="collapsed")
-                lbl(tx["conf_pw"]);cp_=st.text_input("_cpw",placeholder=tx["conf_pw"],type="password",key="fp_cp",label_visibility="collapsed")
-                if st.button(tx["upd_pw"],key="fp_upd",use_container_width=True):
-                    if np_ and np_==cp_: upd_pw(st.session_state.otp_phone,np_);st.success("Updated.");st.session_state.forgot=False;st.session_state.f_otp_sent=False;st.session_state.f_otp_ok=False;st.session_state.f_code=None;st.rerun()
+                lbl(tx["new_pw"]); np_=st.text_input("_npw", placeholder=tx["new_pw"], type="password", key="fp_np", label_visibility="collapsed")
+                lbl(tx["conf_pw"]); cp_=st.text_input("_cpw", placeholder=tx["conf_pw"], type="password", key="fp_cp", label_visibility="collapsed")
+                if st.button(tx["upd_pw"], key="fp_upd", use_container_width=True):
+                    if np_ and np_==cp_: upd_pw(st.session_state.otp_phone,np_); st.success("Updated."); st.session_state.forgot=False; st.session_state.f_otp_sent=False; st.session_state.f_otp_ok=False; st.session_state.f_code=None; st.rerun()
                     else: st.error("Passwords do not match.")
-            if st.button(tx["back"],key="fp_back",use_container_width=True,type="secondary"): st.session_state.forgot=False;st.rerun()
+            if st.button(tx["back"], key="fp_back", use_container_width=True, type="secondary"): st.session_state.forgot=False; st.rerun()
 
+        # OTP LOGIN
         elif st.session_state.auth_mode=="login" and st.session_state.otp_mode:
-            lbl(tx["phone"]);op=st.text_input("_op",placeholder=tx["phone_ph"],key="otp_ph_in",label_visibility="collapsed")
+            lbl(tx["phone"]); op=st.text_input("_op", placeholder=tx["phone_ph"], key="otp_ph_in", label_visibility="collapsed")
             if not st.session_state.otp_sent:
-                if st.button(tx["send_otp"],key="s_otp",use_container_width=True):
+                if st.button(tx["send_otp"], key="s_otp", use_container_width=True):
                     if op and len(op)==10 and op.isdigit():
                         u=get_u(op)
                         if u:
-                            code=str(random.randint(100000,999999));st.session_state.otp_code=code;st.session_state.otp_sent=True;st.session_state.otp_phone=op
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
+                            code=str(random.randint(100000,999999)); st.session_state.otp_code=code; st.session_state.otp_sent=True; st.session_state.otp_phone=op
+                            st.info(f"Demo OTP: **{code}**"); st.rerun()
                         else: st.error("No account found.")
                     else: st.warning("Enter valid 10-digit number.")
             else:
-                lbl(tx["otp_ph"]);eo=st.text_input("_eov",placeholder=tx["otp_ph"],key="otp_v",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="v_otp",use_container_width=True):
-                    if eo==st.session_state.otp_code: u=get_u(st.session_state.otp_phone);st.session_state.logged_in=True;st.session_state.user=u;st.session_state.otp_sent=False;st.rerun()
+                lbl(tx["otp_ph"]); eo=st.text_input("_eov", placeholder=tx["otp_ph"], key="otp_v", label_visibility="collapsed")
+                if st.button(tx["verify_otp"], key="v_otp", use_container_width=True):
+                    if eo==st.session_state.otp_code: u=get_u(st.session_state.otp_phone); st.session_state.logged_in=True; st.session_state.user=u; st.session_state.otp_sent=False; st.rerun()
                     else: st.error("Incorrect OTP.")
-            if st.button(tx["use_pw"],key="use_pw_btn",use_container_width=True,type="secondary"): st.session_state.otp_mode=False;st.rerun()
+            if st.button(tx["use_pw"], key="use_pw_btn", use_container_width=True, type="secondary"): st.session_state.otp_mode=False; st.rerun()
 
+        # PASSWORD LOGIN
         elif st.session_state.auth_mode=="login":
-            lbl(tx["phone"]);ph=st.text_input("_lph",placeholder=tx["phone_ph"],key="l_ph",label_visibility="collapsed")
-            lbl(tx["password"]);pw=st.text_input("_lpw",placeholder=tx["pass_ph"],type="password",key="l_pw",label_visibility="collapsed")
-            if st.button(tx["login_btn"],key="do_login",use_container_width=True):
+            lbl(tx["phone"]); ph=st.text_input("_lph", placeholder=tx["phone_ph"], key="l_ph", label_visibility="collapsed")
+            lbl(tx["password"]); pw=st.text_input("_lpw", placeholder=tx["pass_ph"], type="password", key="l_pw", label_visibility="collapsed")
+            st.markdown('<div style="height:6px"></div>', unsafe_allow_html=True)
+            if st.button(tx["login_btn"], key="do_login", use_container_width=True):
                 if ph and pw:
                     u=login(ph,pw)
-                    if u: st.session_state.logged_in=True;st.session_state.user=u;st.rerun()
+                    if u: st.session_state.logged_in=True; st.session_state.user=u; st.rerun()
                     else: st.error("Incorrect phone or password.")
                 else: st.warning("Please fill all fields.")
-            st.markdown('<div style="height:8px"></div>',unsafe_allow_html=True)
-            fa,oa=st.columns(2)
+            st.markdown('<div style="height:10px"></div>', unsafe_allow_html=True)
+            fa, oa = st.columns(2)
             with fa:
-                if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"): st.session_state.forgot=True;st.rerun()
+                if st.button(tx["forgot"], key="frg", use_container_width=True, type="secondary"): st.session_state.forgot=True; st.rerun()
             with oa:
-                if st.button(tx["otp_opt"],key="otp_sw",use_container_width=True,type="secondary"): st.session_state.otp_mode=True;st.rerun()
+                if st.button(tx["otp_opt"], key="otp_sw", use_container_width=True, type="secondary"): st.session_state.otp_mode=True; st.rerun()
+
+        # REGISTER
         else:
             for label,key_,ph_,is_pw in [(tx["name"],"r_nm","Your full name",False),(tx["place"],"r_pl","Village, District",False),(tx["phone"],"r_ph",tx["phone_ph"],False),(tx["password"],"r_pw",tx["pass_ph"],True)]:
                 lbl(label)
                 if is_pw: st.text_input(f"_{key_}",placeholder=ph_,key=key_,type="password",label_visibility="collapsed")
                 else: st.text_input(f"_{key_}",placeholder=ph_,key=key_,label_visibility="collapsed")
-            if st.button(tx["reg_btn"],key="do_reg",use_container_width=True):
-                n=st.session_state.get("r_nm","");p=st.session_state.get("r_pl","");ph=st.session_state.get("r_ph","");pw=st.session_state.get("r_pw","")
+            if st.button(tx["reg_btn"], key="do_reg", use_container_width=True):
+                n=st.session_state.get("r_nm",""); p=st.session_state.get("r_pl",""); ph=st.session_state.get("r_ph",""); pw=st.session_state.get("r_pw","")
                 if n and p and ph and pw:
-                    if reg(n,p,ph,pw): st.success("Account created! Please sign in.");st.session_state.auth_mode="login";st.rerun()
-                    else: st.error("Phone number already registered.")
-                else: st.warning("All fields are required.")
+                    if reg(n,p,ph,pw): st.success("Account created! Please sign in."); st.session_state.auth_mode="login"; st.rerun()
+                    else: st.error("Phone already registered.")
+                else: st.warning("All fields required.")
 
-        st.markdown("</div>",unsafe_allow_html=True)
-        st.markdown('<div style="text-align:center;margin-top:10px;font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:1.5px;">SECURE · ENCRYPTED · YOUR DATA IS SAFE</div>',unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center;margin-top:12px;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:2px;">SECURE · ENCRYPTED · YOUR DATA IS SAFE</div>', unsafe_allow_html=True)
+
     st.stop()
 
 # ══════════════════════════════════════════════════════════════
-# DATA LOADING
+# DATA
 # ══════════════════════════════════════════════════════════════
 @st.cache_data
 def load_all():
@@ -431,21 +494,19 @@ def vlist():
     if nc and nc in villages.columns: return sorted(villages[nc].dropna().unique().tolist())
     return ["Default Village"]
 
-def vcoords(vname):
+def vcoords(vn):
     nc,lc,loc=dcols(villages)
     if nc and lc and loc:
-        r=villages[villages[nc]==vname]
+        r=villages[villages[nc]==vn]
         if not r.empty: return float(r.iloc[0][lc]),float(r.iloc[0][loc])
     return 15.9129,79.7400
 
 def base_price(vlat,vlon):
     try:
         m=prices.merge(geo,on="market",how="left") if ("market" in prices.columns and "market" in geo.columns and not geo.empty) else prices.copy()
-        lc=next((c for c in m.columns if "lat" in c.lower()),None)
-        loc=next((c for c in m.columns if "lon" in c.lower()),None)
-        pc=next((c for c in m.columns if "price" in c.lower()),None)
+        lc=next((c for c in m.columns if "lat" in c.lower()),None); loc=next((c for c in m.columns if "lon" in c.lower()),None); pc=next((c for c in m.columns if "price" in c.lower()),None)
         if lc and loc and pc:
-            m=m.dropna(subset=[lc,loc,pc]);m["d"]=m.apply(lambda r:hav(vlat,vlon,r[lc],r[loc]),axis=1)
+            m=m.dropna(subset=[lc,loc,pc]); m["d"]=m.apply(lambda r:hav(vlat,vlon,r[lc],r[loc]),axis=1)
             return float(m.loc[m["d"].idxmin()][pc])
     except: pass
     return 25.0
@@ -503,8 +564,7 @@ def analyse(vlat,vlon,variety,tonnes):
             except: continue
     if not rows: return pd.DataFrame()
     df=pd.DataFrame(rows).drop_duplicates(subset=["Type","Name"]).sort_values("Net_Profit",ascending=False).reset_index(drop=True)
-    df["Rank"]=df.index+1
-    return df
+    df["Rank"]=df.index+1; return df
 
 # ══════════════════════════════════════════════════════════════
 # DASHBOARD
@@ -512,226 +572,235 @@ def analyse(vlat,vlon,variety,tonnes):
 lang=st.session_state.get("lang","English"); tx=T[lang]
 fname=st.session_state.user[0]; fplace=st.session_state.user[1]
 
-st.markdown("<style>.stApp{background:#f0f4f0!important;}</style>",unsafe_allow_html=True)
+st.markdown("<style>.stApp{background:#f3f4f6!important;}</style>", unsafe_allow_html=True)
 
-# NAV
+# ── GREEN NAV ──
 st.markdown(f"""
-<div style="background:linear-gradient(135deg,#052e16,#14532d);padding:0 28px;height:66px;
+<div style="background:linear-gradient(135deg,#052e16,#15803d);padding:0 32px;height:68px;
     display:flex;align-items:center;justify-content:space-between;
-    box-shadow:0 4px 24px rgba(0,0,0,0.25);position:sticky;top:0;z-index:999;">
-    <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:42px;height:42px;background:linear-gradient(135deg,#16a34a,#4ade80);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;">🥭</div>
+    box-shadow:0 4px 28px rgba(0,0,0,0.25);position:sticky;top:0;z-index:999;">
+    <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:44px;height:44px;background:linear-gradient(135deg,#16a34a,#4ade80);
+            border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🥭</div>
         <div>
-            <div style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:white;">{tx['title']}</div>
-            <div style="font-size:9px;color:rgba(74,222,128,0.6);letter-spacing:2.5px;text-transform:uppercase;">{tx['tagline']}</div>
+            <div style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:white;">{tx['title']}</div>
+            <div style="font-size:9px;color:rgba(74,222,128,0.65);letter-spacing:3px;text-transform:uppercase;">{tx['tagline']}</div>
         </div>
     </div>
     <div style="display:flex;align-items:center;gap:14px;">
-        <div style="width:38px;height:38px;background:rgba(74,222,128,0.15);border:2px solid rgba(74,222,128,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#4ade80;">{fname[0].upper()}</div>
-        <div><div style="font-size:13px;color:white;font-weight:700;">{fname}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">📍 {fplace}</div></div>
+        <div style="width:40px;height:40px;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.2);
+            border-radius:50%;display:flex;align-items:center;justify-content:center;
+            font-size:15px;font-weight:800;color:white;">{fname[0].upper()}</div>
+        <div>
+            <div style="font-size:14px;color:white;font-weight:700;">{fname}</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);">📍 {fplace}</div>
+        </div>
     </div>
-</div>""",unsafe_allow_html=True)
+</div>""", unsafe_allow_html=True)
 
-# SIDEBAR
+# ── SIDEBAR ──
 with st.sidebar:
-    st.markdown("""<div style="padding:16px 2px 10px;"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#86efac;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(134,239,172,0.1);">Settings</div></div>""",unsafe_allow_html=True)
+    st.markdown("""<div style="padding:16px 4px 10px;"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#86efac;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(134,239,172,0.1);">Settings</div></div>""", unsafe_allow_html=True)
     sl=st.selectbox(tx["select_lang"],["English","Telugu","Hindi","Kannada"],index=["English","Telugu","Hindi","Kannada"].index(lang))
-    if sl!=lang: st.session_state.lang=sl;st.rerun()
-    st.markdown(f'<div style="margin-top:16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#86efac;margin-bottom:10px;">{tx["live_prices"]}</div>',unsafe_allow_html=True)
+    if sl!=lang: st.session_state.lang=sl; st.rerun()
+    st.markdown(f'<div style="margin-top:16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#86efac;margin-bottom:10px;">{tx["live_prices"]}</div>', unsafe_allow_html=True)
     for v,(p,tr,cl) in {"Banganapalli":(28,"↑ +2.1%","#4ade80"),"Totapuri":(18,"↓ -0.8%","#f87171"),"Neelam":(22,"↑ +1.4%","#4ade80"),"Rasalu":(30,"↑ +3.2%","#4ade80")}.items():
-        st.markdown(f'<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;margin-bottom:5px;background:rgba(255,255,255,0.05);border-radius:8px;"><div><div style="font-size:12px;color:#dcfce7;font-weight:700;">{v}</div><div style="font-size:10px;color:#86efac;">₹{p}/kg</div></div><div style="font-size:12px;font-weight:800;color:{cl};">{tr}</div></div>',unsafe_allow_html=True)
-    st.markdown('<div style="height:14px"></div>',unsafe_allow_html=True)
-    if st.button(tx["logout"],use_container_width=True,type="secondary"):
+        st.markdown(f'<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;margin-bottom:5px;background:rgba(255,255,255,0.05);border-radius:8px;"><div><div style="font-size:12px;color:#dcfce7;font-weight:600;">{v}</div><div style="font-size:10px;color:#86efac;">₹{p}/kg</div></div><div style="font-size:12px;font-weight:800;color:{cl};">{tr}</div></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height:14px"></div>', unsafe_allow_html=True)
+    if st.button(tx["logout"], use_container_width=True, type="secondary"):
         for k in list(st.session_state.keys()): del st.session_state[k]
         st.rerun()
 
-villages_list=vlist()
+villages_list = vlist()
 
-# ══════════════════════════════════════════════════════════════
-# HERO — MANGO ORCHARD IMAGE
-# ══════════════════════════════════════════════════════════════
+# ── HERO WITH MANGO TREE IMAGE ──
 st.markdown(f"""
 <div style="
     background-image:
-        linear-gradient(rgba(2,30,6,0.62),rgba(3,44,10,0.70)),
-        url('https://images.unsplash.com/photo-1553279768-865429fa0078?w=1400&q=90&fit=crop&crop=center');
-    background-size:cover;background-position:center;
-    padding:52px 36px 48px;">
-    <div style="max-width:600px;">
-        <h1 style="font-family:'Merriweather',serif;font-size:42px;color:white;font-weight:700;
-            line-height:1.2;margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,0.4);">
+        linear-gradient(to right, rgba(5,46,22,0.85) 0%, rgba(5,46,22,0.60) 60%, rgba(5,46,22,0.40) 100%),
+        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1400&q=90&fit=crop&crop=right');
+    background-size:cover;background-position:center right;
+    padding:56px 48px 52px;">
+    <div style="max-width:580px;">
+        <h1 style="font-family:'Poppins',sans-serif;font-size:44px;color:white;font-weight:800;
+            line-height:1.15;margin-bottom:14px;text-shadow:0 3px 16px rgba(0,0,0,0.4);">
             {tx['hero_title']}
         </h1>
-        <p style="font-size:15px;color:rgba(255,255,255,0.72);line-height:1.75;text-shadow:0 1px 8px rgba(0,0,0,0.3);">
+        <p style="font-size:16px;color:rgba(255,255,255,0.78);line-height:1.75;margin-bottom:0;">
             {tx['hero_sub']}
         </p>
     </div>
-</div>""",unsafe_allow_html=True)
+</div>""", unsafe_allow_html=True)
 
-# PRICE TICKER
+# ── PRICE TICKER ──
 st.markdown(f"""
-<div style="background:#052e16;padding:11px 36px;border-bottom:1px solid rgba(74,222,128,0.1);">
-    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-        <span style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:2px;text-transform:uppercase;margin-right:10px;">{tx['live_prices']}</span>
-        <span style="font-size:12px;color:white;font-weight:600;">Banganapalli <b style="color:#4ade80;">₹28</b> ↑+2.1%</span>
-        <span style="color:rgba(74,222,128,0.2);margin:0 12px;">|</span>
-        <span style="font-size:12px;color:white;font-weight:600;">Totapuri <b style="color:#f87171;">₹18</b> ↓-0.8%</span>
-        <span style="color:rgba(74,222,128,0.2);margin:0 12px;">|</span>
-        <span style="font-size:12px;color:white;font-weight:600;">Neelam <b style="color:#4ade80;">₹22</b> ↑+1.4%</span>
-        <span style="color:rgba(74,222,128,0.2);margin:0 12px;">|</span>
-        <span style="font-size:12px;color:white;font-weight:600;">Rasalu <b style="color:#4ade80;">₹30</b> ↑+3.2%</span>
+<div style="background:#052e16;padding:12px 48px;border-bottom:1px solid rgba(74,222,128,0.12);">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:2px;text-transform:uppercase;margin-right:10px;">{tx['live_prices']}</span>
+        <span style="font-size:13px;color:white;font-weight:500;">Banganapalli <b style="color:#4ade80;">₹28</b> ↑+2.1%</span>
+        <span style="color:rgba(74,222,128,0.25);margin:0 14px;">|</span>
+        <span style="font-size:13px;color:white;font-weight:500;">Totapuri <b style="color:#f87171;">₹18</b> ↓-0.8%</span>
+        <span style="color:rgba(74,222,128,0.25);margin:0 14px;">|</span>
+        <span style="font-size:13px;color:white;font-weight:500;">Neelam <b style="color:#4ade80;">₹22</b> ↑+1.4%</span>
+        <span style="color:rgba(74,222,128,0.25);margin:0 14px;">|</span>
+        <span style="font-size:13px;color:white;font-weight:500;">Rasalu <b style="color:#4ade80;">₹30</b> ↑+3.2%</span>
     </div>
-</div>""",unsafe_allow_html=True)
+</div>""", unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
-# INPUT FORM — inside white card, button clearly visible
+# FORM CARD + RUN BUTTON
 # ══════════════════════════════════════════════════════════════
-st.markdown('<div style="padding:0 28px 36px;background:#f0f4f0;">',unsafe_allow_html=True)
+st.markdown('<div style="padding:0 32px 36px;background:#f3f4f6;">', unsafe_allow_html=True)
 
+# White card wrapping entire form including button
 st.markdown(f"""
-<div style="background:white;border-radius:16px;padding:24px 28px 22px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:22px;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;
-        padding-bottom:14px;border-bottom:2px solid #f0f4f0;">
-        <div style="width:36px;height:36px;background:#052e16;border-radius:9px;
-            display:flex;align-items:center;justify-content:center;font-size:18px;">🌾</div>
-        <div style="font-size:16px;font-weight:900;color:#052e16;">{tx['fill_details']}</div>
+<div style="background:white;border-radius:16px;padding:28px 32px 28px;
+    box-shadow:0 8px 40px rgba(0,0,0,0.10);border:1px solid #e5e7eb;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid #f3f4f6;">
+        <div style="width:38px;height:38px;background:#052e16;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;">🌾</div>
+        <div>
+            <div style="font-size:17px;font-weight:800;color:#052e16;">{tx['fill_details']}</div>
+            <div style="font-size:12px;color:#9ca3af;margin-top:1px;">All fields required to calculate your profit</div>
+        </div>
     </div>
-</div>""",unsafe_allow_html=True)
+</div>""", unsafe_allow_html=True)
 
-# Form row — all inside white padding so button is visible
-fc1,fc2,fc3 = st.columns([2.2,1.8,1])
+# Dropdowns row
+st.markdown('<div class="dash-select">', unsafe_allow_html=True)
+fc1, fc2, fc3 = st.columns([2.2, 1.8, 1.0])
 with fc1:
-    st.markdown(f'<p style="font-size:11px;font-weight:800;color:#374151;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">📍 {tx["btn_village"]}</p>',unsafe_allow_html=True)
-    sel_village=st.selectbox("__v",villages_list,key="sel_v",label_visibility="collapsed")
+    st.markdown(f'<p style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;">📍 {tx["village_sel"]}</p>', unsafe_allow_html=True)
+    sel_village = st.selectbox("__v", villages_list, key="sel_v", label_visibility="collapsed")
 with fc2:
-    st.markdown(f'<p style="font-size:11px;font-weight:800;color:#374151;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">🥭 {tx["btn_variety"]}</p>',unsafe_allow_html=True)
-    sel_variety=st.selectbox("__var",["Banganapalli","Totapuri","Neelam","Rasalu"],key="sel_var",label_visibility="collapsed")
+    st.markdown(f'<p style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;">🥭 {tx["variety"]}</p>', unsafe_allow_html=True)
+    sel_variety = st.selectbox("__var", ["Banganapalli","Totapuri","Neelam","Rasalu"], key="sel_var", label_visibility="collapsed")
 with fc3:
-    st.markdown(f'<p style="font-size:11px;font-weight:800;color:#374151;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">⚖️ {tx["btn_qty"]}</p>',unsafe_allow_html=True)
-    sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
+    st.markdown(f'<p style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;">⚖️ {tx["quantity"]}</p>', unsafe_allow_html=True)
+    sel_tonnes = st.number_input("__t", min_value=0.5, value=10.0, step=0.5, key="sel_t", label_visibility="collapsed")
+st.markdown('</div>', unsafe_allow_html=True)
 
-# Full-width green button below
-st.markdown('<div style="height:12px"></div>',unsafe_allow_html=True)
-run_clicked=st.button(f"🔍   {tx['analyze_btn']}",key="run_btn",use_container_width=True)
+# RUN BUTTON — full width, clearly visible green
+st.markdown('<div style="height:16px"></div>', unsafe_allow_html=True)
+st.markdown('<div class="run-area">', unsafe_allow_html=True)
+run_clicked = st.button(f"🔍   {tx['analyze_btn']}", key="run_btn", use_container_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 if run_clicked:
-    st.session_state.run=True
-    st.session_state.last_village=sel_village
-    st.session_state.last_variety=sel_variety
-    st.session_state.last_tonnes=sel_tonnes
+    st.session_state.run = True
+    st.session_state.last_village = sel_village
+    st.session_state.last_variety = sel_variety
+    st.session_state.last_tonnes  = sel_tonnes
 
 # ══════════════════════════════════════════════════════════════
 # RESULTS
 # ══════════════════════════════════════════════════════════════
-if st.session_state.get("run",False):
-    rv=st.session_state.get("last_village",sel_village)
-    rvar=st.session_state.get("last_variety",sel_variety)
-    rt=st.session_state.get("last_tonnes",sel_tonnes)
+if st.session_state.get("run", False):
+    rv   = st.session_state.get("last_village", sel_village)
+    rvar = st.session_state.get("last_variety",  sel_variety)
+    rt   = st.session_state.get("last_tonnes",   sel_tonnes)
 
     with st.spinner("Analysing nearby markets..."):
-        vlat,vlon=vcoords(rv)
-        df_res=analyse(vlat,vlon,rvar,rt)
+        vlat, vlon = vcoords(rv)
+        df_res = analyse(vlat, vlon, rvar, rt)
 
     if df_res.empty:
         st.warning(tx["no_results"])
     else:
-        top3=df_res.head(3)
+        top3 = df_res.head(3)
         bn=int(top3.iloc[0]["Net_Profit"]); bd=top3.iloc[0]["Name"]; bc=top3.iloc[0]["Type"]
 
-        # SUMMARY BANNER
+        # SUMMARY
         st.markdown(f"""
-        <div style="background:linear-gradient(135deg,#052e16,#14532d);border-radius:16px;
-            padding:24px 32px;margin-bottom:22px;border:1px solid rgba(74,222,128,0.15);
+        <div style="background:linear-gradient(135deg,#052e16,#15803d);border-radius:16px;
+            padding:26px 36px;margin-bottom:24px;border:1px solid rgba(74,222,128,0.2);
             position:relative;overflow:hidden;">
-            <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.06;">🏆</div>
-            <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#4ade80;margin-bottom:10px;font-weight:800;">{tx['profit_summary']}</div>
+            <div style="position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:90px;opacity:0.07;">🏆</div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#4ade80;margin-bottom:12px;font-weight:700;">{tx['profit_summary']}</div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
-                <div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:3px;">{tx['variety_lbl']}</div><div style="font-size:20px;font-weight:900;color:white;">{rvar}</div></div>
-                <div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:3px;">{tx['qty_lbl']}</div><div style="font-size:20px;font-weight:900;color:white;">{rt} Tonnes</div></div>
-                <div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:3px;">{tx['best_market']}</div><div style="font-size:16px;font-weight:800;color:#4ade80;line-height:1.25;">{bd}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">{bc}</div></div>
-                <div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:3px;">{tx['est_profit']}</div><div style="font-size:32px;font-weight:900;color:#4ade80;">₹{bn:,}</div></div>
+                <div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">{tx['variety_lbl']}</div><div style="font-size:22px;font-weight:800;color:white;">{rvar}</div></div>
+                <div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">{tx['qty_lbl']}</div><div style="font-size:22px;font-weight:800;color:white;">{rt} T</div></div>
+                <div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">{tx['best_market']}</div><div style="font-size:18px;font-weight:800;color:#4ade80;line-height:1.2;">{bd}</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">{bc}</div></div>
+                <div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">{tx['est_profit']}</div><div style="font-size:34px;font-weight:900;color:#4ade80;">₹{bn:,}</div></div>
             </div>
-        </div>""",unsafe_allow_html=True)
+        </div>""", unsafe_allow_html=True)
 
-        # TOP 3
-        st.markdown(f'<div style="font-size:11px;font-weight:900;color:#052e16;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:4px;height:20px;background:#16a34a;border-radius:2px;"></span>{tx["top3"]}</div>',unsafe_allow_html=True)
+        # TOP 3 CARDS
+        st.markdown(f'<div style="font-size:12px;font-weight:800;color:#052e16;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;"><span style="display:inline-block;width:5px;height:22px;background:#16a34a;border-radius:3px;"></span>{tx["top3"]}</div>', unsafe_allow_html=True)
 
         medals=[("#f59e0b",tx["highest_profit"],True,"🥇","linear-gradient(145deg,#052e16,#14532d)"),
-                ("#9ca3af",tx["second_best"],False,"🥈","white"),
-                ("#b45309",tx["third_best"],False,"🥉","white")]
+                ("#6b7280",tx["second_best"],False,"🥈","white"),
+                ("#92400e",tx["third_best"],False,"🥉","white")]
         c3=st.columns(3)
         for i,(col,(acc,lbl_,istop,med,bg)) in enumerate(zip(c3,medals)):
             if i>=len(top3): break
             r=top3.iloc[i]
             with col:
                 st.markdown(f"""
-                <div style="background:{bg};border-radius:16px;padding:22px;height:100%;
-                    border:{'2px solid rgba(245,158,11,0.4)' if istop else '1px solid #e5e7eb'};
-                    box-shadow:{'0 16px 48px rgba(5,46,22,0.22)' if istop else '0 4px 18px rgba(0,0,0,0.07)'};
+                <div style="background:{bg};border-radius:16px;padding:24px;height:100%;
+                    border:{'2px solid rgba(245,158,11,0.5)' if istop else '1px solid #e5e7eb'};
+                    box-shadow:{'0 16px 48px rgba(5,46,22,0.25)' if istop else '0 4px 20px rgba(0,0,0,0.07)'};
                     position:relative;overflow:hidden;">
-                    <div style="position:absolute;top:12px;right:14px;font-size:26px;opacity:0.15;">{med}</div>
-                    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:{acc};margin-bottom:10px;font-weight:900;">{lbl_}</div>
-                    <div style="font-size:16px;font-weight:800;color:{'#f0fdf4' if istop else '#052e16'};margin-bottom:4px;line-height:1.3;">{r['Name']}</div>
-                    <div style="display:inline-flex;align-items:center;gap:5px;background:{'rgba(255,255,255,0.08)' if istop else '#f0fdf4'};border-radius:6px;padding:3px 10px;margin-bottom:16px;">
-                        <span style="font-size:13px;">{r['icon']}</span>
-                        <span style="font-size:10px;color:{r['color']};font-weight:800;">{r['Type']}</span>
+                    <div style="position:absolute;top:14px;right:16px;font-size:28px;opacity:0.14;">{med}</div>
+                    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:{acc};margin-bottom:10px;font-weight:800;">{lbl_}</div>
+                    <div style="font-size:17px;font-weight:800;color:{'#f0fdf4' if istop else '#052e16'};margin-bottom:5px;line-height:1.3;">{r['Name']}</div>
+                    <div style="display:inline-flex;align-items:center;gap:5px;background:{'rgba(255,255,255,0.08)' if istop else '#f0fdf4'};border-radius:6px;padding:4px 10px;margin-bottom:16px;">
+                        <span style="font-size:14px;">{r['icon']}</span>
+                        <span style="font-size:11px;color:{r['color']};font-weight:700;">{r['Type']}</span>
                     </div>
-                    <div style="font-size:30px;font-weight:900;color:{acc};margin-bottom:2px;">₹{int(r['Net_Profit']):,}</div>
-                    <div style="font-size:11px;color:{'rgba(255,255,255,0.35)' if istop else '#9ca3af'};margin-bottom:16px;">{r['Dist_km']} {tx['away_lbl']}</div>
-                    <div style="border-top:1px solid {'rgba(255,255,255,0.07)' if istop else '#f3f4f6'};padding-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.38)' if istop else '#9ca3af'};margin-bottom:2px;">{tx['revenue_lbl']}</div><div style="font-size:12px;font-weight:800;color:{'rgba(255,255,255,0.85)' if istop else '#16a34a'};">₹{int(r['Revenue']):,}</div></div>
-                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.38)' if istop else '#9ca3af'};margin-bottom:2px;">{tx['transport_lbl']}</div><div style="font-size:12px;font-weight:800;color:#ef4444;">₹{int(r['Transport']):,}</div></div>
-                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.38)' if istop else '#9ca3af'};margin-bottom:2px;">{tx['risk']}</div><div style="font-size:12px;font-weight:800;color:#f59e0b;">{r['Risk_pct']}%</div></div>
+                    <div style="font-size:32px;font-weight:900;color:{acc};margin-bottom:2px;">₹{int(r['Net_Profit']):,}</div>
+                    <div style="font-size:11px;color:{'rgba(255,255,255,0.4)' if istop else '#9ca3af'};margin-bottom:18px;">{r['Dist_km']} {tx['away_lbl']}</div>
+                    <div style="border-top:1px solid {'rgba(255,255,255,0.08)' if istop else '#f3f4f6'};padding-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.4)' if istop else '#9ca3af'};margin-bottom:3px;">{tx['revenue_lbl']}</div><div style="font-size:13px;font-weight:800;color:{'rgba(255,255,255,0.9)' if istop else '#16a34a'};">₹{int(r['Revenue']):,}</div></div>
+                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.4)' if istop else '#9ca3af'};margin-bottom:3px;">{tx['transport_lbl']}</div><div style="font-size:13px;font-weight:800;color:#ef4444;">₹{int(r['Transport']):,}</div></div>
+                        <div><div style="font-size:9px;color:{'rgba(255,255,255,0.4)' if istop else '#9ca3af'};margin-bottom:3px;">{tx['risk']}</div><div style="font-size:13px;font-weight:800;color:#f59e0b;">{r['Risk_pct']}%</div></div>
                     </div>
-                </div>""",unsafe_allow_html=True)
+                </div>""", unsafe_allow_html=True)
 
-        st.markdown('<div style="height:22px"></div>',unsafe_allow_html=True)
+        st.markdown('<div style="height:24px"></div>', unsafe_allow_html=True)
 
         # TIP
         st.markdown(f"""
-        <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:12px;padding:14px 20px;margin-bottom:22px;border-left:4px solid #f59e0b;display:flex;align-items:flex-start;gap:12px;">
-            <span style="font-size:20px;flex-shrink:0;">💡</span>
-            <div><div style="font-size:11px;font-weight:900;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">{tx['farmer_tip']}</div>
-            <div style="font-size:13px;color:#78350f;line-height:1.6;">{tx['tip_text']}</div></div>
-        </div>""",unsafe_allow_html=True)
+        <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:12px;padding:16px 22px;margin-bottom:24px;border-left:5px solid #f59e0b;display:flex;align-items:flex-start;gap:14px;">
+            <span style="font-size:22px;flex-shrink:0;">💡</span>
+            <div><div style="font-size:12px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">{tx['farmer_tip']}</div>
+            <div style="font-size:14px;color:#78350f;line-height:1.6;">{tx['tip_text']}</div></div>
+        </div>""", unsafe_allow_html=True)
 
         # CHARTS
         cc1,cc2=st.columns([3,2])
         with cc1:
-            st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.06);"><div style="font-size:13px;font-weight:900;color:#052e16;margin-bottom:14px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:white;border-radius:14px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 4px 18px rgba(0,0,0,0.06);"><div style="font-size:14px;font-weight:800;color:#052e16;margin-bottom:14px;">{tx["bar_title"]}</div>', unsafe_allow_html=True)
             fig=go.Figure(go.Bar(y=top3["Name"],x=top3["Net_Profit"],orientation="h",
-                marker=dict(color=["#f59e0b","#9ca3af","#b45309"],line=dict(width=0)),
+                marker=dict(color=["#f59e0b","#6b7280","#b45309"],line=dict(width=0)),
                 text=[f"₹{int(v):,}" for v in top3["Net_Profit"]],textposition="outside",
-                textfont=dict(size=12,color="#374151",family="Nunito"),
+                textfont=dict(size=13,color="#374151",family="Poppins"),
                 hovertemplate="<b>%{y}</b><br>₹%{x:,.0f}<extra></extra>"))
-            fig.update_layout(height=220,paper_bgcolor="white",plot_bgcolor="white",margin=dict(l=0,r=90,t=4,b=4),font=dict(family="Nunito"),
-                xaxis=dict(showgrid=True,gridcolor="#f0f4f0",zeroline=False,tickfont=dict(size=10,color="#9ca3af"),tickprefix="₹"),
-                yaxis=dict(autorange="reversed",tickfont=dict(size=12,color="#052e16")),
+            fig.update_layout(height=220,paper_bgcolor="white",plot_bgcolor="white",margin=dict(l=0,r=90,t=4,b=4),font=dict(family="Poppins"),
+                xaxis=dict(showgrid=True,gridcolor="#f3f4f6",zeroline=False,tickfont=dict(size=10,color="#9ca3af"),tickprefix="₹"),
+                yaxis=dict(autorange="reversed",tickfont=dict(size=13,color="#052e16")),
                 hoverlabel=dict(bgcolor="#052e16",bordercolor="#4ade80",font=dict(color="white")))
             st.plotly_chart(fig,use_container_width=True)
-            st.markdown("</div>",unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
         with cc2:
-            st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.06);"><div style="font-size:13px;font-weight:900;color:#052e16;margin-bottom:14px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:white;border-radius:14px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 4px 18px rgba(0,0,0,0.06);"><div style="font-size:14px;font-weight:800;color:#052e16;margin-bottom:14px;">{tx["pie_title"]}</div>', unsafe_allow_html=True)
             pdata=top3.groupby("Type")["Net_Profit"].sum().reset_index()
             cmap={"Mandi":"#3b82f6","Processing":"#7c3aed","Pulp":"#d97706","Pickle":"#db2777","Local Export":"#16a34a","Abroad Export":"#b45309","Cold Storage":"#0891b2","FPO":"#65a30d"}
-            fig2=go.Figure(go.Pie(labels=pdata["Type"],values=pdata["Net_Profit"],hole=0.55,
-                marker=dict(colors=[cmap.get(c,"#888") for c in pdata["Type"]],line=dict(color="white",width=2.5)),
-                textinfo="percent+label",textfont=dict(size=11,family="Nunito"),
+            fig2=go.Figure(go.Pie(labels=pdata["Type"],values=pdata["Net_Profit"],hole=0.56,
+                marker=dict(colors=[cmap.get(c,"#888") for c in pdata["Type"]],line=dict(color="white",width=3)),
+                textinfo="percent+label",textfont=dict(size=12,family="Poppins"),
                 hovertemplate="<b>%{label}</b><br>₹%{value:,.0f} · %{percent}<extra></extra>"))
             fig2.update_layout(height=220,paper_bgcolor="white",margin=dict(l=8,r=8,t=4,b=4),
-                legend=dict(font=dict(size=10,family="Nunito"),orientation="v",x=1.0,y=0.5),
-                font=dict(family="Nunito"),
-                annotations=[dict(text=f"<b>{rvar}</b>",x=0.5,y=0.5,font=dict(size=12,color="#052e16"),showarrow=False)],
+                legend=dict(font=dict(size=11,family="Poppins"),orientation="v",x=1.0,y=0.5),font=dict(family="Poppins"),
+                annotations=[dict(text=f"<b>{rvar}</b>",x=0.5,y=0.5,font=dict(size=13,color="#052e16"),showarrow=False)],
                 hoverlabel=dict(bgcolor="#052e16",bordercolor="#4ade80",font=dict(color="white")))
             st.plotly_chart(fig2,use_container_width=True)
-            st.markdown("</div>",unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
+        st.markdown('<div style="height:20px"></div>', unsafe_allow_html=True)
 
         # TABLE
-        st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-bottom:22px;"><div style="font-size:13px;font-weight:900;color:#052e16;margin-bottom:14px;">📋 {tx["top3"]} — Detailed Breakdown</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:white;border-radius:14px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 4px 18px rgba(0,0,0,0.06);margin-bottom:22px;"><div style="font-size:14px;font-weight:800;color:#052e16;margin-bottom:14px;">📋 {tx["top3"]} — Detailed Breakdown</div>', unsafe_allow_html=True)
         disp=top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
         disp.columns=[tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
         disp[tx["rev"]]=disp[tx["rev"]].apply(lambda x:f"₹{int(x):,}")
@@ -740,43 +809,43 @@ if st.session_state.get("run",False):
         disp[tx["dist_km"]]=disp[tx["dist_km"]].apply(lambda x:f"{x:.1f} km")
         disp[tx["risk"]]=disp[tx["risk"]].apply(lambda x:f"{x:.2f}%")
         st.dataframe(disp,use_container_width=True,height=176,hide_index=True)
-        st.markdown("</div>",unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
         # MAP
-        st.markdown(f'<div style="font-size:11px;font-weight:900;color:#052e16;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:4px;height:20px;background:#16a34a;border-radius:2px;"></span>{tx["map_title"]}</div>',unsafe_allow_html=True)
-        st.markdown('<div style="background:white;border-radius:16px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 20px rgba(0,0,0,0.08);">',unsafe_allow_html=True)
-        st.markdown('<div style="font-size:11px;color:#6b7280;margin-bottom:12px;">🏠 Your farm &nbsp;&nbsp;★ Best market &nbsp;&nbsp;Colored dots = other markets</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="font-size:12px;font-weight:800;color:#052e16;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><span style="display:inline-block;width:5px;height:22px;background:#16a34a;border-radius:3px;"></span>{tx["map_title"]}</div>', unsafe_allow_html=True)
+        st.markdown('<div style="background:white;border-radius:16px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 4px 20px rgba(0,0,0,0.08);">', unsafe_allow_html=True)
+        st.markdown('<div style="font-size:12px;color:#6b7280;margin-bottom:14px;">🏠 Your farm &nbsp;&nbsp;★ Best market (gold solid route) &nbsp;&nbsp;Dots = other markets</div>', unsafe_allow_html=True)
 
         br=top3.iloc[0]
         m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
         folium.Marker([vlat,vlon],
             popup=folium.Popup(f"<b>{fname}</b><br>📍 {rv}",max_width=200),tooltip=tx["your_loc"],
-            icon=folium.DivIcon(html='<div style="background:#052e16;border:3px solid #4ade80;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 14px rgba(0,0,0,0.5);">🏠</div>',icon_size=(40,40),icon_anchor=(20,20))
+            icon=folium.DivIcon(html='<div style="background:#052e16;border:3px solid #4ade80;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 3px 14px rgba(0,0,0,0.5);">🏠</div>',icon_size=(42,42),icon_anchor=(21,21))
         ).add_to(m)
 
-        rcols=["#f59e0b","#9ca3af","#b45309"]
+        rcols=["#f59e0b","#6b7280","#92400e"]
         for i,(_,row) in enumerate(top3.iterrows()):
             coords,_ = osm_route(vlat,vlon,row["Lat"],row["Lon"])
-            folium.PolyLine(coords,color=rcols[i],weight=5 if i==0 else 3,opacity=0.92 if i==0 else 0.55,dash_array=None if i==0 else "8 5").add_to(m)
+            folium.PolyLine(coords,color=rcols[i],weight=5 if i==0 else 3,opacity=0.95 if i==0 else 0.5,dash_array=None if i==0 else "8 5").add_to(m)
             if i==0:
                 folium.Marker([row["Lat"],row["Lon"]],
                     popup=folium.Popup(f"<b>{row['Name']}</b><br>{row['Type']}<br><span style='color:#16a34a;font-weight:700;font-size:14px'>₹{int(row['Net_Profit']):,}</span>",max_width=220),
                     tooltip=f"★ {row['Name']}",
-                    icon=folium.DivIcon(html='<div style="background:#f59e0b;border:3px solid white;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:900;color:#1a1a1a;box-shadow:0 4px 16px rgba(245,158,11,0.65);">★</div>',icon_size=(42,42),icon_anchor=(21,21))
+                    icon=folium.DivIcon(html='<div style="background:#f59e0b;border:3px solid white;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#1a1a1a;box-shadow:0 4px 18px rgba(245,158,11,0.7);">★</div>',icon_size=(44,44),icon_anchor=(22,22))
                 ).add_to(m)
             else:
-                folium.CircleMarker([row["Lat"],row["Lon"]],radius=11,color=rcols[i],fill=True,fill_color=rcols[i],fill_opacity=0.9,weight=3,
+                folium.CircleMarker([row["Lat"],row["Lon"]],radius=12,color=rcols[i],fill=True,fill_color=rcols[i],fill_opacity=0.9,weight=3,
                     popup=folium.Popup(f"<b>{row['Name']}</b><br>{row['Type']}<br>₹{int(row['Net_Profit']):,}",max_width=200),
                     tooltip=f"#{i+1} — {row['Name']}").add_to(m)
 
         st_folium(m,width=None,height=540,use_container_width=True)
-        st.markdown("</div>",unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-st.markdown("</div>",unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # FOOTER
 st.markdown(f"""
-<div style="background:#052e16;padding:20px 32px;margin-top:24px;text-align:center;">
-    <div style="font-size:15px;font-weight:900;color:white;margin-bottom:3px;">🥭 {tx['title']}</div>
-    <div style="font-size:10px;color:rgba(74,222,128,0.35);letter-spacing:1px;">© 2025 · {tx['tagline']} · AP · Telangana · Karnataka</div>
-</div>""",unsafe_allow_html=True)
+<div style="background:linear-gradient(135deg,#052e16,#15803d);padding:22px 32px;margin-top:28px;text-align:center;">
+    <div style="font-size:16px;font-weight:800;color:white;margin-bottom:4px;">🥭 {tx['title']}</div>
+    <div style="font-size:11px;color:rgba(74,222,128,0.4);letter-spacing:1px;">© 2025 · {tx['tagline']} · AP · Telangana · Karnataka</div>
+</div>""", unsafe_allow_html=True)
