@@ -260,7 +260,7 @@ if not st.session_state.logged_in:
     .stApp{
         background-image:
             linear-gradient(rgba(5,25,8,0.72),rgba(5,25,8,0.72)),
-            url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=90&fit=crop')!important;
+            url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop')!important;
         background-size:cover!important;background-position:center!important;min-height:100vh!important;
     }
     .main .block-container{padding-top:0!important;}
@@ -555,22 +555,23 @@ with st.sidebar:
 
 vl=vlist()
 
-# ── HERO — MANGO ORCHARD FULL WIDTH ──
+# ── SEODO STYLE: hero with form card overlapping ──
 hero_lines=tx['hero_title'].split('\n')
 hero_html='<br>'.join(hero_lines)
 st.markdown(f"""
 <div style="
     background-image:
-        linear-gradient(rgba(3,20,6,0.40),rgba(3,20,6,0.52)),
+        linear-gradient(rgba(3,18,6,0.38),rgba(3,18,6,0.48)),
         url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=top');
-    background-size:cover;background-position:center;
-    padding:80px 48px 72px;text-align:center;">
-    <h1 style="font-family:'Poppins',sans-serif;font-size:60px;color:white;font-weight:900;
-        line-height:1.1;margin-bottom:18px;text-shadow:0 4px 32px rgba(0,0,0,0.5);letter-spacing:-1px;">
+    background-size:cover;background-position:center top;
+    padding:90px 48px 110px;text-align:center;">
+    <h1 style="font-family:'Poppins',sans-serif;font-size:64px;color:white;font-weight:900;
+        line-height:1.05;margin-bottom:16px;
+        text-shadow:0 4px 32px rgba(0,0,0,0.55);letter-spacing:-1.5px;">
         {hero_html}
     </h1>
-    <p style="font-size:19px;color:rgba(255,255,255,0.80);max-width:560px;
-        margin:0 auto;line-height:1.75;text-shadow:0 2px 12px rgba(0,0,0,0.3);">
+    <p style="font-size:20px;color:rgba(255,255,255,0.82);max-width:580px;
+        margin:0 auto;line-height:1.75;text-shadow:0 2px 12px rgba(0,0,0,0.35);">
         {tx['hero_sub']}
     </p>
 </div>""",unsafe_allow_html=True)
@@ -578,16 +579,16 @@ st.markdown(f"""
 # ── CONTENT AREA ──
 st.markdown('<div style="padding:0 48px 40px;background:#f0f4f0;">',unsafe_allow_html=True)
 
-# FORM CARD — overlaps hero
+# WHITE CARD overlaps hero — Seodo style
 st.markdown(f"""
-<div style="background:white;border-radius:16px;padding:32px 36px 28px;
-    box-shadow:0 16px 56px rgba(0,0,0,0.14);border:1px solid #e2e8f0;
-    margin-top:-28px;position:relative;z-index:10;margin-bottom:24px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #f0f4f0;">
-        <div style="width:40px;height:40px;background:#2d8a4e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">🌾</div>
+<div style="background:white;border-radius:20px;padding:36px 40px 32px;
+    box-shadow:0 20px 64px rgba(0,0,0,0.16);border:1px solid #e2e8f0;
+    margin-top:-52px;position:relative;z-index:10;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:18px;border-bottom:2px solid #f0f4f0;">
+        <div style="width:44px;height:44px;background:#2d8a4e;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🌾</div>
         <div>
-            <div style="font-size:18px;font-weight:800;color:#1a2e1f;">{tx['fill_details']}</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:1px;">Select all fields and click the yellow button below</div>
+            <div style="font-size:20px;font-weight:800;color:#1a2e1f;">{tx['fill_details']}</div>
+            <div style="font-size:13px;color:#9ca3af;margin-top:2px;">Select your village, variety and quantity below</div>
         </div>
     </div>
 </div>""",unsafe_allow_html=True)
@@ -604,29 +605,37 @@ with fc3:
     st.markdown(f'<p style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;">⚖️ {tx["quantity"]}</p>',unsafe_allow_html=True)
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
 
-# YELLOW RUN BUTTON — force yellow via JS targeting the key
+# YELLOW RUN BUTTON — JS inject after render
 st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
-st.markdown("""
-<style>
-button[kind="primary"], [data-testid="baseButton-primary"],
-div[data-testid="stButton"] button,
-button {
-    background-color: #f5a623 !important;
-    background: #f5a623 !important;
-    color: #111111 !important;
-    border: none !important;
-    font-size: 17px !important;
-    font-weight: 800 !important;
-    padding: 18px !important;
-    letter-spacing: 1.5px !important;
-    text-transform: uppercase !important;
-    box-shadow: 0 8px 28px rgba(245,166,35,0.55) !important;
-    border-radius: 8px !important;
-}
-button:hover { background-color: #e8920f !important; background: #e8920f !important; }
-</style>
-""", unsafe_allow_html=True)
 run_clicked=st.button(f"🔍  {tx['analyze_btn']}",key="run_btn",use_container_width=True)
+st.markdown("""
+<script>
+(function() {
+    function styleBtn() {
+        var btns = window.parent.document.querySelectorAll('button');
+        btns.forEach(function(b) {
+            if (b.innerText && b.innerText.includes('PROFIT') || b.innerText.includes('BEST') || b.innerText.includes('PROFIT') || b.innerText.includes('ఉత్తమ') || b.innerText.includes('लाभ') || b.innerText.includes('ಲಾಭ')) {
+                b.style.setProperty('background', '#f5a623', 'important');
+                b.style.setProperty('background-color', '#f5a623', 'important');
+                b.style.setProperty('color', '#111111', 'important');
+                b.style.setProperty('font-size', '17px', 'important');
+                b.style.setProperty('font-weight', '800', 'important');
+                b.style.setProperty('padding', '18px', 'important');
+                b.style.setProperty('border', 'none', 'important');
+                b.style.setProperty('border-radius', '8px', 'important');
+                b.style.setProperty('box-shadow', '0 8px 28px rgba(245,166,35,0.55)', 'important');
+                b.style.setProperty('letter-spacing', '1.5px', 'important');
+                b.style.setProperty('text-transform', 'uppercase', 'important');
+                b.style.setProperty('width', '100%', 'important');
+            }
+        });
+    }
+    setTimeout(styleBtn, 300);
+    setTimeout(styleBtn, 800);
+    setTimeout(styleBtn, 1500);
+})();
+</script>
+""", unsafe_allow_html=True)
 
 if run_clicked:
     st.session_state.run=True
