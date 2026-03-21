@@ -585,15 +585,17 @@ villages_list=vlist()
 st.markdown(f"""
 <div style="
     background-image:
-        linear-gradient(rgba(5,30,10,0.60),rgba(5,30,10,0.75)),
-        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=90&fit=crop');
+        linear-gradient(rgba(3,25,6,0.50),rgba(3,25,6,0.62)),
+        url('https://images.unsplash.com/photo-1553279768-865429fa0078?w=1920&q=95&fit=crop&crop=center');
     background-size:cover;background-position:center;
-    padding:64px 48px 56px;text-align:center;">
-    <h1 style="font-family:'Poppins',sans-serif;font-size:54px;color:white;font-weight:900;
-        line-height:1.1;margin-bottom:16px;text-shadow:0 4px 24px rgba(0,0,0,0.5);">
+    padding:80px 48px 72px;text-align:center;">
+    <h1 style="font-family:'Poppins',sans-serif;font-size:62px;color:white;font-weight:900;
+        line-height:1.08;margin-bottom:20px;letter-spacing:-1px;
+        text-shadow:0 4px 32px rgba(0,0,0,0.5);">
         {tx['hero_title']}
     </h1>
-    <p style="font-size:18px;color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto 0;line-height:1.7;">
+    <p style="font-size:19px;color:rgba(255,255,255,0.82);max-width:580px;
+        margin:0 auto;line-height:1.75;text-shadow:0 2px 12px rgba(0,0,0,0.3);">
         {tx['hero_sub']}
     </p>
 </div>""",unsafe_allow_html=True)
@@ -633,11 +635,31 @@ with fc3:
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
 st.markdown('</div>',unsafe_allow_html=True)
 
-# YELLOW BUTTON — Seodo style, clearly visible
+# YELLOW BUTTON — inject CSS directly before button
 st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
-st.markdown('<div class="yellow-btn">',unsafe_allow_html=True)
+st.markdown("""
+<style>
+div[data-testid="stButton"] > button[kind="primary"],
+div[data-testid="stButton"] > button {
+    background: #f5a623 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    padding: 18px 32px !important;
+    border-radius: 8px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 8px 28px rgba(245,166,35,0.5) !important;
+}
+div[data-testid="stButton"] > button:hover {
+    background: #e8920f !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 36px rgba(245,166,35,0.6) !important;
+}
+</style>
+""", unsafe_allow_html=True)
 run_clicked=st.button(f"🔍  {tx['analyze_btn']}",key="run_btn",use_container_width=True)
-st.markdown('</div>',unsafe_allow_html=True)
 
 if run_clicked:
     st.session_state.run=True
