@@ -420,6 +420,58 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
     text-shadow: none !important;
 }
 
+/* ── Top nav language selector ── */
+[data-testid="stSelectbox"] > div > div {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1.5px solid rgba(255,255,255,0.2) !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSelectbox"] svg { fill: white !important; }
+
+/* ── Sign out button in top nav ── */
+[data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) .stButton > button {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1.5px solid rgba(255,255,255,0.2) !important;
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 9px !important;
+    box-shadow: none !important;
+}
+[data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) .stButton > button:hover {
+    background: rgba(255,60,60,0.25) !important;
+    border-color: rgba(255,100,100,0.5) !important;
+}
+
+/* ── Selectbox dropdown list ── */
+[data-baseweb="popover"] ul {
+    background: #0D1F0B !important;
+    border: 1px solid rgba(255,179,0,0.3) !important;
+    border-radius: 10px !important;
+}
+[data-baseweb="popover"] li {
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+[data-baseweb="popover"] li:hover {
+    background: rgba(255,140,0,0.2) !important;
+}
+[data-baseweb="menu"] [role="option"][aria-selected="true"] {
+    background: rgba(255,140,0,0.3) !important;
+}
+
+/* ── Hide empty top spacer gap from column row ── */
+[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) {
+    background: rgba(0,0,0,0.6) !important;
+    padding: 4px 20px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(255,179,0,0.15) !important;
+}
+
 /* ── Login Sign In / Forgot Password button text ── */
 .stButton > button {
     color: white !important;
@@ -822,15 +874,16 @@ st.markdown(
     '</div>',
     unsafe_allow_html=True)
 
-# Language + Sign out in a row just below top bar
-tc1,tc2,tc3=st.columns([1,4,1])
-with tc1:
-    sl2=st.selectbox(tx["select_lang"],["English","Telugu","Hindi","Kannada"],
-                     index=["English","Telugu","Hindi","Kannada"].index(lang),
-                     key="lang_top",label_visibility="collapsed")
-    if sl2!=lang: st.session_state.lang=sl2;st.rerun()
-with tc3:
-    if st.button(f"↩ {tx['logout']}",key="signout_top",use_container_width=True):
+# Language + Sign out — compact row, styled to match the dark bar
+_c1, _c2, _c3, _c4 = st.columns([3, 1, 1, 1])
+with _c3:
+    sl2 = st.selectbox("", ["English","Telugu","Hindi","Kannada"],
+                       index=["English","Telugu","Hindi","Kannada"].index(lang),
+                       key="lang_top", label_visibility="collapsed")
+    if sl2 != lang:
+        st.session_state.lang = sl2; st.rerun()
+with _c4:
+    if st.button(f"↩ {tx['logout']}", key="signout_top", use_container_width=True):
         for k in list(st.session_state.keys()): del st.session_state[k]
         st.rerun()
 
