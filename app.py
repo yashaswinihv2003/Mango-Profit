@@ -264,25 +264,41 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── MAIN CONTENT buttons (login etc) ── */
 .stButton>button{
-    font-family:'Inter',sans-serif!important;font-weight:700!important;
+    font-family:'Inter',sans-serif!important;font-weight:800!important;
     border-radius:10px!important;border:none!important;cursor:pointer!important;
     width:100%!important;transition:all 0.2s!important;
     background:linear-gradient(135deg,#FF8C00,#E65100)!important;
-    color:white!important;font-size:14px!important;padding:13px!important;
-    box-shadow:0 4px 16px rgba(139,105,20,0.4)!important;
+    color:#FFFFFF!important;font-size:15px!important;padding:14px!important;
+    box-shadow:0 4px 20px rgba(230,81,0,0.5)!important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4)!important;
+    letter-spacing:0.3px!important;
 }
 .stButton>button:hover{
     background:linear-gradient(135deg,#E65100,#BF360C)!important;
     transform:translateY(-1px)!important;
+    box-shadow:0 6px 24px rgba(230,81,0,0.6)!important;
+}
+.stButton>button p, .stButton>button span, .stButton>button div {
+    color:#FFFFFF!important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4)!important;
 }
 .stButton>button[kind="secondary"]{
-    background:rgba(255,255,255,0.08)!important;
-    color:rgba(255,255,255,0.65)!important;
-    border:1px solid rgba(255,255,255,0.15)!important;
-    box-shadow:none!important;font-size:12px!important;padding:9px!important;
+    background:rgba(255,255,255,0.12)!important;
+    color:#FFFFFF!important;
+    border:1.5px solid rgba(255,255,255,0.30)!important;
+    box-shadow:none!important;font-size:13px!important;padding:11px!important;
+    text-shadow:0 1px 4px rgba(0,0,0,0.6)!important;
+    font-weight:600!important;
 }
 .stButton>button[kind="secondary"]:hover{
-    background:rgba(255,255,255,0.14)!important;color:white!important;transform:none!important;
+    background:rgba(255,255,255,0.22)!important;
+    color:#FFFFFF!important;
+    border-color:rgba(255,255,255,0.5)!important;
+    transform:none!important;
+}
+.stButton>button[kind="secondary"] p,
+.stButton>button[kind="secondary"] span {
+    color:#FFFFFF!important;
 }
 
 /* ── Login inputs ── */
@@ -304,7 +320,18 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
 
 /* ── Charts ── */
-.js-plotly-plot,.plot-container{border-radius:12px!important;overflow:hidden;}
+.js-plotly-plot,.plot-container{border-radius:0 0 12px 12px!important;overflow:hidden;}
+
+/* ── Force chart/dataframe containers white ── */
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="element-container"] > [data-testid="stPlotlyChart"],
+[data-testid="element-container"] > [data-testid="stDataFrame"] {
+    background: #FFFFFF !important;
+    border-radius: 0 0 14px 14px !important;
+    padding: 0 8px 8px !important;
+    box-shadow: 0 8px 36px rgba(0,0,0,0.28) !important;
+}
 
 /* ── Hide anchor link icon on headings ── */
 h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!important; }
@@ -312,6 +339,69 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
 /* ── Section labels floating on bg need white text ── */
 .section-label { color:white!important;text-shadow:0 2px 8px rgba(0,0,0,0.8)!important; }
 [data-testid="stDataFrame"]{border-radius:10px!important;overflow:hidden!important;}
+
+/* ── SPINNER text fix ── */
+[data-testid="stSpinner"] p { color:white!important; text-shadow: 0 2px 8px rgba(0,0,0,0.9)!important; }
+
+/* ── WARNING / INFO / ERROR boxes ── */
+[data-testid="stAlert"] { backdrop-filter:blur(8px)!important; }
+
+/* ── Card title: always white bg, dark green text, fully self-contained ── */
+.card-title {
+    display: block !important;
+    background: #FFFFFF !important;
+    color: #14532D !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    padding: 14px 22px 12px !important;
+    margin: 0 0 0 0 !important;
+    border-bottom: 2px solid #F3F4F6 !important;
+    border-radius: 14px 14px 0 0 !important;
+    letter-spacing: 0.2px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ── Card subtitle (map legend line) ── */
+.card-sub {
+    display: block !important;
+    background: #FFFFFF !important;
+    color: #374151 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 0 22px 10px !important;
+    margin: 0 !important;
+}
+
+/* ── Card body wrapper ── */
+.card-body {
+    background: #FFFFFF !important;
+    border-radius: 0 0 14px 14px !important;
+    padding: 4px 22px 22px !important;
+}
+
+/* ── Full card ── */
+.section-card {
+    background: #FFFFFF !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 36px rgba(0,0,0,0.28) !important;
+    margin-bottom: 18px !important;
+    overflow: hidden !important;
+}
+
+/* ── Login button labels fix ── */
+[data-testid="stButton"] button p,
+[data-testid="stButton"] button span {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+
+/* ── Login Sign In / Forgot Password button text ── */
+.stButton > button {
+    color: white !important;
+}
+.stButton > button[kind="secondary"] {
+    color: rgba(255,255,255,0.75) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -363,13 +453,19 @@ if not st.session_state.logged_in:
         if c!=lang: st.session_state.lang=c;st.rerun()
 
     st.markdown(f"""
-    <div style="text-align:center;padding:60px 20px 44px;">
-        <div style="background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);border-radius:16px;padding:36px 32px 28px;display:inline-block;max-width:600px;">
-        <h1 style="font-size:50px;color:#FFFFFF;font-weight:900;line-height:1.1;
-            margin-bottom:14px;
-            text-shadow:0 2px 4px rgba(0,0,0,1),0 6px 20px rgba(0,0,0,0.9);">{tx['hero_title']}</h1>
-        <p style="font-size:16px;color:#FFFFFF;max-width:460px;margin:0 auto;font-weight:500;
-            text-shadow:0 2px 8px rgba(0,0,0,0.95);">{tx['hero_sub']}</p>
+    <div style="text-align:center;padding:50px 20px 36px;">
+        <div style="background:rgba(0,0,0,0.78);backdrop-filter:blur(12px);
+            border:1px solid rgba(255,179,0,0.3);
+            border-radius:20px;padding:44px 48px 36px;
+            display:inline-block;max-width:640px;
+            box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+            <div style="font-size:11px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:14px;font-weight:700;">🥭 MANGONAV PLATFORM</div>
+            <h1 style="font-size:46px;color:#FFFFFF;font-weight:900;line-height:1.12;
+                margin-bottom:16px;
+                text-shadow:0 2px 0 rgba(0,0,0,1),0 4px 12px rgba(0,0,0,1);">{tx['hero_title']}</h1>
+            <div style="width:50px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);border-radius:2px;margin:0 auto 16px;"></div>
+            <p style="font-size:16px;color:#F0F0F0;max-width:460px;margin:0 auto;font-weight:500;line-height:1.6;
+                text-shadow:0 1px 4px rgba(0,0,0,1);">{tx['hero_sub']}</p>
         </div>
     </div>""",unsafe_allow_html=True)
 
@@ -652,25 +748,102 @@ rv=st.session_state.get("last_village",sel_village)
 rvar=st.session_state.get("last_variety",sel_variety)
 rt=st.session_state.get("last_tonnes",sel_tonnes)
 
-# ── TOP FULL-WIDTH BAR: language selector + live prices + sign out ──
+# ── TOP FULL-WIDTH BAR: logo + live prices ticker ──
 lang_opts=["English","Telugu","Hindi","Kannada"]
 st.markdown(f"""
-<div style="background:rgba(10,28,8,0.88);backdrop-filter:blur(20px);
-    padding:10px 28px;display:flex;align-items:center;justify-content:space-between;
-    border-bottom:1px solid rgba(255,179,0,0.2);position:sticky;top:0;z-index:999;
-    box-shadow:0 4px 24px rgba(0,0,0,0.4);">
-    <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:32px;height:32px;background:linear-gradient(135deg,#FF8C00,#E65100);
-            border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🥭</div>
-        <span style="font-size:16px;font-weight:800;color:white;">{tx['title']}</span>
-        <span style="font-size:10px;color:rgba(165,214,167,0.5);margin-left:4px;letter-spacing:1px;">{tx['welcome']}, {fname}</span>
+<div style="background:rgba(6,18,5,0.97);backdrop-filter:blur(24px);
+    border-bottom:2px solid rgba(255,179,0,0.35);position:sticky;top:0;z-index:999;
+    box-shadow:0 6px 32px rgba(0,0,0,0.6);">
+
+    <!-- Row 1: Logo + Welcome -->
+    <div style="padding:10px 28px 6px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8C00,#E65100);
+                border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;
+                box-shadow:0 2px 12px rgba(255,140,0,0.4);">🥭</div>
+            <div>
+                <span style="font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;">{tx['title']}</span>
+                <span style="font-size:11px;color:rgba(165,214,167,0.6);margin-left:10px;letter-spacing:0.5px;">
+                    {tx['welcome']}, <b style="color:#A5D6A7;">{fname}</b>
+                </span>
+            </div>
+        </div>
+        <!-- LIVE label badge -->
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div style="background:rgba(255,140,0,0.15);border:1.5px solid #FF8C00;
+                border-radius:6px;padding:4px 12px;display:flex;align-items:center;gap:6px;">
+                <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;
+                    box-shadow:0 0 6px #4ade80;animation:none;"></div>
+                <span style="font-size:10px;font-weight:800;color:#FF8C00;letter-spacing:2px;text-transform:uppercase;">LIVE</span>
+            </div>
+            <span style="font-size:11px;font-weight:800;color:#FFB300;letter-spacing:2px;text-transform:uppercase;">
+                {tx['live_prices_lbl']}
+            </span>
+        </div>
     </div>
-    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <span style="font-size:10px;font-weight:700;color:#FF8C00;letter-spacing:1.5px;">{tx['live_prices_lbl']}</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Banganapalli <b style="color:#4ade80;">₹28</b> ↑+2.1%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Totapuri <b style="color:#f87171;">₹18</b> ↓-0.8%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Neelam <b style="color:#4ade80;">₹22</b> ↑+1.4%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Rasalu <b style="color:#4ade80;">₹30</b> ↑+3.2%</span>
+
+    <!-- Row 2: Price ticker -->
+    <div style="background:rgba(0,0,0,0.45);padding:10px 28px;
+        display:flex;align-items:center;gap:6px;border-top:1px solid rgba(255,179,0,0.12);">
+
+        <!-- Banganapalli -->
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
+            <div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">BANGANAPALLI</div>
+                <div style="display:flex;align-items:baseline;gap:5px;">
+                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹28</span>
+                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
+                        padding:2px 7px;border-radius:5px;">↑ +2.1%</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
+
+        <!-- Totapuri -->
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
+            <div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">TOTAPURI</div>
+                <div style="display:flex;align-items:baseline;gap:5px;">
+                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹18</span>
+                    <span style="font-size:12px;font-weight:700;color:#f87171;background:rgba(248,113,113,0.15);
+                        padding:2px 7px;border-radius:5px;">↓ -0.8%</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
+
+        <!-- Neelam -->
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
+            <div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">NEELAM</div>
+                <div style="display:flex;align-items:baseline;gap:5px;">
+                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹22</span>
+                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
+                        padding:2px 7px;border-radius:5px;">↑ +1.4%</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
+
+        <!-- Rasalu -->
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
+            <div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">RASALU</div>
+                <div style="display:flex;align-items:baseline;gap:5px;">
+                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹30</span>
+                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
+                        padding:2px 7px;border-radius:5px;">↑ +3.2%</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>""",unsafe_allow_html=True)
 
@@ -723,18 +896,21 @@ def wcard(content,extra=""):
 if not st.session_state.get("run",False):
     # Hero banner
     st.markdown(f"""
-    <div style="background:linear-gradient(135deg,rgba(27,94,32,0.95),rgba(46,125,50,0.95));
-        backdrop-filter:blur(12px);border-radius:16px;padding:36px 44px;margin-bottom:20px;
-        position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.1);
-        box-shadow:0 8px 32px rgba(0,0,0,0.35);">
+    <div style="background:rgba(0,0,0,0.80);
+        backdrop-filter:blur(20px);border-radius:16px;padding:36px 44px;margin-bottom:20px;
+        position:relative;overflow:hidden;
+        border:1.5px solid rgba(255,179,0,0.4);
+        box-shadow:0 8px 40px rgba(0,0,0,0.6);">
         <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);
-            font-size:110px;opacity:0.1;pointer-events:none;">🥭</div>
-        <div style="font-size:10px;letter-spacing:3px;color:rgba(165,214,167,0.7);margin-bottom:8px;">PLATFORM READY</div>
-        <h2 style="font-size:28px;color:white;font-weight:800;margin-bottom:8px;">{tx['hero_title']}</h2>
-        <p style="font-size:14px;color:rgba(255,255,255,0.65);max-width:480px;line-height:1.7;">{tx['hero_sub']}</p>
+            font-size:110px;opacity:0.06;pointer-events:none;">🥭</div>
+        <div style="font-size:10px;letter-spacing:3px;color:#FFB300;margin-bottom:8px;font-weight:700;">✅ PLATFORM READY</div>
+        <h2 style="font-size:28px;color:#FFFFFF;font-weight:900;margin-bottom:8px;
+            text-shadow:0 2px 8px rgba(0,0,0,0.8);">{tx['hero_title']}</h2>
+        <p style="font-size:14px;color:#E5E5E5;max-width:480px;line-height:1.7;
+            text-shadow:0 1px 4px rgba(0,0,0,0.8);">{tx['hero_sub']}</p>
     </div>""",unsafe_allow_html=True)
 
-    st.markdown('<div style="display:inline-block;background:rgba(8,24,8,0.80);backdrop-filter:blur(10px);color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:800;padding:8px 18px;border-radius:8px;border:1px solid rgba(255,179,0,0.35);">📊 Platform Overview</div>',unsafe_allow_html=True)
+    st.markdown('<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">📊 Platform Overview</div>',unsafe_allow_html=True)
     sc1,sc2,sc3,sc4=st.columns(4)
     for col,icon,lbl,val,bdr,sub in [
         (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00","Banganapalli · Totapuri · Neelam · Rasalu"),
@@ -758,7 +934,7 @@ else:
         df_res=analyse(vlat,vlon,rvar,rt)
 
     if df_res.empty:
-        st.warning(tx["no_results"])
+        st.markdown(f'<div style="background:rgba(0,0,0,0.82);border:1.5px solid #FF8C00;border-radius:12px;padding:20px 24px;color:#FFD700;font-size:15px;font-weight:600;text-align:center;backdrop-filter:blur(12px);">⚠️ {{tx["no_results"]}}</div>',unsafe_allow_html=True)
     else:
         top3=df_res.head(3)
         bn=int(top3.iloc[0]["Net_Profit"])
@@ -791,7 +967,7 @@ else:
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
 
         # TOP 3
-        st.markdown(f'<div style="display:inline-block;background:rgba(8,24,8,0.80);backdrop-filter:blur(10px);color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:800;padding:8px 18px;border-radius:8px;border:1px solid rgba(255,179,0,0.35);box-shadow:0 4px 16px rgba(0,0,0,0.4);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
         medals=[("#FF8C00",tx["highest_profit"],True,"linear-gradient(135deg,#1B5E20,#2E7D32)"),
                 ("#64748b",tx["second_best"],False,"rgba(255,255,255,0.93)"),
                 ("#b45309",tx["third_best"],False,"rgba(255,255,255,0.93)")]
@@ -838,10 +1014,8 @@ else:
 
         # CHARTS
         ch1,ch2=st.columns([3,2])
-        def wc_open(): return '<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;">'
         with ch1:
-            st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;font-weight:700;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">{tx["bar_title"]}</span></div>',unsafe_allow_html=True)
             max_v=int(top3["Net_Profit"].max())
             fig=go.Figure(go.Bar(
                 y=top3["Name"],x=top3["Net_Profit"],orientation="h",
@@ -864,8 +1038,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         with ch2:
-            st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:14px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">{tx["pie_title"]}</span></div>',unsafe_allow_html=True)
             pie_labels=[r["Name"][:16]+"…" if len(r["Name"])>16 else r["Name"] for _,r in top3.iterrows()]
             pie_vals=[int(r["Net_Profit"]) for _,r in top3.iterrows()]
             fig2=go.Figure(go.Pie(
@@ -885,8 +1058,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         # TABLE
-        st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:12px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">📋 {tx["top3"]}</span></div>',unsafe_allow_html=True)
         disp=top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
         disp.columns=[tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
         disp[tx["rev"]]=disp[tx["rev"]].apply(lambda x:f"₹{int(x):,}")
@@ -898,9 +1070,9 @@ else:
         st.markdown("</div>",unsafe_allow_html=True)
 
         # MAP
-        st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:8px;">🗺️ {tx["map_title"]}</div>',unsafe_allow_html=True)
-        st.markdown('<div style="font-size:11px;color:#6B7280;margin-bottom:12px;">🏠 Farm &nbsp;|&nbsp; ★ Best market (gold) &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 4px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;">'
+            f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
+            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">🏠 Farm &nbsp;|&nbsp; <b style="color:#FF8C00;">★ Best market (gold)</b> &nbsp;|&nbsp; Real road routes</div></div>',unsafe_allow_html=True)
         with st.spinner("Loading routes..."):
             br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
