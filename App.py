@@ -217,19 +217,20 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
     background-image:
-        linear-gradient(rgba(5,18,3,0.48), rgba(5,18,3,0.48)),
-        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center') !important;
+        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=top') !important;
     background-size: cover !important;
-    background-position: center !important;
+    background-position: center top !important;
     background-attachment: fixed !important;
     min-height: 100vh !important;
 }
 
 /* ── SIDEBAR ── */
 [data-testid="stSidebar"]{
-    background:rgba(8,20,10,0.90) !important;
-    backdrop-filter:blur(20px) !important;
-    border-right:1px solid rgba(255,140,0,0.2) !important;
+    background:rgba(8,22,6,0.93) !important;
+    backdrop-filter:blur(24px) !important;
+    -webkit-backdrop-filter:blur(24px) !important;
+    border-right:1px solid rgba(255,179,0,0.2) !important;
+    box-shadow:4px 0 32px rgba(0,0,0,0.4) !important;
 }
 [data-testid="stSidebar"] *{font-family:'Inter',sans-serif!important;}
 [data-testid="stSidebar"] .stSelectbox>div>div{
@@ -324,6 +325,17 @@ if not st.session_state.logged_in:
     <style>
     [data-testid="stSidebar"],[data-testid="collapsedControl"]{display:none!important;}
     .main .block-container{padding-top:0!important;}
+    /* Login page: original green farm fields background */
+    .stApp {
+        background-image:
+            linear-gradient(rgba(5,22,8,0.72), rgba(5,22,8,0.72)),
+            url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop') !important;
+        background-size:cover !important;
+        background-position:center !important;
+        background-attachment:fixed !important;
+    }
+    .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.2)!important;color:white!important;border-radius:8px!important;}
+    .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
     </style>""",unsafe_allow_html=True)
 
     st.markdown(f"""
@@ -637,9 +649,10 @@ rt=st.session_state.get("last_tonnes",sel_tonnes)
 # ── TOP FULL-WIDTH BAR: language selector + live prices + sign out ──
 lang_opts=["English","Telugu","Hindi","Kannada"]
 st.markdown(f"""
-<div style="background:#5C3D0A;
+<div style="background:rgba(10,28,8,0.88);backdrop-filter:blur(20px);
     padding:10px 28px;display:flex;align-items:center;justify-content:space-between;
-    border-bottom:2px solid #6B4F10;position:sticky;top:0;z-index:999;">
+    border-bottom:1px solid rgba(255,179,0,0.2);position:sticky;top:0;z-index:999;
+    box-shadow:0 4px 24px rgba(0,0,0,0.4);">
     <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:32px;height:32px;background:linear-gradient(135deg,#FF8C00,#E65100);
             border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🥭</div>
@@ -671,11 +684,30 @@ with tc3:
 # Hero section - full mango orchard background
 HERO_IMG = "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center"
 st.markdown(f"""
-<div style="background-image:linear-gradient(rgba(3,10,2,0.40),rgba(3,10,2,0.40)),url('{HERO_IMG}');
-    background-size:cover;background-position:center;
-    padding:72px 48px 60px;text-align:center;margin-bottom:0;">
-    <div style="font-size:11px;letter-spacing:4px;color:rgba(255,220,80,0.85);text-transform:uppercase;margin-bottom:14px;">MANGONAV PLATFORM</div>
-    <h1 style="font-size:52px;color:white;font-weight:900;line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,0.7);max-width:700px;margin:0 auto;pointer-events:none;">{tx['hero_title']}</h1>
+<div style="padding:40px 48px 36px;text-align:center;position:relative;">
+    <!-- Centered dark popup panel with title -->
+    <div style="
+        background:rgba(10,30,8,0.82);
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+        border:1px solid rgba(255,200,0,0.25);
+        border-radius:20px;
+        padding:48px 60px 44px;
+        max-width:780px;
+        margin:0 auto;
+        box-shadow:0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05);
+        position:relative;
+        overflow:hidden;">
+        <!-- Gold accent top line -->
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,transparent,#FFB300,#FF8C00,#FFB300,transparent);"></div>
+        <div style="font-size:10px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:16px;font-weight:600;">🥭 MANGONAV PLATFORM</div>
+        <h1 style="font-size:44px;color:white;font-weight:900;line-height:1.12;
+            text-shadow:0 4px 20px rgba(0,0,0,0.9);margin:0 auto;
+            letter-spacing:-0.5px;">{tx['hero_title']}</h1>
+        <div style="width:60px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);
+            border-radius:2px;margin:20px auto 0;"></div>
+    </div>
 </div>""", unsafe_allow_html=True)
 st.markdown('<div style="padding:0 28px 40px;background:transparent;">',unsafe_allow_html=True)
 
@@ -696,6 +728,7 @@ if not st.session_state.get("run",False):
         <p style="font-size:14px;color:rgba(255,255,255,0.65);max-width:480px;line-height:1.7;">{tx['hero_sub']}</p>
     </div>""",unsafe_allow_html=True)
 
+    st.markdown('<div style="display:inline-block;background:rgba(8,24,8,0.80);backdrop-filter:blur(10px);color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:800;padding:8px 18px;border-radius:8px;border:1px solid rgba(255,179,0,0.35);">📊 Platform Overview</div>',unsafe_allow_html=True)
     sc1,sc2,sc3,sc4=st.columns(4)
     for col,icon,lbl,val,bdr,sub in [
         (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00","Banganapalli · Totapuri · Neelam · Rasalu"),
@@ -742,17 +775,17 @@ else:
                     border-radius:12px;padding:18px 20px;border-left:4px solid {bdr};
                     box-shadow:0 6px 28px rgba(0,0,0,0.22);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                        <div style="font-size:10px;color:#374151;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">{lbl}</div>
+                        <div style="font-size:10px;color:#111827;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;margin-bottom:6px;">{lbl}</div>
                         <div style="font-size:18px;">{ico}</div>
                     </div>
-                    <div style="font-size:26px;font-weight:800;color:#1B5E20;margin:5px 0;line-height:1.1;word-break:break-word;">{val}</div>
-                    <div style="font-size:11px;color:#4B5563;font-weight:500;">{sub}</div>
+                    <div style="font-size:22px;font-weight:900;color:#14532D;margin:6px 0 4px;line-height:1.15;word-break:break-word;">{val}</div>
+                    <div style="font-size:11px;color:#374151;font-weight:500;">{sub}</div>
                 </div>""",unsafe_allow_html=True)
 
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
 
         # TOP 3
-        st.markdown(f'<div style="font-size:12px;font-weight:700;color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-size:13px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,0.9);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="display:inline-block;background:rgba(8,24,8,0.80);backdrop-filter:blur(10px);color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:800;padding:8px 18px;border-radius:8px;border:1px solid rgba(255,179,0,0.35);box-shadow:0 4px 16px rgba(0,0,0,0.4);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
         medals=[("#FF8C00",tx["highest_profit"],True,"linear-gradient(135deg,#1B5E20,#2E7D32)"),
                 ("#64748b",tx["second_best"],False,"rgba(255,255,255,0.93)"),
                 ("#b45309",tx["third_best"],False,"rgba(255,255,255,0.93)")]
@@ -786,7 +819,7 @@ else:
 
         # TIP
         st.markdown(f"""
-        <div style="background:rgba(255,251,235,0.97);border-radius:12px;
+        <div style="background:#FFFBEB;border-radius:12px;
             padding:14px 20px;margin-bottom:18px;border-left:4px solid #FF8C00;
             border:1px solid #FDE68A;border-left:4px solid #FF8C00;
             display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);">
@@ -799,7 +832,7 @@ else:
 
         # CHARTS
         ch1,ch2=st.columns([3,2])
-        def wc_open(): return '<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E8E0D0;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:18px;">'
+        def wc_open(): return '<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;">'
         with ch1:
             st.markdown(wc_open(),unsafe_allow_html=True)
             st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;font-weight:700;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
@@ -826,7 +859,7 @@ else:
 
         with ch2:
             st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:14px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
             pie_labels=[r["Name"][:16]+"…" if len(r["Name"])>16 else r["Name"] for _,r in top3.iterrows()]
             pie_vals=[int(r["Net_Profit"]) for _,r in top3.iterrows()]
             fig2=go.Figure(go.Pie(
@@ -847,7 +880,7 @@ else:
 
         # TABLE
         st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:12px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:12px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
         disp=top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
         disp.columns=[tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
         disp[tx["rev"]]=disp[tx["rev"]].apply(lambda x:f"₹{int(x):,}")
@@ -860,7 +893,7 @@ else:
 
         # MAP
         st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="font-size:14px;font-weight:700;color:#14532D;margin-bottom:8px;">🗺️ {tx["map_title"]}</div>',unsafe_allow_html=True)
         st.markdown('<div style="font-size:11px;color:#6B7280;margin-bottom:12px;">🏠 Farm &nbsp;|&nbsp; ★ Best market (gold) &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
         with st.spinner("Loading routes..."):
             br=top3.iloc[0]
