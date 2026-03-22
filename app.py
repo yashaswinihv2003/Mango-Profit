@@ -657,25 +657,65 @@ def hav(la1,lo1,la2,lo2):
     return R*2*np.arcsin(np.sqrt(np.sin((la2-la1)/2)**2+np.cos(la1)*np.cos(la2)*np.sin((lo2-lo1)/2)**2))
 
 def dcols(df):
+    """Robustly detect name/lat/lon columns from any CSV structure."""
+    if df is None or df.empty: return None,None,None
     nm=la=lo=None
-    for c in df.columns:
-        cl=c.lower()
-        if "lat" in cl and la is None: la=c
-        if ("lon" in cl or "lng" in cl) and lo is None: lo=c
-        if any(x in cl for x in ["name","firm","facility","hub","market","place","panchayat","company","unit","mandal"]) and nm is None: nm=c
-    if nm is None and len(df.columns)>0: nm=df.columns[0]
+    cols=list(df.columns)
+    clower=[c.lower().strip() for c in cols]
+    # Latitude
+    for pat in ["lat","latitude","village_lat","vlat","farm_lat","y"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and la is None: la=cols[i]
+    if la is None:
+        for i,cl in enumerate(clower):
+            if "lat" in cl and la is None: la=cols[i]
+    # Longitude
+    for pat in ["lon","lng","longitude","village_lon","village_lng","vlon","farm_lon","x","long"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and lo is None: lo=cols[i]
+    if lo is None:
+        for pat in ["lon","lng","long"]:
+            for i,cl in enumerate(clower):
+                if pat in cl and lo is None: lo=cols[i]
+    # Name column — exhaustive keyword list
+    for pat in ["village","village_name","name","mandal","market","market_name",
+                "panchayat","firm","facility","hub","place","company","unit",
+                "location","area","town","city","district","taluk","hobli",
+                "firm_name","facility_name","market name","village name"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and nm is None: nm=cols[i]
+    if nm is None:
+        for pat in ["village","name","market","mandal","panchayat","firm","facility",
+                    "place","company","unit","location","hub","town","area"]:
+            for i,cl in enumerate(clower):
+                if pat in cl and nm is None: nm=cols[i]
+    # Last resort: first non-lat/lon text column
+    if nm is None:
+        for i,c in enumerate(cols):
+            if c not in [la,lo] and df[c].dtype==object:
+                nm=c; break
+    if nm is None and cols: nm=cols[0]
     return nm,la,lo
 
 def vlist():
     nc,_,_=dcols(villages)
-    if nc and nc in villages.columns: return sorted(villages[nc].dropna().unique().tolist())
+    if nc and nc in villages.columns:
+        items=sorted(villages[nc].dropna().astype(str).unique().tolist())
+        if items: return items
+    # Fallback: try every string column
+    for c in villages.columns:
+        if villages[c].dtype==object:
+            items=sorted(villages[c].dropna().astype(str).unique().tolist())
+            if len(items)>1: return items
     return ["Default Village"]
 
 def vcoords(vn):
     nc,lc,loc=dcols(villages)
-    if nc and lc and loc:
-        r=villages[villages[nc]==vn]
-        if not r.empty: return float(r.iloc[0][lc]),float(r.iloc[0][loc])
+    if nc and lc and loc and nc in villages.columns:
+        r=villages[villages[nc].astype(str)==str(vn)]
+        if not r.empty:
+            try: return float(r.iloc[0][lc]),float(r.iloc[0][loc])
+            except: pass
     return 15.9129,79.7400
 
 def base_price(vlat,vlon):
@@ -825,6 +865,15 @@ vl=vlist()
 
 # ══ SIDEBAR — clean, no expanders ══
 with st.sidebar:
+    # ── DEBUG: show detected columns (remove after confirming data works) ──
+    with st.expander("🔧 Data Debug Info", expanded=False):
+        nc,lc,loc=dcols(villages)
+        st.markdown(f"""**Village CSV columns:** `{list(villages.columns[:8])}`
+**Detected:** name=`{nc}` lat=`{lc}` lon=`{loc}`
+**Village count:** {len(vl)}
+**Sample:** {vl[:3] if vl else 'none'}""")
+        if nc and nc in villages.columns:
+            st.dataframe(villages[[c for c in [nc,lc,loc] if c]].head(5))
     # Logo
     st.markdown(f"""
     <div style="padding:24px 16px 16px;border-bottom:1px solid rgba(255,140,0,0.15);">
