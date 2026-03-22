@@ -1,3 +1,4 @@
+# MangoNav App v2.1 - Fixed
 import streamlit as st
 import sqlite3, bcrypt, random, requests
 import pandas as pd
@@ -462,10 +463,10 @@ if not st.session_state.logged_in:
             <div style="font-size:11px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:14px;font-weight:700;">🥭 MANGONAV PLATFORM</div>
             <h1 style="font-size:46px;color:#FFFFFF;font-weight:900;line-height:1.12;
                 margin-bottom:16px;
-                text-shadow:0 2px 0 rgba(0,0,0,1),0 4px 12px rgba(0,0,0,1);">{tx['hero_title']}</h1>
+                text-shadow:0 2px 0 rgba(0,0,0,0.99),0 4px 12px rgba(0,0,0,0.99);">{tx['hero_title']}</h1>
             <div style="width:50px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);border-radius:2px;margin:0 auto 16px;"></div>
             <p style="font-size:16px;color:#F0F0F0;max-width:460px;margin:0 auto;font-weight:500;line-height:1.6;
-                text-shadow:0 1px 4px rgba(0,0,0,1);">{tx['hero_sub']}</p>
+                text-shadow:0 1px 4px rgba(0,0,0,0.99);">{tx['hero_sub']}</p>
         </div>
     </div>""",unsafe_allow_html=True)
 
