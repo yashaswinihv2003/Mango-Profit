@@ -751,102 +751,50 @@ rt=st.session_state.get("last_tonnes",sel_tonnes)
 
 # ── TOP FULL-WIDTH BAR: logo + live prices ticker ──
 lang_opts=["English","Telugu","Hindi","Kannada"]
-st.markdown(f"""
-<div style="background:rgba(6,18,5,0.97);backdrop-filter:blur(24px);
-    border-bottom:2px solid rgba(255,179,0,0.35);position:sticky;top:0;z-index:999;
-    box-shadow:0 6px 32px rgba(0,0,0,0.6);">
 
-    <!-- Row 1: Logo + Welcome -->
-    <div style="padding:10px 28px 6px;display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8C00,#E65100);
-                border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;
-                box-shadow:0 2px 12px rgba(255,140,0,0.4);">🥭</div>
-            <div>
-                <span style="font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;">{tx['title']}</span>
-                <span style="font-size:11px;color:rgba(165,214,167,0.6);margin-left:10px;letter-spacing:0.5px;">
-                    {tx['welcome']}, <b style="color:#A5D6A7;">{fname}</b>
-                </span>
-            </div>
-        </div>
-        <!-- LIVE label badge -->
-        <div style="display:flex;align-items:center;gap:8px;">
-            <div style="background:rgba(255,140,0,0.15);border:1.5px solid #FF8C00;
-                border-radius:6px;padding:4px 12px;display:flex;align-items:center;gap:6px;">
-                <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;
-                    box-shadow:0 0 6px #4ade80;animation:none;"></div>
-                <span style="font-size:10px;font-weight:800;color:#FF8C00;letter-spacing:2px;text-transform:uppercase;">LIVE</span>
-            </div>
-            <span style="font-size:11px;font-weight:800;color:#FFB300;letter-spacing:2px;text-transform:uppercase;">
-                {tx['live_prices_lbl']}
-            </span>
-        </div>
-    </div>
+# Row 1: brand bar
+st.markdown(f'<div style="background:rgba(6,18,5,0.97);backdrop-filter:blur(24px);border-bottom:2px solid rgba(255,179,0,0.35);position:sticky;top:0;z-index:999;box-shadow:0 6px 32px rgba(0,0,0,0.6);">' +
+    f'<div style="padding:10px 28px 6px;display:flex;align-items:center;justify-content:space-between;">' +
+    f'<div style="display:flex;align-items:center;gap:10px;">' +
+    f'<div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8C00,#E65100);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 12px rgba(255,140,0,0.4);">🥭</div>' +
+    f'<div><span style="font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;">{tx["title"]}</span>' +
+    f'<span style="font-size:11px;color:rgba(165,214,167,0.7);margin-left:10px;">{tx["welcome"]}, <b style="color:#A5D6A7;">{fname}</b></span></div></div>' +
+    f'<div style="display:flex;align-items:center;gap:10px;">' +
+    f'<div style="background:rgba(255,140,0,0.15);border:1.5px solid #FF8C00;border-radius:6px;padding:5px 14px;display:flex;align-items:center;gap:6px;">' +
+    f'<div style="width:7px;height:7px;background:#4ade80;border-radius:50%;box-shadow:0 0 6px #4ade80;"></div>' +
+    f'<span style="font-size:10px;font-weight:900;color:#FF8C00;letter-spacing:2px;">LIVE</span></div>' +
+    f'<span style="font-size:12px;font-weight:900;color:#FFB300;letter-spacing:2px;">{tx["live_prices_lbl"]}</span>' +
+    f'</div></div>',
+    unsafe_allow_html=True)
 
-    <!-- Row 2: Price ticker -->
-    <div style="background:rgba(0,0,0,0.45);padding:10px 28px;
-        display:flex;align-items:center;gap:6px;border-top:1px solid rgba(255,179,0,0.12);">
+# Row 2: price tiles
+def _price_tile(name, price, change, up=True):
+    chg_color = "#4ade80" if up else "#f87171"
+    chg_bg = "rgba(74,222,128,0.15)" if up else "rgba(248,113,113,0.15)"
+    arrow = "↑" if up else "↓"
+    return (
+        f'<div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.07);' +
+        f'border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 18px;flex:1;min-width:140px;">' +
+        f'<div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:700;letter-spacing:1px;margin-bottom:4px;">{name}</div>' +
+        f'<div style="display:flex;align-items:baseline;gap:6px;">' +
+        f'<span style="font-size:24px;font-weight:900;color:#FFFFFF;line-height:1;">{price}</span>' +
+        f'<span style="font-size:12px;font-weight:800;color:{chg_color};background:{chg_bg};padding:2px 8px;border-radius:5px;">{arrow} {change}</span>' +
+        f'</div></div>'
+    )
 
-        <!-- Banganapalli -->
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
-            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
-            <div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">BANGANAPALLI</div>
-                <div style="display:flex;align-items:baseline;gap:5px;">
-                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹28</span>
-                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
-                        padding:2px 7px;border-radius:5px;">↑ +2.1%</span>
-                </div>
-            </div>
-        </div>
+divider = '<div style="width:1px;height:48px;background:rgba(255,255,255,0.1);flex-shrink:0;align-self:center;"></div>'
 
-        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
-
-        <!-- Totapuri -->
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
-            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
-            <div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">TOTAPURI</div>
-                <div style="display:flex;align-items:baseline;gap:5px;">
-                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹18</span>
-                    <span style="font-size:12px;font-weight:700;color:#f87171;background:rgba(248,113,113,0.15);
-                        padding:2px 7px;border-radius:5px;">↓ -0.8%</span>
-                </div>
-            </div>
-        </div>
-
-        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
-
-        <!-- Neelam -->
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
-            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
-            <div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">NEELAM</div>
-                <div style="display:flex;align-items:baseline;gap:5px;">
-                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹22</span>
-                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
-                        padding:2px 7px;border-radius:5px;">↑ +1.4%</span>
-                </div>
-            </div>
-        </div>
-
-        <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
-
-        <!-- Rasalu -->
-        <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);
-            border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 16px;flex:1;">
-            <div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.8px;margin-bottom:2px;">RASALU</div>
-                <div style="display:flex;align-items:baseline;gap:5px;">
-                    <span style="font-size:22px;font-weight:900;color:#FFFFFF;">₹30</span>
-                    <span style="font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,0.15);
-                        padding:2px 7px;border-radius:5px;">↑ +3.2%</span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>""",unsafe_allow_html=True)
+st.markdown(
+    '<div style="background:rgba(0,0,0,0.5);padding:10px 28px 14px;display:flex;align-items:center;gap:8px;border-bottom:2px solid rgba(255,179,0,0.35);">' +
+    _price_tile("BANGANAPALLI", "₹28", "+2.1%", True) +
+    divider +
+    _price_tile("TOTAPURI", "₹18", "-0.8%", False) +
+    divider +
+    _price_tile("NEELAM", "₹22", "+1.4%", True) +
+    divider +
+    _price_tile("RASALU", "₹30", "+3.2%", True) +
+    '</div>',
+    unsafe_allow_html=True)
 
 # Language + Sign out in a row just below top bar
 tc1,tc2,tc3=st.columns([1,4,1])
