@@ -217,7 +217,7 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
     background-image:
-        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=top') !important;
+        url('https://images.unsplash.com/photo-1618897996318-5a901fa0e7f0?w=1920&q=95&fit=crop&crop=center') !important;
     background-size: cover !important;
     background-position: center top !important;
     background-attachment: fixed !important;
