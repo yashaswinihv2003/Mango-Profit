@@ -264,25 +264,41 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── MAIN CONTENT buttons (login etc) ── */
 .stButton>button{
-    font-family:'Inter',sans-serif!important;font-weight:700!important;
+    font-family:'Inter',sans-serif!important;font-weight:800!important;
     border-radius:10px!important;border:none!important;cursor:pointer!important;
     width:100%!important;transition:all 0.2s!important;
     background:linear-gradient(135deg,#FF8C00,#E65100)!important;
-    color:white!important;font-size:14px!important;padding:13px!important;
-    box-shadow:0 4px 16px rgba(139,105,20,0.4)!important;
+    color:#FFFFFF!important;font-size:15px!important;padding:14px!important;
+    box-shadow:0 4px 20px rgba(230,81,0,0.5)!important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4)!important;
+    letter-spacing:0.3px!important;
 }
 .stButton>button:hover{
     background:linear-gradient(135deg,#E65100,#BF360C)!important;
     transform:translateY(-1px)!important;
+    box-shadow:0 6px 24px rgba(230,81,0,0.6)!important;
+}
+.stButton>button p, .stButton>button span, .stButton>button div {
+    color:#FFFFFF!important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4)!important;
 }
 .stButton>button[kind="secondary"]{
-    background:rgba(255,255,255,0.08)!important;
-    color:rgba(255,255,255,0.65)!important;
-    border:1px solid rgba(255,255,255,0.15)!important;
-    box-shadow:none!important;font-size:12px!important;padding:9px!important;
+    background:rgba(255,255,255,0.12)!important;
+    color:#FFFFFF!important;
+    border:1.5px solid rgba(255,255,255,0.30)!important;
+    box-shadow:none!important;font-size:13px!important;padding:11px!important;
+    text-shadow:0 1px 4px rgba(0,0,0,0.6)!important;
+    font-weight:600!important;
 }
 .stButton>button[kind="secondary"]:hover{
-    background:rgba(255,255,255,0.14)!important;color:white!important;transform:none!important;
+    background:rgba(255,255,255,0.22)!important;
+    color:#FFFFFF!important;
+    border-color:rgba(255,255,255,0.5)!important;
+    transform:none!important;
+}
+.stButton>button[kind="secondary"] p,
+.stButton>button[kind="secondary"] span {
+    color:#FFFFFF!important;
 }
 
 /* ── Login inputs ── */
@@ -304,7 +320,18 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
 
 /* ── Charts ── */
-.js-plotly-plot,.plot-container{border-radius:12px!important;overflow:hidden;}
+.js-plotly-plot,.plot-container{border-radius:0 0 12px 12px!important;overflow:hidden;}
+
+/* ── Force chart/dataframe containers white ── */
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="element-container"] > [data-testid="stPlotlyChart"],
+[data-testid="element-container"] > [data-testid="stDataFrame"] {
+    background: #FFFFFF !important;
+    border-radius: 0 0 14px 14px !important;
+    padding: 0 8px 8px !important;
+    box-shadow: 0 8px 36px rgba(0,0,0,0.28) !important;
+}
 
 /* ── Hide anchor link icon on headings ── */
 h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!important; }
@@ -319,10 +346,61 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
 /* ── WARNING / INFO / ERROR boxes ── */
 [data-testid="stAlert"] { backdrop-filter:blur(8px)!important; }
 
-/* ── Any streamlit markdown text directly on bg ── */
-[data-testid="stMarkdownContainer"] > p {
+/* ── Card title: always white bg, dark green text, fully self-contained ── */
+.card-title {
+    display: block !important;
+    background: #FFFFFF !important;
+    color: #14532D !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    padding: 14px 22px 12px !important;
+    margin: 0 0 0 0 !important;
+    border-bottom: 2px solid #F3F4F6 !important;
+    border-radius: 14px 14px 0 0 !important;
+    letter-spacing: 0.2px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ── Card subtitle (map legend line) ── */
+.card-sub {
+    display: block !important;
+    background: #FFFFFF !important;
+    color: #374151 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 0 22px 10px !important;
+    margin: 0 !important;
+}
+
+/* ── Card body wrapper ── */
+.card-body {
+    background: #FFFFFF !important;
+    border-radius: 0 0 14px 14px !important;
+    padding: 4px 22px 22px !important;
+}
+
+/* ── Full card ── */
+.section-card {
+    background: #FFFFFF !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 36px rgba(0,0,0,0.28) !important;
+    margin-bottom: 18px !important;
+    overflow: hidden !important;
+}
+
+/* ── Login button labels fix ── */
+[data-testid="stButton"] button p,
+[data-testid="stButton"] button span {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+
+/* ── Login Sign In / Forgot Password button text ── */
+.stButton > button {
     color: white !important;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.8) !important;
+}
+.stButton > button[kind="secondary"] {
+    color: rgba(255,255,255,0.75) !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -860,7 +938,7 @@ else:
         # CHARTS
         ch1,ch2=st.columns([3,2])
         with ch1:
-            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:14px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">{tx["bar_title"]}</span></div>',unsafe_allow_html=True)
             max_v=int(top3["Net_Profit"].max())
             fig=go.Figure(go.Bar(
                 y=top3["Name"],x=top3["Net_Profit"],orientation="h",
@@ -883,7 +961,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         with ch2:
-            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:14px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">{tx["pie_title"]}</span></div>',unsafe_allow_html=True)
             pie_labels=[r["Name"][:16]+"…" if len(r["Name"])>16 else r["Name"] for _,r in top3.iterrows()]
             pie_vals=[int(r["Net_Profit"]) for _,r in top3.iterrows()]
             fig2=go.Figure(go.Pie(
@@ -903,7 +981,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         # TABLE
-        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:12px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 12px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;"><span style="font-size:15px;font-weight:900;color:#14532D;letter-spacing:0.2px;">📋 {tx["top3"]}</span></div>',unsafe_allow_html=True)
         disp=top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
         disp.columns=[tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
         disp[tx["rev"]]=disp[tx["rev"]].apply(lambda x:f"₹{int(x):,}")
@@ -915,9 +993,9 @@ else:
         st.markdown("</div>",unsafe_allow_html=True)
 
         # MAP
-        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;">'
-            f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:8px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">🗺️ {tx["map_title"]}</div>'
-            f'<div style="font-size:11px;color:#374151;margin-bottom:12px;font-weight:500;">🏠 Farm &nbsp;|&nbsp; <span style="color:#FF8C00;font-weight:700;">★ Best market (gold)</span> &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 4px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;">'
+            f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
+            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">🏠 Farm &nbsp;|&nbsp; <b style="color:#FF8C00;">★ Best market (gold)</b> &nbsp;|&nbsp; Real road routes</div></div>',unsafe_allow_html=True)
         with st.spinner("Loading routes..."):
             br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
