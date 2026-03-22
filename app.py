@@ -52,6 +52,8 @@ T = {
         "via_lbl":"via","away_lbl2":"km away","roi_sub":"Return on investment","within_lbl":"within 150km",
         "varieties_lbl":"Varieties","markets_lbl":"Market Types","districts_lbl":"Districts","engine_lbl":"AI Engine",
         "live_prices_lbl":"TODAY'S MANGO PRICES",
+        "variety_names":{"Banganapalli": "Banganapalli", "Totapuri": "Totapuri", "Neelam": "Neelam", "Rasalu": "Rasalu"},
+        "cat_names":{"Mandi": "Mandi", "Processing": "Processing", "Pulp": "Pulp", "Pickle": "Pickle", "Local Export": "Local Export", "Abroad Export": "Abroad Export", "Cold Storage": "Cold Storage", "FPO": "FPO"},
         "platform_ready":"✅ PLATFORM READY",
         "platform_overview":"📊 Platform Overview",
         "live_lbl":"LIVE",
@@ -97,6 +99,8 @@ T = {
         "via_lbl":"ద్వారా","away_lbl2":"కి.మీ దూరం","roi_sub":"పెట్టుబడిపై రాబడి","within_lbl":"150 కి.మీ లోపల",
         "varieties_lbl":"రకాలు","markets_lbl":"మార్కెట్ రకాలు","districts_lbl":"జిల్లాలు","engine_lbl":"AI ఇంజన్",
         "live_prices_lbl":"నేటి మామిడి ధరలు",
+        "variety_names":{"Banganapalli": "బంగినపల్లి", "Totapuri": "తోతాపురి", "Neelam": "నీలం", "Rasalu": "రసాలు"},
+        "cat_names":{"Mandi": "మండి", "Processing": "ప్రాసెసింగ్", "Pulp": "పల్పు", "Pickle": "పచ్చడి", "Local Export": "స్థానిక ఎగుమతి", "Abroad Export": "విదేశీ ఎగుమతి", "Cold Storage": "కోల్డ్ స్టోరేజ్", "FPO": "FPO"},
         "platform_ready":"✅ ప్లాట్‌ఫామ్ సిద్ధంగా ఉంది",
         "platform_overview":"📊 ప్లాట్‌ఫామ్ అవలోకనం",
         "live_lbl":"లైవ్",
@@ -142,6 +146,8 @@ T = {
         "via_lbl":"के माध्यम से","away_lbl2":"कि.मी. दूर","roi_sub":"निवेश पर रिटर्न","within_lbl":"150 कि.मी. के भीतर",
         "varieties_lbl":"किस्में","markets_lbl":"बाज़ार प्रकार","districts_lbl":"जिले","engine_lbl":"AI इंजन",
         "live_prices_lbl":"आज के आम के भाव",
+        "variety_names":{"Banganapalli": "बंगनपल्ली", "Totapuri": "तोतापुरी", "Neelam": "नीलम", "Rasalu": "रसालु"},
+        "cat_names":{"Mandi": "मंडी", "Processing": "प्रसंस्करण", "Pulp": "गूदा", "Pickle": "अचार", "Local Export": "स्थानीय निर्यात", "Abroad Export": "विदेश निर्यात", "Cold Storage": "शीत भंडार", "FPO": "FPO"},
         "platform_ready":"✅ प्लेटफॉर्म तैयार है",
         "platform_overview":"📊 प्लेटफॉर्म अवलोकन",
         "live_lbl":"लाइव",
@@ -187,6 +193,8 @@ T = {
         "via_lbl":"ಮೂಲಕ","away_lbl2":"ಕಿ.ಮೀ ದೂರ","roi_sub":"ಹೂಡಿಕೆ ಮೇಲೆ ಲಾಭ","within_lbl":"150 ಕಿ.ಮೀ ಒಳಗೆ",
         "varieties_lbl":"ತಳಿಗಳು","markets_lbl":"ಮಾರುಕಟ್ಟೆ ವಿಧಗಳು","districts_lbl":"ಜಿಲ್ಲೆಗಳು","engine_lbl":"AI ಇಂಜಿನ್",
         "live_prices_lbl":"ಇಂದಿನ ಮಾವಿನ ಬೆಲೆಗಳು",
+        "variety_names":{"Banganapalli": "ಬಂಗನಪಲ್ಲಿ", "Totapuri": "ತೋತಾಪುರಿ", "Neelam": "ನೀಲಂ", "Rasalu": "ರಸಾಲು"},
+        "cat_names":{"Mandi": "ಮಂಡಿ", "Processing": "ಸಂಸ್ಕರಣೆ", "Pulp": "ತಿರುಳು", "Pickle": "ಉಪ್ಪಿನಕಾಯಿ", "Local Export": "ಸ್ಥಳೀಯ ರಫ್ತು", "Abroad Export": "ವಿದೇಶಿ ರಫ್ತು", "Cold Storage": "ಶೀತಲ ಸಂಗ್ರಹ", "FPO": "FPO"},
         "platform_ready":"✅ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಿದ್ಧವಾಗಿದೆ",
         "platform_overview":"📊 ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಅವಲೋಕನ",
         "live_lbl":"ಲೈವ್",
@@ -696,6 +704,82 @@ def osm_route(lat1,lon1,lat2,lon2):
     except: pass
     return [(lat1,lon1),(lat2,lon2)]
 
+# ══════════════════════════════════════════════════════════════
+# TRANSLITERATION: English place names → Indic scripts
+# ══════════════════════════════════════════════════════════════
+def _build_translit():
+    SCRIPTS = {
+        "Telugu": {
+            "C": {"bh":"భ","ch":"చ","dh":"ధ","gh":"ఘ","jh":"ఝ","kh":"ఖ","ph":"ఫ","sh":"శ","th":"థ","tr":"ట్ర",
+                  "b":"బ","c":"క","d":"డ","f":"ఫ","g":"గ","h":"హ","j":"జ","k":"క","l":"ల","m":"మ",
+                  "n":"న","p":"ప","r":"ర","s":"స","t":"త","v":"వ","w":"వ","y":"య","z":"జ"},
+            "V": {"aa":"ా","ai":"ై","au":"ౌ","ee":"ే","ii":"ీ","oo":"ో","uu":"ూ",
+                  "a":"","e":"ె","i":"ి","o":"ొ","u":"ు"},
+            "SV":{"aa":"ఆ","ai":"ఐ","au":"ఔ","ee":"ఏ","ii":"ఈ","oo":"ఓ","uu":"ఊ",
+                  "a":"అ","e":"ఎ","i":"ఇ","o":"ఒ","u":"ఉ"},
+            "VIR":"్"},
+        "Hindi": {
+            "C": {"bh":"भ","ch":"च","dh":"ध","gh":"घ","jh":"झ","kh":"ख","ph":"फ","sh":"श","th":"थ","tr":"ट्र",
+                  "b":"ब","c":"क","d":"ड","f":"फ","g":"ग","h":"ह","j":"ज","k":"क","l":"ल","m":"म",
+                  "n":"न","p":"प","r":"र","s":"स","t":"त","v":"व","w":"व","y":"य","z":"ज"},
+            "V": {"aa":"ा","ai":"ै","au":"ौ","ee":"ी","ii":"ी","oo":"ू","uu":"ू",
+                  "a":"","e":"े","i":"ि","o":"ो","u":"ु"},
+            "SV":{"aa":"आ","ai":"ऐ","au":"औ","ee":"ई","ii":"ई","oo":"ऊ","uu":"ऊ",
+                  "a":"अ","e":"ए","i":"इ","o":"ओ","u":"उ"},
+            "VIR":"्"},
+        "Kannada": {
+            "C": {"bh":"ಭ","ch":"ಚ","dh":"ಧ","gh":"ಘ","jh":"ಝ","kh":"ಖ","ph":"ಫ","sh":"ಶ","th":"ಥ","tr":"ಟ್ರ",
+                  "b":"ಬ","c":"ಕ","d":"ಡ","f":"ಫ","g":"ಗ","h":"ಹ","j":"ಜ","k":"ಕ","l":"ಲ","m":"ಮ",
+                  "n":"ನ","p":"ಪ","r":"ರ","s":"ಸ","t":"ತ","v":"ವ","w":"ವ","y":"ಯ","z":"ಜ"},
+            "V": {"aa":"ಾ","ai":"ೈ","au":"ೌ","ee":"ೇ","ii":"ೀ","oo":"ೋ","uu":"ೂ",
+                  "a":"","e":"ೆ","i":"ಿ","o":"ೊ","u":"ು"},
+            "SV":{"aa":"ಆ","ai":"ಐ","au":"ಔ","ee":"ಏ","ii":"ಈ","oo":"ಓ","uu":"ಊ",
+                  "a":"ಅ","e":"ಎ","i":"ಇ","o":"ಒ","u":"ಉ"},
+            "VIR":"್"},
+    }
+    return SCRIPTS
+
+_TRANSLIT_SCRIPTS = _build_translit()
+
+def transliterate_place(name, lang):
+    if lang == "English" or lang not in _TRANSLIT_SCRIPTS:
+        return name
+    sc = _TRANSLIT_SCRIPTS[lang]
+    C, V, SV, VIR = sc["C"], sc["V"], sc["SV"], sc["VIR"]
+    cons_keys = sorted(C.keys(), key=len, reverse=True)
+    vowel_keys = sorted(V.keys(), key=len, reverse=True)
+    def _word(w):
+        res = ""; i = 0; wl = w.lower()
+        while i < len(wl):
+            if not wl[i].isalpha():
+                res += wl[i]; i += 1; continue
+            con = next(((ck, C[ck]) for ck in cons_keys if wl[i:i+len(ck)] == ck), None)
+            if con:
+                ck, cs = con; j = i + len(ck)
+                vow = next(((vk, V[vk]) for vk in vowel_keys if wl[j:j+len(vk)] == vk), None)
+                if vow:
+                    res += cs + vow[1]; i = j + len(vow[0])
+                else:
+                    res += cs + VIR; i = j
+            else:
+                vow = next(((vk, SV[vk]) for vk in vowel_keys if wl[i:i+len(vk)] == vk), None)
+                if vow:
+                    res += vow[1]; i += len(vow[0])
+                else:
+                    res += w[i]; i += 1
+        return res
+    parts = name.split()
+    out = []
+    for p in parts:
+        if p.isupper() and len(p) <= 5:
+            out.append(p)  # keep APMC, FPC, FPO etc
+        elif not any(c.isalpha() for c in p):
+            out.append(p)
+        else:
+            out.append(_word(p))
+    return " ".join(out)
+
+
 def analyse(vlat,vlon,variety,tonnes):
     VACC={"Mandi":["Banganapalli","Totapuri","Neelam","Rasalu"],"Processing":["Totapuri","Neelam"],
           "Pulp":["Totapuri"],"Pickle":["Totapuri","Rasalu"],"Local Export":["Banganapalli"],
@@ -797,7 +881,13 @@ with st.sidebar:
     sel_village=st.selectbox("__v",vl,key="sel_v",label_visibility="collapsed")
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["variety_lbl"].upper()}</div>',unsafe_allow_html=True)
-    sel_variety=st.selectbox("__var",["Banganapalli","Totapuri","Neelam","Rasalu"],key="sel_var",label_visibility="collapsed")
+    _vnames = tx.get("variety_names", {"Banganapalli":"Banganapalli","Totapuri":"Totapuri","Neelam":"Neelam","Rasalu":"Rasalu"})
+    _vkeys = ["Banganapalli","Totapuri","Neelam","Rasalu"]
+    _vlabels = [_vnames[v] for v in _vkeys]
+    _vdefault = _vkeys.index(st.session_state.get("last_variety","Banganapalli"))
+    _vsel_idx = st.selectbox("__var", range(len(_vkeys)), index=_vdefault,
+        format_func=lambda i: _vlabels[i], key="sel_var", label_visibility="collapsed")
+    sel_variety = _vkeys[_vsel_idx]
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["qty_lbl"].upper()}</div>',unsafe_allow_html=True)
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
@@ -864,13 +954,13 @@ divider = '<div style="width:2px;height:52px;background:rgba(255,255,255,0.25);f
 
 st.markdown(
     '<div style="background:rgba(0,0,0,0.82);padding:14px 28px 18px;display:flex;align-items:center;gap:10px;">' +
-    _price_tile("BANGANAPALLI", "₹28", "+2.1%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Banganapalli","Banganapalli").upper(), "₹28", "+2.1%", True) +
     divider +
-    _price_tile("TOTAPURI", "₹18", "-0.8%", False) +
+    _price_tile(tx.get("variety_names",{}).get("Totapuri","Totapuri").upper(), "₹18", "-0.8%", False) +
     divider +
-    _price_tile("NEELAM", "₹22", "+1.4%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Neelam","Neelam").upper(), "₹22", "+1.4%", True) +
     divider +
-    _price_tile("RASALU", "₹30", "+3.2%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Rasalu","Rasalu").upper(), "₹30", "+3.2%", True) +
     '</div>',
     unsafe_allow_html=True)
 
@@ -911,7 +1001,7 @@ if not st.session_state.get("run",False):
     st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">{tx["platform_overview"]}</div>',unsafe_allow_html=True)
     sc1,sc2,sc3,sc4=st.columns(4)
     for col,icon,lbl,val,bdr,sub in [
-        (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00","Banganapalli · Totapuri · Neelam · Rasalu"),
+        (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00"," · ".join([tx.get("variety_names",{}).get(v,v) for v in ["Banganapalli","Totapuri","Neelam","Rasalu"]])),
         (sc2,"🏪",tx["markets_lbl"],"8","#2E7D32","Mandi · Export · Pulp · FPO · Cold"),
         (sc3,"📍",tx["districts_lbl"],"120+","#1565C0","AP · Telangana · Karnataka"),
         (sc4,"🤖",tx["engine_lbl"],"AI","#FF8C00","Risk-adjusted · Profit-ranked"),
@@ -934,6 +1024,11 @@ else:
     if df_res.empty:
         st.markdown(f'<div style="background:rgba(0,0,0,0.82);border:1.5px solid #FF8C00;border-radius:12px;padding:20px 24px;color:#FFD700;font-size:15px;font-weight:600;text-align:center;backdrop-filter:blur(12px);">⚠️ {{tx["no_results"]}}</div>',unsafe_allow_html=True)
     else:
+        # Translate category names + transliterate place names
+        _cnames = tx.get("cat_names", {})
+        df_res["Type_orig"] = df_res["Type"]
+        df_res["Type"] = df_res["Type"].map(lambda x: _cnames.get(x, x))
+        df_res["Name"] = df_res["Name"].map(lambda x: transliterate_place(str(x), lang))
         top3=df_res.head(3)
         bn=int(top3.iloc[0]["Net_Profit"])
         bd=top3.iloc[0]["Name"]
@@ -1048,7 +1143,7 @@ else:
             fig2.update_layout(
                 template="plotly_white",height=210,margin=dict(l=8,r=8,t=4,b=4),
                 legend=dict(font=dict(size=10,family="Inter"),orientation="v",x=1.0,y=0.5),
-                annotations=[dict(text=f"<b>{rvar}</b>",x=0.5,y=0.5,font=dict(size=12,color="#1B5E20"),showarrow=False)],
+                annotations=[dict(text=f"<b>{tx.get('variety_names',{}).get(rvar,rvar)}</b>",x=0.5,y=0.5,font=dict(size=12,color="#1B5E20"),showarrow=False)],
                 paper_bgcolor="white",
                 hoverlabel=dict(bgcolor="#1B5E20",bordercolor="#FF8C00",font=dict(color="white")),
             )
