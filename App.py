@@ -859,10 +859,8 @@ else:
 
         # CHARTS
         ch1,ch2=st.columns([3,2])
-        def wc_open(): return '<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;">'
         with ch1:
-            st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:14px;font-weight:800;color:#14532D;margin-bottom:14px;letter-spacing:0.3px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:14px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
             max_v=int(top3["Net_Profit"].max())
             fig=go.Figure(go.Bar(
                 y=top3["Name"],x=top3["Net_Profit"],orientation="h",
@@ -885,8 +883,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         with ch2:
-            st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:14px;font-weight:800;color:#14532D;margin-bottom:14px;letter-spacing:0.3px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:14px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">{tx["pie_title"]}</div>',unsafe_allow_html=True)
             pie_labels=[r["Name"][:16]+"…" if len(r["Name"])>16 else r["Name"] for _,r in top3.iterrows()]
             pie_vals=[int(r["Net_Profit"]) for _,r in top3.iterrows()]
             fig2=go.Figure(go.Pie(
@@ -906,8 +903,7 @@ else:
             st.markdown("</div>",unsafe_allow_html=True)
 
         # TABLE
-        st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:15px;font-weight:800;color:#14532D;margin-bottom:12px;letter-spacing:0.3px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;"><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:12px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">📋 {tx["top3"]}</div>',unsafe_allow_html=True)
         disp=top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
         disp.columns=[tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
         disp[tx["rev"]]=disp[tx["rev"]].apply(lambda x:f"₹{int(x):,}")
@@ -919,9 +915,9 @@ else:
         st.markdown("</div>",unsafe_allow_html=True)
 
         # MAP
-        st.markdown(wc_open(),unsafe_allow_html=True)
-        st.markdown(f'<div style="font-size:15px;font-weight:800;color:#14532D;margin-bottom:8px;letter-spacing:0.3px;">🗺️ {tx["map_title"]}</div>',unsafe_allow_html=True)
-        st.markdown('<div style="font-size:11px;color:#374151;margin-bottom:12px;font-weight:500;">🏠 Farm &nbsp;|&nbsp; <span style="color:#FF8C00;font-weight:700;">★ Best market (gold)</span> &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFFFF;border-radius:14px;padding:22px;box-shadow:0 8px 36px rgba(0,0,0,0.28);margin-bottom:18px;">'
+            f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:8px;border-bottom:2px solid #F0F0F0;padding-bottom:10px;">🗺️ {tx["map_title"]}</div>'
+            f'<div style="font-size:11px;color:#374151;margin-bottom:12px;font-weight:500;">🏠 Farm &nbsp;|&nbsp; <span style="color:#FF8C00;font-weight:700;">★ Best market (gold)</span> &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
         with st.spinner("Loading routes..."):
             br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
