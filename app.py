@@ -657,64 +657,92 @@ def hav(la1,lo1,la2,lo2):
     return R*2*np.arcsin(np.sqrt(np.sin((la2-la1)/2)**2+np.cos(la1)*np.cos(la2)*np.sin((lo2-lo1)/2)**2))
 
 def dcols(df):
-    """Robustly detect name/lat/lon columns from any CSV structure."""
+    """Detect name/lat/lon columns. Village CSV: 'gram panchayat','latitude','longitude'."""
     if df is None or df.empty: return None,None,None
     nm=la=lo=None
     cols=list(df.columns)
     clower=[c.lower().strip() for c in cols]
-    # Latitude
-    for pat in ["lat","latitude","village_lat","vlat","farm_lat","y"]:
+
+    # Latitude — exact match first, then partial
+    for pat in ["latitude","lat","village_lat","vlat","farm_lat"]:
         for i,cl in enumerate(clower):
             if cl==pat and la is None: la=cols[i]
     if la is None:
         for i,cl in enumerate(clower):
             if "lat" in cl and la is None: la=cols[i]
-    # Longitude
-    for pat in ["lon","lng","longitude","village_lon","village_lng","vlon","farm_lon","x","long"]:
+
+    # Longitude — exact match first, then partial
+    for pat in ["longitude","lon","lng","village_lon","village_lng","vlon","farm_lon"]:
         for i,cl in enumerate(clower):
             if cl==pat and lo is None: lo=cols[i]
     if lo is None:
         for pat in ["lon","lng","long"]:
             for i,cl in enumerate(clower):
                 if pat in cl and lo is None: lo=cols[i]
-    # Name column — exhaustive keyword list
-    for pat in ["village","village_name","name","mandal","market","market_name",
-                "panchayat","firm","facility","hub","place","company","unit",
-                "location","area","town","city","district","taluk","hobli",
-                "firm_name","facility_name","market name","village name"]:
+
+    # Name — prefer "gram panchayat" / "panchayat" / "village" over "mandal"
+    # Priority order: most specific first
+    for pat in ["gram panchayat","panchayat","village_name","village name",
+                "village","name","firm_name","firm","facility_name","facility",
+                "market_name","market name","market","hub","company","unit",
+                "place","location","area","town","city","taluk","hobli"]:
         for i,cl in enumerate(clower):
             if cl==pat and nm is None: nm=cols[i]
     if nm is None:
-        for pat in ["village","name","market","mandal","panchayat","firm","facility",
-                    "place","company","unit","location","hub","town","area"]:
+        for pat in ["panchayat","village","name","firm","facility","market",
+                    "hub","company","unit","place","location","area","town"]:
             for i,cl in enumerate(clower):
                 if pat in cl and nm is None: nm=cols[i]
     # Last resort: first non-lat/lon text column
     if nm is None:
-        for i,c in enumerate(cols):
+        for c in cols:
             if c not in [la,lo] and df[c].dtype==object:
                 nm=c; break
     if nm is None and cols: nm=cols[0]
     return nm,la,lo
 
 def vlist():
-    nc,_,_=dcols(villages)
-    if nc and nc in villages.columns:
-        items=sorted(villages[nc].dropna().astype(str).unique().tolist())
-        if items: return items
-    # Fallback: try every string column
-    for c in villages.columns:
+    """Return all 686 Gram Panchayat names with Mandal context for display."""
+    if villages.empty: return ["Default Village"]
+    # Detect columns (lowercased by load_all)
+    cols = list(villages.columns)
+    clower = [c.lower().strip() for c in cols]
+    # Find gram panchayat column
+    gp_col = next((cols[i] for i,cl in enumerate(clower) if cl=="gram panchayat"), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "panchayat" in cl), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "village" in cl), None)
+    # Find mandal column for grouping display
+    mandal_col = next((cols[i] for i,cl in enumerate(clower) if cl=="mandal"), None)
+    if gp_col:
+        items = sorted(villages[gp_col].dropna().astype(str).str.strip().unique().tolist())
+        return items if items else ["Default Village"]
+    # Final fallback
+    for c in cols:
         if villages[c].dtype==object:
-            items=sorted(villages[c].dropna().astype(str).unique().tolist())
-            if len(items)>1: return items
+            items = sorted(villages[c].dropna().astype(str).unique().tolist())
+            if len(items)>2: return items
     return ["Default Village"]
 
 def vcoords(vn):
-    nc,lc,loc=dcols(villages)
-    if nc and lc and loc and nc in villages.columns:
-        r=villages[villages[nc].astype(str)==str(vn)]
+    """Get lat/lon for a village by Gram Panchayat name."""
+    if villages.empty: return 15.9129,79.7400
+    cols = list(villages.columns)
+    clower = [c.lower().strip() for c in cols]
+    gp_col = next((cols[i] for i,cl in enumerate(clower) if cl=="gram panchayat"), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "panchayat" in cl), None)
+    lat_col = next((cols[i] for i,cl in enumerate(clower) if cl in ["latitude","lat"]), None)
+    if lat_col is None:
+        lat_col = next((cols[i] for i,cl in enumerate(clower) if "lat" in cl), None)
+    lon_col = next((cols[i] for i,cl in enumerate(clower) if cl in ["longitude","lon","lng"]), None)
+    if lon_col is None:
+        lon_col = next((cols[i] for i,cl in enumerate(clower) if "lon" in cl or "lng" in cl), None)
+    if gp_col and lat_col and lon_col:
+        r = villages[villages[gp_col].astype(str).str.strip()==str(vn).strip()]
         if not r.empty:
-            try: return float(r.iloc[0][lc]),float(r.iloc[0][loc])
+            try: return float(r.iloc[0][lat_col]), float(r.iloc[0][lon_col])
             except: pass
     return 15.9129,79.7400
 
@@ -867,13 +895,12 @@ vl=vlist()
 with st.sidebar:
     # ── DEBUG: show detected columns (remove after confirming data works) ──
     with st.expander("🔧 Data Debug Info", expanded=False):
-        nc,lc,loc=dcols(villages)
-        st.markdown(f"""**Village CSV columns:** `{list(villages.columns[:8])}`
-**Detected:** name=`{nc}` lat=`{lc}` lon=`{loc}`
-**Village count:** {len(vl)}
-**Sample:** {vl[:3] if vl else 'none'}""")
-        if nc and nc in villages.columns:
-            st.dataframe(villages[[c for c in [nc,lc,loc] if c]].head(5))
+        st.markdown(f"""**Village CSV columns:** `{list(villages.columns)}`
+**Total villages loaded:** {len(vl)}
+**Sample villages:** {vl[:5] if vl else 'none'}
+**Villages df shape:** {villages.shape}""")
+        if not villages.empty:
+            st.dataframe(villages.head(5))
     # Logo
     st.markdown(f"""
     <div style="padding:24px 16px 16px;border-bottom:1px solid rgba(255,140,0,0.15);">
@@ -920,8 +947,21 @@ with st.sidebar:
         </div>
     </div>""",unsafe_allow_html=True)
 
-    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin-bottom:4px;">{tx["village_sel"].upper()}</div>',unsafe_allow_html=True)
-    sel_village=st.selectbox("__v",vl,key="sel_v",label_visibility="collapsed")
+    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin-bottom:4px;">MANDAL</div>',unsafe_allow_html=True)
+    # Build mandal list from village data
+    _mandal_col = next((c for c in villages.columns if c.lower().strip()=="mandal"), None)
+    _gp_col = next((c for c in villages.columns if c.lower().strip()=="gram panchayat"), None)
+    if _mandal_col and _gp_col:
+        _mandals = ["-- All Mandals --"] + sorted(villages[_mandal_col].dropna().astype(str).str.strip().unique().tolist())
+        _sel_mandal = st.selectbox("__mandal", _mandals, key="sel_mandal", label_visibility="collapsed")
+        if _sel_mandal == "-- All Mandals --":
+            _filtered_vl = vl
+        else:
+            _filtered_vl = sorted(villages[villages[_mandal_col].astype(str).str.strip()==_sel_mandal][_gp_col].dropna().astype(str).str.strip().unique().tolist())
+    else:
+        _filtered_vl = vl
+    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:8px 0 4px;">{tx["village_sel"].upper()}</div>',unsafe_allow_html=True)
+    sel_village=st.selectbox("__v", _filtered_vl if _filtered_vl else vl, key="sel_v", label_visibility="collapsed")
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["variety_lbl"].upper()}</div>',unsafe_allow_html=True)
     _vnames = tx.get("variety_names", {"Banganapalli":"Banganapalli","Totapuri":"Totapuri","Neelam":"Neelam","Rasalu":"Rasalu"})
