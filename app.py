@@ -255,7 +255,14 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 }
 
 /* ── Main content area ── */
-.stApp { background: #F8FAF8 !important; }
+.stApp {
+    background-image:
+        linear-gradient(rgba(5,25,8,0.55), rgba(5,25,8,0.55)),
+        url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=90&fit=crop') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+}
 
 /* ── ALL BUTTONS — gradient gold-to-orange ── */
 .stButton > button {
@@ -303,6 +310,9 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 
 /* ── Plotly chart border-radius ── */
 .js-plotly-plot, .plot-container { border-radius: 10px !important; overflow: hidden; }
+
+/* ── Glass effect for dataframe ── */
+[data-testid="stDataFrame"] { border-radius: 12px !important; overflow: hidden !important; }
 
 /* ── Sidebar selectbox login page override ── */
 .login-select .stSelectbox > div > div {
@@ -682,9 +692,9 @@ rt   = st.session_state.get("last_tonnes",   sel_tonnes)
 
 # Top header bar
 st.markdown(f"""
-<div style="background:white;padding:18px 32px;border-bottom:1px solid #E8F5E9;
+<div style="background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);padding:18px 32px;border-bottom:1px solid rgba(46,125,50,0.15);
     display:flex;align-items:center;justify-content:space-between;
-    box-shadow:0 1px 8px rgba(0,0,0,0.06);">
+    box-shadow:0 2px 16px rgba(0,0,0,0.12);">
     <div>
         <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#1B5E20;">
             {tx['welcome']}, {fname} 👋
@@ -702,13 +712,16 @@ st.markdown(f"""
 
 main = st.container()
 with main:
-    st.markdown('<div style="padding:24px 32px 40px;background:#F8FAF8;">', unsafe_allow_html=True)
+    st.markdown('<div style="padding:24px 32px 40px;background:rgba(248,250,248,0.92);backdrop-filter:blur(12px);">', unsafe_allow_html=True)
 
     if not st.session_state.get("run", False):
         # Welcome state
         st.markdown(f"""
-        <div style="background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:16px;
-            padding:40px 48px;margin-bottom:24px;position:relative;overflow:hidden;">
+        <div style="
+            background-image:linear-gradient(rgba(27,94,32,0.88),rgba(46,125,50,0.90)),url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=800&q=80&fit=crop');
+            background-size:cover;background-position:center;
+            border-radius:16px;padding:40px 48px;margin-bottom:24px;position:relative;overflow:hidden;
+            box-shadow:0 8px 32px rgba(0,0,0,0.2);">
             <div style="position:absolute;right:-20px;top:-20px;width:200px;height:200px;
                 background:rgba(255,255,255,0.03);border-radius:50%;"></div>
             <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);
@@ -733,9 +746,9 @@ with main:
         ]:
             with col:
                 st.markdown(f"""
-                <div style="background:white;border-radius:14px;padding:22px;
+                <div style="background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-radius:14px;padding:22px;
                     border-left:4px solid {border};
-                    box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    box-shadow:0 4px 20px rgba(0,0,0,0.12);">
                     <div style="font-size:26px;margin-bottom:6px;">{icon}</div>
                     <div style="font-size:11px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">{label}</div>
                     <div style="font-size:32px;font-weight:800;color:#1B5E20;">{val}</div>
@@ -769,9 +782,9 @@ with main:
             for col, label, val, border, icon, sub in kpi_data:
                 with col:
                     st.markdown(f"""
-                    <div style="background:white;border-radius:14px;padding:20px 22px;
+                    <div style="background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-radius:14px;padding:20px 22px;
                         border-left:4px solid {border};
-                        box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+                        box-shadow:0 4px 24px rgba(0,0,0,0.12);">
                         <div style="display:flex;justify-content:space-between;align-items:flex-start;">
                             <div style="font-size:11px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">{label}</div>
                             <div style="font-size:20px;">{icon}</div>
@@ -831,7 +844,7 @@ with main:
             # ── CHARTS — plotly_white template ──
             ch1, ch2 = st.columns([3, 2])
             with ch1:
-                st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E5E7EB;box-shadow:0 2px 12px rgba(0,0,0,0.05);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["bar_title"]}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.6);box-shadow:0 4px 24px rgba(0,0,0,0.12);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["bar_title"]}</div>', unsafe_allow_html=True)
                 max_v = int(top3["Net_Profit"].max())
                 fig = go.Figure(go.Bar(
                     y=top3["Name"], x=top3["Net_Profit"], orientation="h",
@@ -862,7 +875,7 @@ with main:
                 st.markdown("</div>", unsafe_allow_html=True)
 
             with ch2:
-                st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E5E7EB;box-shadow:0 2px 12px rgba(0,0,0,0.05);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["pie_title"]}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.6);box-shadow:0 4px 24px rgba(0,0,0,0.12);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["pie_title"]}</div>', unsafe_allow_html=True)
                 # Pie: each destination's individual profit share
                 pie_labels = [r["Name"][:18]+"…" if len(r["Name"]) > 18 else r["Name"] for _, r in top3.iterrows()]
                 pie_vals = [int(r["Net_Profit"]) for _, r in top3.iterrows()]
@@ -889,7 +902,7 @@ with main:
                 st.markdown("</div>", unsafe_allow_html=True)
 
             # ── TABLE ──
-            st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E5E7EB;box-shadow:0 2px 12px rgba(0,0,0,0.05);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">📋 {tx["top3"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.6);box-shadow:0 4px 24px rgba(0,0,0,0.12);margin-bottom:20px;"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:14px;">📋 {tx["top3"]}</div>', unsafe_allow_html=True)
             disp = top3[["Rank","Name","Type","Dist_km","Revenue","Transport","Risk_pct","Net_Profit"]].copy()
             disp.columns = [tx["rank"],tx["dest"],tx["cat"],tx["dist_km"],tx["rev"],tx["trans"],tx["risk"],tx["net"]]
             disp[tx["rev"]]     = disp[tx["rev"]].apply(lambda x: f"₹{int(x):,}")
@@ -901,7 +914,7 @@ with main:
             st.markdown("</div>", unsafe_allow_html=True)
 
             # ── MAP — CartoDB Positron, OSM routes for all 3 ──
-            st.markdown(f'<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E5E7EB;box-shadow:0 2px 12px rgba(0,0,0,0.05);"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:6px;">🗺️ {tx["map_title"]}</div><div style="font-size:11px;color:#9CA3AF;margin-bottom:14px;">🏠 Farm origin &nbsp;|&nbsp; ★ Best market (gold route) &nbsp;|&nbsp; All routes via real roads</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.6);box-shadow:0 4px 24px rgba(0,0,0,0.12);"><div style="font-size:14px;font-weight:700;color:#1B5E20;margin-bottom:6px;">🗺️ {tx["map_title"]}</div><div style="font-size:11px;color:#9CA3AF;margin-bottom:14px;">🏠 Farm origin &nbsp;|&nbsp; ★ Best market (gold route) &nbsp;|&nbsp; All routes via real roads</div>', unsafe_allow_html=True)
 
             with st.spinner("Loading road routes for all 3 destinations..."):
                 br = top3.iloc[0]
