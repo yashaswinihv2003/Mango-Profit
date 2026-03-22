@@ -1,3 +1,4 @@
+# MangoNav App v2.1 - Fixed
 import streamlit as st
 import sqlite3, bcrypt, random, requests
 import pandas as pd
@@ -462,10 +463,10 @@ if not st.session_state.logged_in:
             <div style="font-size:11px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:14px;font-weight:700;">🥭 MANGONAV PLATFORM</div>
             <h1 style="font-size:46px;color:#FFFFFF;font-weight:900;line-height:1.12;
                 margin-bottom:16px;
-                text-shadow:0 2px 0 rgba(0,0,0,1),0 4px 12px rgba(0,0,0,1);">{tx['hero_title']}</h1>
+                text-shadow:0 2px 0 rgba(0,0,0,0.99),0 4px 12px rgba(0,0,0,0.99);">{tx['hero_title']}</h1>
             <div style="width:50px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);border-radius:2px;margin:0 auto 16px;"></div>
             <p style="font-size:16px;color:#F0F0F0;max-width:460px;margin:0 auto;font-weight:500;line-height:1.6;
-                text-shadow:0 1px 4px rgba(0,0,0,1);">{tx['hero_sub']}</p>
+                text-shadow:0 1px 4px rgba(0,0,0,0.99);">{tx['hero_sub']}</p>
         </div>
     </div>""",unsafe_allow_html=True)
 
@@ -748,27 +749,54 @@ rv=st.session_state.get("last_village",sel_village)
 rvar=st.session_state.get("last_variety",sel_variety)
 rt=st.session_state.get("last_tonnes",sel_tonnes)
 
-# ── TOP FULL-WIDTH BAR: language selector + live prices + sign out ──
+# ── TOP FULL-WIDTH BAR: logo + live prices ticker ──
 lang_opts=["English","Telugu","Hindi","Kannada"]
-st.markdown(f"""
-<div style="background:rgba(10,28,8,0.88);backdrop-filter:blur(20px);
-    padding:10px 28px;display:flex;align-items:center;justify-content:space-between;
-    border-bottom:1px solid rgba(255,179,0,0.2);position:sticky;top:0;z-index:999;
-    box-shadow:0 4px 24px rgba(0,0,0,0.4);">
-    <div style="display:flex;align-items:center;gap:8px;">
-        <div style="width:32px;height:32px;background:linear-gradient(135deg,#FF8C00,#E65100);
-            border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🥭</div>
-        <span style="font-size:16px;font-weight:800;color:white;">{tx['title']}</span>
-        <span style="font-size:10px;color:rgba(165,214,167,0.5);margin-left:4px;letter-spacing:1px;">{tx['welcome']}, {fname}</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <span style="font-size:10px;font-weight:700;color:#FF8C00;letter-spacing:1.5px;">{tx['live_prices_lbl']}</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Banganapalli <b style="color:#4ade80;">₹28</b> ↑+2.1%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Totapuri <b style="color:#f87171;">₹18</b> ↓-0.8%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Neelam <b style="color:#4ade80;">₹22</b> ↑+1.4%</span>
-        <span style="font-size:12px;color:white;font-weight:500;">Rasalu <b style="color:#4ade80;">₹30</b> ↑+3.2%</span>
-    </div>
-</div>""",unsafe_allow_html=True)
+
+# Row 1: brand bar
+st.markdown(f'<div style="background:rgba(6,18,5,0.97);backdrop-filter:blur(24px);border-bottom:2px solid rgba(255,179,0,0.35);position:sticky;top:0;z-index:999;box-shadow:0 6px 32px rgba(0,0,0,0.6);">' +
+    f'<div style="padding:10px 28px 6px;display:flex;align-items:center;justify-content:space-between;">' +
+    f'<div style="display:flex;align-items:center;gap:10px;">' +
+    f'<div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8C00,#E65100);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 12px rgba(255,140,0,0.4);">🥭</div>' +
+    f'<div><span style="font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;">{tx["title"]}</span>' +
+    f'<span style="font-size:11px;color:rgba(165,214,167,0.7);margin-left:10px;">{tx["welcome"]}, <b style="color:#A5D6A7;">{fname}</b></span></div></div>' +
+    f'<div style="display:flex;align-items:center;gap:10px;">' +
+    f'<div style="background:rgba(255,140,0,0.15);border:1.5px solid #FF8C00;border-radius:6px;padding:5px 14px;display:flex;align-items:center;gap:6px;">' +
+    f'<div style="width:7px;height:7px;background:#4ade80;border-radius:50%;box-shadow:0 0 6px #4ade80;"></div>' +
+    f'<span style="font-size:10px;font-weight:900;color:#FF8C00;letter-spacing:2px;">LIVE</span></div>' +
+    f'<span style="font-size:12px;font-weight:900;color:#FFB300;letter-spacing:2px;">{tx["live_prices_lbl"]}</span>' +
+    f'</div></div>',
+    unsafe_allow_html=True)
+
+# Row 2: price tiles
+def _price_tile(name, price, change, up=True):
+    chg_color = "#22c55e" if up else "#ef4444"
+    chg_bg = "rgba(34,197,94,0.3)" if up else "rgba(239,68,68,0.3)"
+    arrow = "▲" if up else "▼"
+    tile = (
+        f'<div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.14);' +
+        f'border:2px solid rgba(255,255,255,0.28);border-radius:12px;padding:12px 22px;flex:1;">' +
+        f'<div style="font-size:11px;color:#FFFFFF;font-weight:800;letter-spacing:1.2px;margin-bottom:6px;">{name}</div>' +
+        f'<div style="display:flex;align-items:baseline;gap:8px;">' +
+        f'<span style="font-size:28px;font-weight:900;color:#FFFFFF;line-height:1;">{price}</span>' +
+        f'<span style="font-size:13px;font-weight:800;color:{chg_color};background:{chg_bg};' +
+        f'border:1.5px solid {chg_color};padding:3px 9px;border-radius:6px;">{arrow} {change}</span>' +
+        f'</div></div>'
+    )
+    return tile
+
+divider = '<div style="width:2px;height:52px;background:rgba(255,255,255,0.25);flex-shrink:0;align-self:center;"></div>'
+
+st.markdown(
+    '<div style="background:rgba(0,0,0,0.82);padding:14px 28px 18px;display:flex;align-items:center;gap:10px;">' +
+    _price_tile("BANGANAPALLI", "₹28", "+2.1%", True) +
+    divider +
+    _price_tile("TOTAPURI", "₹18", "-0.8%", False) +
+    divider +
+    _price_tile("NEELAM", "₹22", "+1.4%", True) +
+    divider +
+    _price_tile("RASALU", "₹30", "+3.2%", True) +
+    '</div>',
+    unsafe_allow_html=True)
 
 # Language + Sign out in a row just below top bar
 tc1,tc2,tc3=st.columns([1,4,1])
@@ -783,36 +811,6 @@ with tc3:
         st.rerun()
 
 # CONTENT
-# Hero section - full mango orchard background
-HERO_IMG = "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center"
-st.markdown(f"""
-<div style="padding:40px 48px 36px;text-align:center;position:relative;">
-    <!-- Centered dark popup panel with title -->
-    <div style="
-        background:rgba(10,30,8,0.82);
-        backdrop-filter:blur(18px);
-        -webkit-backdrop-filter:blur(18px);
-        border:1px solid rgba(255,200,0,0.25);
-        border-radius:20px;
-        padding:48px 60px 44px;
-        max-width:780px;
-        margin:0 auto;
-        box-shadow:0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05);
-        position:relative;
-        overflow:hidden;">
-        <!-- Gold accent top line -->
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;
-            background:linear-gradient(90deg,transparent,#FFB300,#FF8C00,#FFB300,transparent);"></div>
-        <div style="font-size:10px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:16px;font-weight:600;">🥭 MANGONAV PLATFORM</div>
-        <h1 style="font-size:44px;color:white;font-weight:900;line-height:1.12;
-            text-shadow:0 4px 20px rgba(0,0,0,0.9);margin:0 auto;
-            letter-spacing:-0.5px;">{tx['hero_title']}</h1>
-        <div style="width:60px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);
-            border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-</div>""", unsafe_allow_html=True)
-st.markdown('<div style="padding:0 28px 40px;background:transparent;">',unsafe_allow_html=True)
-
 def wcard(content,extra=""):
     return f'<div style="background:#FFFFFF;border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.2);{extra}">{content}</div>'
 
