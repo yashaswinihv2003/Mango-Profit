@@ -216,8 +216,13 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
-    background: #F5F0E8 !important;
-    min-height:100vh !important;
+    background-image:
+        linear-gradient(rgba(5,18,3,0.55), rgba(5,18,3,0.55)),
+        url('https://images.unsplash.com/photo-1597916829826-02e5bb4a54e0?w=1920&q=90&fit=crop') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    min-height: 100vh !important;
 }
 
 /* ── SIDEBAR ── */
@@ -657,31 +662,27 @@ with tc3:
         st.rerun()
 
 # CONTENT
-# Hero section - wheat/farm style like Farming template
-HERO_IMG = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop"
+# Hero section - full mango orchard background
+HERO_IMG = "https://images.unsplash.com/photo-1597916829826-02e5bb4a54e0?w=1920&q=90&fit=crop"
 st.markdown(f"""
-<div style="background-image:linear-gradient(rgba(20,12,2,0.52),rgba(20,12,2,0.52)),url('{HERO_IMG}');
+<div style="background-image:linear-gradient(rgba(5,15,3,0.45),rgba(5,15,3,0.45)),url('{HERO_IMG}');
     background-size:cover;background-position:center;
-    padding:64px 48px;text-align:center;margin-bottom:0;">
-    <div style="font-size:11px;letter-spacing:4px;color:rgba(255,210,100,0.8);text-transform:uppercase;margin-bottom:12px;">MANGONAV PLATFORM</div>
-    <h1 style="font-size:48px;color:white;font-weight:800;line-height:1.1;margin-bottom:16px;text-shadow:0 4px 20px rgba(0,0,0,0.6);">{tx['hero_title']}</h1>
-    <p style="font-size:16px;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 28px;">{tx['hero_sub']}</p>
-    <div style="display:inline-block;background:#8B6914;color:white;padding:12px 32px;border-radius:6px;font-size:14px;font-weight:700;letter-spacing:1px;">
-        SELECT CROP DATA IN SIDEBAR &#8594;
-    </div>
+    padding:72px 48px 60px;text-align:center;margin-bottom:0;">
+    <div style="font-size:11px;letter-spacing:4px;color:rgba(255,220,80,0.85);text-transform:uppercase;margin-bottom:14px;">MANGONAV PLATFORM</div>
+    <h1 style="font-size:52px;color:white;font-weight:900;line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,0.7);max-width:700px;margin:0 auto;">{tx['hero_title']}</h1>
 </div>""", unsafe_allow_html=True)
-st.markdown('<div style="padding:24px 28px 40px;background:#F5F0E8;">',unsafe_allow_html=True)
+st.markdown('<div style="padding:0 28px 40px;background:transparent;">',unsafe_allow_html=True)
 
 def wcard(content,extra=""):
-    return f'<div style="background:rgba(255,255,255,0.93);border-radius:14px;border:1px solid #E8E0D0;box-shadow:0 2px 12px rgba(0,0,0,0.08);{extra}">{content}</div>'
+    return f'<div style="background:rgba(255,255,255,0.97);border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.2);{extra}">{content}</div>'
 
 if not st.session_state.get("run",False):
     # Hero banner
     st.markdown(f"""
-    <div style="background:linear-gradient(135deg,rgba(27,94,32,0.92),rgba(46,125,50,0.88));
+    <div style="background:linear-gradient(135deg,rgba(27,94,32,0.95),rgba(46,125,50,0.95));
         backdrop-filter:blur(12px);border-radius:16px;padding:36px 44px;margin-bottom:20px;
         position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.1);
-        box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+        box-shadow:0 8px 32px rgba(0,0,0,0.35);">
         <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);
             font-size:110px;opacity:0.1;pointer-events:none;">🥭</div>
         <div style="font-size:10px;letter-spacing:3px;color:rgba(165,214,167,0.7);margin-bottom:8px;">PLATFORM READY</div>
@@ -698,9 +699,9 @@ if not st.session_state.get("run",False):
     ]:
         with col:
             st.markdown(f"""
-            <div style="background:white;border-radius:8px;
-                padding:20px;border-left:4px solid {bdr};border:1px solid #E8E0D0;
-                box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+            <div style="background:rgba(255,255,255,0.97);border-radius:12px;
+                padding:20px;border-left:4px solid {bdr};
+                box-shadow:0 6px 24px rgba(0,0,0,0.2);">
                 <div style="font-size:24px;margin-bottom:6px;">{icon}</div>
                 <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;font-weight:600;">{lbl}</div>
                 <div style="font-size:30px;font-weight:800;color:#1B5E20;">{val}</div>
@@ -731,9 +732,9 @@ else:
         ]:
             with col:
                 st.markdown(f"""
-                <div style="background:white;
-                    border-radius:8px;padding:18px 20px;border-left:4px solid {bdr};
-                    border:1px solid #E8E0D0;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+                <div style="background:rgba(255,255,255,0.97);
+                    border-radius:12px;padding:18px 20px;border-left:4px solid {bdr};
+                    box-shadow:0 6px 28px rgba(0,0,0,0.22);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
                         <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">{lbl}</div>
                         <div style="font-size:18px;">{ico}</div>
@@ -779,7 +780,7 @@ else:
 
         # TIP
         st.markdown(f"""
-        <div style="background:#FFFBEB;border-radius:12px;
+        <div style="background:rgba(255,251,235,0.97);border-radius:12px;
             padding:14px 20px;margin-bottom:18px;border-left:4px solid #FF8C00;
             border:1px solid #FDE68A;border-left:4px solid #FF8C00;
             display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);">
