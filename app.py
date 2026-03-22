@@ -229,9 +229,9 @@ def upd_pw(ph,pw):
     conn.execute("UPDATE users SET password=? WHERE phone=?",(h,ph));conn.commit();conn.close()
 init_db()
 
-for k,v in {"logged_in":False,"auth_mode":"login","otp_mode":False,"otp_sent":False,
-            "otp_code":None,"otp_phone":None,"forgot":False,"f_otp_sent":False,
-            "f_otp_ok":False,"f_code":None,"lang":"English","run":False,
+for k,v in {"logged_in":False,"auth_mode":"login","forgot":False,
+            "forgot_verified":False,"forgot_phone":None,
+            "lang":"English","run":False,
             "last_village":None,"last_variety":"Banganapalli","last_tonnes":10.0}.items():
     if k not in st.session_state: st.session_state[k]=v
 
@@ -564,55 +564,51 @@ if not st.session_state.logged_in:
         with tb1:
             if st.button(tx["sign_in"],key="tab_si",use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="login" else "secondary"):
-                st.session_state.auth_mode="login";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="login";st.session_state.forgot=False;st.rerun()
         with tb2:
             if st.button(tx["register"],key="tab_ca",use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="register" else "secondary"):
-                st.session_state.auth_mode="register";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="register";st.session_state.forgot=False;st.rerun()
 
         st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
         def lbl(t): st.markdown(f'<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,140,0,0.85);margin-bottom:6px;font-weight:600;">{t}</div>',unsafe_allow_html=True)
 
         if st.session_state.forgot:
-            lbl(tx["reset_pw"]);fph=st.text_input("_fph",placeholder=tx["phone_ph"],key="fp_ph",label_visibility="collapsed")
-            if not st.session_state.f_otp_sent:
-                if st.button(tx["send_otp"],key="fp_send",use_container_width=True):
-                    if fph and len(fph)==10 and fph.isdigit():
+            st.markdown(f'<div style="font-size:14px;color:#FFB300;font-weight:700;margin-bottom:16px;text-align:center;">🔐 {tx["reset_pw"]}</div>',unsafe_allow_html=True)
+            if not st.session_state.forgot_verified:
+                st.markdown('<div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:12px;">Enter your registered phone number and full name to verify identity.</div>',unsafe_allow_html=True)
+                lbl(tx["phone"])
+                fph=st.text_input("_fph",placeholder=tx["phone_ph"],key="fp_ph",label_visibility="collapsed")
+                lbl(tx["name"])
+                fnm=st.text_input("_fnm",placeholder=tx["name"],key="fp_nm",label_visibility="collapsed")
+                if st.button("Verify Identity",key="fp_verify",use_container_width=True):
+                    if fph and len(fph)==10 and fph.isdigit() and fnm.strip():
                         u=get_u(fph)
-                        if u:
-                            code=str(random.randint(100000,999999));st.session_state.f_code=code;st.session_state.f_otp_sent=True;st.session_state.otp_phone=fph
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
-                        else: st.error("No account found.")
-                    else: st.warning("Enter valid 10-digit number.")
-            elif not st.session_state.f_otp_ok:
-                lbl(tx["otp_ph"]);eo=st.text_input("_fov",placeholder=tx["otp_ph"],key="fp_ov",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="fp_ver",use_container_width=True):
-                    if eo==st.session_state.f_code: st.session_state.f_otp_ok=True;st.rerun()
-                    else: st.error("Incorrect OTP.")
+                        if u and u[0].strip().lower()==fnm.strip().lower():
+                            st.session_state.forgot_verified=True
+                            st.session_state.forgot_phone=fph
+                            st.rerun()
+                        else:
+                            st.error("Phone number and name do not match any account.")
+                    else:
+                        st.warning("Enter valid 10-digit phone number and your registered name.")
             else:
-                lbl(tx["new_pw"]);np_=st.text_input("_npw",placeholder=tx["new_pw"],type="password",key="fp_np",label_visibility="collapsed")
-                lbl(tx["conf_pw"]);cp_=st.text_input("_cpw",placeholder=tx["conf_pw"],type="password",key="fp_cp",label_visibility="collapsed")
+                st.markdown('<div style="font-size:12px;color:#4ade80;font-weight:600;margin-bottom:12px;text-align:center;">✅ Identity verified — Set your new password</div>',unsafe_allow_html=True)
+                lbl(tx["new_pw"])
+                np_=st.text_input("_npw",placeholder=tx["new_pw"],type="password",key="fp_np",label_visibility="collapsed")
+                lbl(tx["conf_pw"])
+                cp_=st.text_input("_cpw",placeholder=tx["conf_pw"],type="password",key="fp_cp",label_visibility="collapsed")
                 if st.button(tx["upd_pw"],key="fp_upd",use_container_width=True):
-                    if np_ and np_==cp_: upd_pw(st.session_state.otp_phone,np_);st.success("Updated!");st.session_state.forgot=False;st.session_state.f_otp_sent=False;st.session_state.f_otp_ok=False;st.session_state.f_code=None;st.rerun()
-                    else: st.error("Passwords do not match.")
-            if st.button(tx["back"],key="fp_back",use_container_width=True,type="secondary"): st.session_state.forgot=False;st.rerun()
-        elif st.session_state.auth_mode=="login" and st.session_state.otp_mode:
-            lbl(tx["phone"]);op=st.text_input("_op",placeholder=tx["phone_ph"],key="otp_ph_in",label_visibility="collapsed")
-            if not st.session_state.otp_sent:
-                if st.button(tx["send_otp"],key="s_otp",use_container_width=True):
-                    if op and len(op)==10 and op.isdigit():
-                        u=get_u(op)
-                        if u:
-                            code=str(random.randint(100000,999999));st.session_state.otp_code=code;st.session_state.otp_sent=True;st.session_state.otp_phone=op
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
-                        else: st.error("No account found.")
-                    else: st.warning("Enter valid 10-digit number.")
-            else:
-                lbl(tx["otp_ph"]);eo=st.text_input("_eov",placeholder=tx["otp_ph"],key="otp_v",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="v_otp",use_container_width=True):
-                    if eo==st.session_state.otp_code: u=get_u(st.session_state.otp_phone);st.session_state.logged_in=True;st.session_state.user=u;st.session_state.otp_sent=False;st.rerun()
-                    else: st.error("Incorrect OTP.")
-            if st.button(tx["use_pw"],key="use_pw_btn",use_container_width=True,type="secondary"): st.session_state.otp_mode=False;st.rerun()
+                    if np_ and len(np_)>=6 and np_==cp_:
+                        upd_pw(st.session_state.forgot_phone,np_)
+                        st.success("✅ Password updated successfully! Please sign in.")
+                        st.session_state.forgot=False;st.session_state.forgot_verified=False;st.session_state.forgot_phone=None;st.rerun()
+                    elif np_ and len(np_)<6:
+                        st.error("Password must be at least 6 characters.")
+                    else:
+                        st.error("Passwords do not match.")
+            if st.button(tx["back"],key="fp_back",use_container_width=True,type="secondary"):
+                st.session_state.forgot=False;st.session_state.forgot_verified=False;st.session_state.forgot_phone=None;st.rerun()
         elif st.session_state.auth_mode=="login":
             lbl(tx["phone"]);ph=st.text_input("_lph",placeholder=tx["phone_ph"],key="l_ph",label_visibility="collapsed")
             lbl(tx["password"]);pw=st.text_input("_lpw",placeholder=tx["pass_ph"],type="password",key="l_pw",label_visibility="collapsed")
@@ -624,13 +620,11 @@ if not st.session_state.logged_in:
                     else: st.error("Incorrect phone or password.")
                 else: st.warning("Fill all fields.")
             st.markdown('<div style="height:10px"></div>',unsafe_allow_html=True)
-            fa,oa=st.columns(2)
-            with fa:
-                if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"): st.session_state.forgot=True;st.rerun()
-            with oa:
-                if st.button(tx["otp_opt"],key="otp_sw",use_container_width=True,type="secondary"): st.session_state.otp_mode=True;st.rerun()
+            if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"):
+                st.session_state.forgot=True;st.rerun()
         else:
             for label,key_,ph_,is_pw in [(tx["name"],"r_nm","Full name",False),(tx["place"],"r_pl","Village, District",False),(tx["phone"],"r_ph",tx["phone_ph"],False),(tx["password"],"r_pw",tx["pass_ph"],True)]:
+                lbl(label)
                 lbl(label)
                 if is_pw: st.text_input(f"_{key_}",placeholder=ph_,key=key_,type="password",label_visibility="collapsed")
                 else: st.text_input(f"_{key_}",placeholder=ph_,key=key_,label_visibility="collapsed")
