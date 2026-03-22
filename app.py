@@ -564,7 +564,31 @@ with fc3:
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
 
 st.markdown('<div style="height:16px"></div>',unsafe_allow_html=True)
-run_clicked=st.button(f"🔍  {tx['analyze_btn']}",key="run_btn",use_container_width=True)
+# Force yellow button style with unique approach
+st.markdown(f'''
+<style>
+div[data-testid="stButton"]:last-of-type > button,
+div[data-testid="stButton"] > button#run_btn,
+.stButton > button {{
+    background-color: #F5A623 !important;
+    color: #111111 !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    padding: 18px 32px !important;
+    border-radius: 10px !important;
+    border: none !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 6px 24px rgba(245,166,35,0.5) !important;
+    width: 100% !important;
+}}
+div[data-testid="stButton"] > button:hover {{
+    background-color: #E8920F !important;
+    transform: translateY(-2px) !important;
+}}
+</style>
+''', unsafe_allow_html=True)
+run_clicked=st.button(tx['analyze_btn'],key="run_btn",use_container_width=True)
 
 if run_clicked:
     st.session_state.run=True
