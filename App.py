@@ -1,5 +1,6 @@
 # MangoNav App v2.1 - Fixed
 import streamlit as st
+import streamlit.components.v1 as components
 import sqlite3, bcrypt, random, requests
 import pandas as pd
 import numpy as np
@@ -909,22 +910,27 @@ _welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname
 _welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
 _lc = _LANG_CODES.get(lang,"en-IN")
 if st.session_state.get("just_logged_in", False):
-    st.markdown(f"""<script>
-(function(){{
-    function speak(){{
-        if(!window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        var u=new SpeechSynthesisUtterance("{_welcome_short}");
-        u.lang="{_lc}"; u.rate=0.88; u.pitch=1.05; u.volume=1.0;
-        var vv=window.speechSynthesis.getVoices();
-        var mv=vv.find(v=>v.lang.startsWith("{_lc.split('-')[0]}"));
-        if(mv) u.voice=mv;
-        window.speechSynthesis.speak(u);
-    }}
-    if(window.speechSynthesis.getVoices().length>0){{ speak(); }}
-    else {{ window.speechSynthesis.onvoiceschanged=speak; setTimeout(speak,1000); }}
-}})();
-</script>""", unsafe_allow_html=True)
+    components.html(f"""
+    <script>
+    (function(){{
+        function speak(){{
+            var tgt = window.parent || window;
+            var synth = tgt.speechSynthesis;
+            if(!synth) return;
+            synth.cancel();
+            var u = new tgt.SpeechSynthesisUtterance("{_welcome_short}");
+            u.lang = "{_lc}"; u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
+            var vv = synth.getVoices();
+            var mv = vv.find(v => v.lang.startsWith("{_lc.split('-')[0]}"));
+            if(mv) u.voice = mv;
+            synth.speak(u);
+        }}
+        var synth = (window.parent||window).speechSynthesis;
+        if(synth && synth.getVoices().length > 0){{ speak(); }}
+        else {{ if(synth) synth.onvoiceschanged = speak; setTimeout(speak, 800); }}
+    }})();
+    </script>
+    """, height=0)
     st.session_state.just_logged_in = False
 
 # ══ SIDEBAR — clean, no expanders ══
@@ -1192,43 +1198,52 @@ else:
         )
         # Escape for JS string
         _speech_js = _speech_text.replace("\n", " ").replace("'", " ").replace('"', " ")
-        # Auto-speak the result
-        st.markdown(f"""<script>
-(function(){{
-    function speakResult(){{
-        if(!window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        var u=new SpeechSynthesisUtterance("{_speech_js}");
-        u.lang="{_lc2}"; u.rate=0.85; u.pitch=1.0; u.volume=1.0;
-        var vv=window.speechSynthesis.getVoices();
-        var mv=vv.find(v=>v.lang.startsWith("{_lc2.split('-')[0]}"));
-        if(mv) u.voice=mv;
-        window.speechSynthesis.speak(u);
-    }}
-    if(window.speechSynthesis.getVoices().length>0){{ speakResult(); }}
-    else {{ window.speechSynthesis.onvoiceschanged=speakResult; setTimeout(speakResult,1200); }}
-    window._mangoSpeak = speakResult;
-}})();
-</script>""", unsafe_allow_html=True)
-
-        # ── Speak button — farmer can replay anytime ──
-        _voice_btn_lbl = tx.get("voice_btn", "🔊 Hear Results")
+        # ── Voice announcement + buttons (uses components.html so JS actually runs) ──
         _replay_label = tx.get("voice_btn", "🔊 Hear Results")
-        st.markdown(f"""
-        <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
-            <button onclick="if(window._mangoSpeak)window._mangoSpeak();else window.speechSynthesis&&window.speechSynthesis.speak(new SpeechSynthesisUtterance('{_speech_js}'));"
-                style="background:linear-gradient(135deg,#FF8C00,#E65100);color:white;border:none;
-                border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;
-                box-shadow:0 4px 16px rgba(255,140,0,0.4);letter-spacing:0.5px;">
-                {_replay_label}
-            </button>
-            <button onclick="window.speechSynthesis&&window.speechSynthesis.cancel();"
-                style="background:rgba(255,255,255,0.12);color:white;border:1.5px solid rgba(255,255,255,0.3);
-                border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;">
-                ⏹ Stop
-            </button>
-            <span style="font-size:12px;color:rgba(255,255,255,0.6);">🔊 Auto-reading your results</span>
-        </div>""", unsafe_allow_html=True)
+        _stop_label   = "⏹ Stop"
+        _lc2_root     = _lc2.split("-")[0]
+        components.html(f"""
+        <script>
+        var SYNTH = window.parent ? window.parent.speechSynthesis : window.speechSynthesis;
+        var UCLASS = window.parent ? window.parent.SpeechSynthesisUtterance : SpeechSynthesisUtterance;
+        var TEXT  = "{_speech_js}";
+        var LANG  = "{_lc2}";
+        var ROOT  = "{_lc2_root}";
+
+        function doSpeak(){{
+            if(!SYNTH) return;
+            SYNTH.cancel();
+            var u = new UCLASS(TEXT);
+            u.lang = LANG; u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
+            var voices = SYNTH.getVoices();
+            var match  = voices.find(v => v.lang.startsWith(ROOT));
+            if(match) u.voice = match;
+            SYNTH.speak(u);
+        }}
+        function doStop(){{
+            if(SYNTH) SYNTH.cancel();
+        }}
+        if(SYNTH && SYNTH.getVoices().length > 0){{ doSpeak(); }}
+        else {{ if(SYNTH) SYNTH.onvoiceschanged = doSpeak; setTimeout(doSpeak, 1000); }}
+        </script>
+
+        <style>
+        body{{margin:0;background:transparent;}}
+        .vrow{{display:flex;gap:12px;align-items:center;padding:4px 0;}}
+        .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;
+            border:none;border-radius:10px;padding:12px 26px;font-size:15px;
+            font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;}}
+        .btn-stop{{background:rgba(0,0,0,0.55);color:white;
+            border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;
+            padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;}}
+        .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
+        </style>
+        <div class="vrow">
+            <button class="btn-speak" onclick="doSpeak()">{_replay_label}</button>
+            <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
+            <span class="hint">🔊 Auto-reading your results</span>
+        </div>
+        """, height=70)
 
         # TOP 3
         st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
