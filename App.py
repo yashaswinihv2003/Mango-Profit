@@ -338,17 +338,34 @@ if not st.session_state.logged_in:
     <style>
     [data-testid="stSidebar"],[data-testid="collapsedControl"]{display:none!important;}
     .main .block-container{padding-top:0!important;}
-    /* Login page: original green farm fields background */
     .stApp {
-        background: linear-gradient(
-            135deg,
-            #051A03 0%, #0A3006 20%, #1A5C0A 40%,
-            #2D8A12 55%, #1A5C0A 70%, #0A3006 85%, #051A03 100%
-        ) !important;
+        background: linear-gradient(135deg,#051A03,#0A3006,#1A5C0A) !important;
     }
     .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.2)!important;color:white!important;border-radius:8px!important;}
     .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
-    </style>""",unsafe_allow_html=True)
+    </style>
+    <script>
+    (function(){
+        var FARM_IMG = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80&auto=format&fit=crop';
+        var FARM_FB  = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Dahlia_x_hybrida.jpg/1280px-Dahlia_x_hybrida.jpg';
+        function applyBg(url){
+            var el = window.parent.document.querySelector('.stApp');
+            if(el){
+                el.style.cssText += ';background-image:url("'+url+'")!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important;';
+            }
+        }
+        function tryLoad(urls, idx){
+            if(idx>=urls.length) return;
+            var img = new window.parent.Image();
+            img.onload = function(){ applyBg(urls[idx]); };
+            img.onerror = function(){ tryLoad(urls, idx+1); };
+            img.src = urls[idx];
+        }
+        setTimeout(function(){ tryLoad([FARM_IMG, FARM_FB], 0); }, 300);
+        setTimeout(function(){ tryLoad([FARM_IMG, FARM_FB], 0); }, 1200);
+    })();
+    </script>
+    """,unsafe_allow_html=True)
 
     st.markdown(f"""
     <div style="background:rgba(8,20,10,0.75);backdrop-filter:blur(16px);padding:14px 44px;
@@ -655,33 +672,36 @@ with st.sidebar:
 # MAIN AREA
 # ══════════════════════════════════════════════════════════════
 
-# JavaScript background image loader — runs in user's browser, bypasses server restrictions
+# JavaScript background image loader — runs in user's browser
 st.markdown("""
 <script>
-(function setBg() {
-    var imgs = [
-        'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=80&auto=format',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.jpg/1280px-Hapus_Mango.jpg'
+(function(){
+    // Multiple mango orchard image sources - browser tries each until one loads
+    var MANGO_IMGS = [
+        'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=85&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1553279768-865429fa0078?w=1920&q=85&auto=format&fit=crop',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.jpg/1280px-Hapus_Mango.jpg',
+        'https://live.staticflickr.com/65535/49845539626_46eab60f53_b.jpg'
     ];
-    var tried = 0;
-    function tryImg(i) {
-        var img = new window.parent.Image();
-        img.onload = function() {
-            var app = window.parent.document.querySelector('.stApp');
-            if (app) {
-                app.style.backgroundImage = "url('" + imgs[i] + "')";
-                app.style.backgroundSize = 'cover';
-                app.style.backgroundPosition = 'center top';
-                app.style.backgroundAttachment = 'fixed';
-            }
-        };
-        img.onerror = function() {
-            if (i + 1 < imgs.length) tryImg(i + 1);
-        };
-        img.src = imgs[i];
+    function applyBg(url){
+        var el = window.parent.document.querySelector('.stApp');
+        if(el){
+            el.style.backgroundImage = "url('"+url+"')";
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center top';
+            el.style.backgroundAttachment = 'fixed';
+        }
     }
-    setTimeout(function(){ tryImg(0); }, 200);
-    setTimeout(function(){ tryImg(0); }, 1000);
+    function tryLoad(imgs, idx){
+        if(idx >= imgs.length) return;
+        var img = new window.parent.Image();
+        img.onload = function(){ applyBg(imgs[idx]); };
+        img.onerror = function(){ tryLoad(imgs, idx+1); };
+        img.src = imgs[idx];
+    }
+    setTimeout(function(){ tryLoad(MANGO_IMGS, 0); }, 200);
+    setTimeout(function(){ tryLoad(MANGO_IMGS, 0); }, 1000);
+    setTimeout(function(){ tryLoad(MANGO_IMGS, 0); }, 3000);
 })();
 </script>
 """, unsafe_allow_html=True)
