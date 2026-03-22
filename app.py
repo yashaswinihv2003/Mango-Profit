@@ -217,8 +217,8 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
     background-image:
-        linear-gradient(rgba(5,18,3,0.55), rgba(5,18,3,0.55)),
-        url('https://images.unsplash.com/photo-1597916829826-02e5bb4a54e0?w=1920&q=90&fit=crop') !important;
+        linear-gradient(rgba(5,18,3,0.48), rgba(5,18,3,0.48)),
+        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center') !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
@@ -305,6 +305,12 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── Charts ── */
 .js-plotly-plot,.plot-container{border-radius:12px!important;overflow:hidden;}
+
+/* ── Hide anchor link icon on headings ── */
+h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!important; }
+
+/* ── Section labels floating on bg need white text ── */
+.section-label { color:white!important;text-shadow:0 2px 8px rgba(0,0,0,0.8)!important; }
 [data-testid="stDataFrame"]{border-radius:10px!important;overflow:hidden!important;}
 </style>
 """, unsafe_allow_html=True)
@@ -663,18 +669,18 @@ with tc3:
 
 # CONTENT
 # Hero section - full mango orchard background
-HERO_IMG = "https://images.unsplash.com/photo-1597916829826-02e5bb4a54e0?w=1920&q=90&fit=crop"
+HERO_IMG = "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center"
 st.markdown(f"""
-<div style="background-image:linear-gradient(rgba(5,15,3,0.45),rgba(5,15,3,0.45)),url('{HERO_IMG}');
+<div style="background-image:linear-gradient(rgba(3,10,2,0.40),rgba(3,10,2,0.40)),url('{HERO_IMG}');
     background-size:cover;background-position:center;
     padding:72px 48px 60px;text-align:center;margin-bottom:0;">
     <div style="font-size:11px;letter-spacing:4px;color:rgba(255,220,80,0.85);text-transform:uppercase;margin-bottom:14px;">MANGONAV PLATFORM</div>
-    <h1 style="font-size:52px;color:white;font-weight:900;line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,0.7);max-width:700px;margin:0 auto;">{tx['hero_title']}</h1>
+    <h1 style="font-size:52px;color:white;font-weight:900;line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,0.7);max-width:700px;margin:0 auto;pointer-events:none;">{tx['hero_title']}</h1>
 </div>""", unsafe_allow_html=True)
 st.markdown('<div style="padding:0 28px 40px;background:transparent;">',unsafe_allow_html=True)
 
 def wcard(content,extra=""):
-    return f'<div style="background:rgba(255,255,255,0.97);border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.2);{extra}">{content}</div>'
+    return f'<div style="background:#FFFFFF;border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.2);{extra}">{content}</div>'
 
 if not st.session_state.get("run",False):
     # Hero banner
@@ -699,7 +705,7 @@ if not st.session_state.get("run",False):
     ]:
         with col:
             st.markdown(f"""
-            <div style="background:rgba(255,255,255,0.97);border-radius:12px;
+            <div style="background:#FFFFFF;border-radius:12px;
                 padding:20px;border-left:4px solid {bdr};
                 box-shadow:0 6px 24px rgba(0,0,0,0.2);">
                 <div style="font-size:24px;margin-bottom:6px;">{icon}</div>
@@ -732,21 +738,21 @@ else:
         ]:
             with col:
                 st.markdown(f"""
-                <div style="background:rgba(255,255,255,0.97);
+                <div style="background:#FFFFFF;
                     border-radius:12px;padding:18px 20px;border-left:4px solid {bdr};
                     box-shadow:0 6px 28px rgba(0,0,0,0.22);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                        <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">{lbl}</div>
+                        <div style="font-size:10px;color:#374151;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">{lbl}</div>
                         <div style="font-size:18px;">{ico}</div>
                     </div>
-                    <div style="font-size:26px;font-weight:800;color:#1B5E20;margin:5px 0;line-height:1.1;">{val}</div>
-                    <div style="font-size:11px;color:#6B7280;">{sub}</div>
+                    <div style="font-size:26px;font-weight:800;color:#1B5E20;margin:5px 0;line-height:1.1;word-break:break-word;">{val}</div>
+                    <div style="font-size:11px;color:#4B5563;font-weight:500;">{sub}</div>
                 </div>""",unsafe_allow_html=True)
 
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
 
         # TOP 3
-        st.markdown(f'<div style="font-size:12px;font-weight:700;color:#3D2B00;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="font-size:12px;font-weight:700;color:white;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-size:13px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,0.9);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
         medals=[("#FF8C00",tx["highest_profit"],True,"linear-gradient(135deg,#1B5E20,#2E7D32)"),
                 ("#64748b",tx["second_best"],False,"rgba(255,255,255,0.93)"),
                 ("#b45309",tx["third_best"],False,"rgba(255,255,255,0.93)")]
@@ -754,8 +760,8 @@ else:
         for i,(col,(acc,lbl_,istop,bg)) in enumerate(zip(c3,medals)):
             if i>=len(top3): break
             r=top3.iloc[i]
-            txt="white" if istop else "#1B5E20"
-            muted="rgba(255,255,255,0.45)" if istop else "#9CA3AF"
+            txt="white" if istop else "#14532D"
+            muted="rgba(255,255,255,0.5)" if istop else "#4B5563"
             with col:
                 st.markdown(f"""
                 <div style="background:{bg};backdrop-filter:blur(12px);border-radius:14px;padding:20px;height:100%;
@@ -768,7 +774,7 @@ else:
                         <span>{r['icon']}</span><span style="font-size:10px;color:{r['color']};font-weight:600;">{r['Type']}</span>
                     </div>
                     <div style="font-size:26px;font-weight:800;color:{acc};margin-bottom:2px;">₹{int(r['Net_Profit']):,}</div>
-                    <div style="font-size:11px;color:{muted};margin-bottom:14px;">{r['Dist_km']} {tx['away_lbl']}</div>
+                    <div style="font-size:12px;color:{muted};margin-bottom:14px;font-weight:500;">{r['Dist_km']} {tx['away_lbl']}</div>
                     <div style="border-top:1px solid {'rgba(255,255,255,0.1)' if istop else '#E5E7EB'};padding-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
                         <div><div style="font-size:9px;color:{muted};margin-bottom:2px;">{tx['revenue_lbl']}</div><div style="font-size:12px;font-weight:700;color:{'rgba(255,255,255,0.9)' if istop else '#16a34a'};">₹{int(r['Revenue']):,}</div></div>
                         <div><div style="font-size:9px;color:{muted};margin-bottom:2px;">{tx['transport_lbl']}</div><div style="font-size:12px;font-weight:700;color:#ef4444;">₹{int(r['Transport']):,}</div></div>
@@ -796,7 +802,7 @@ else:
         def wc_open(): return '<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E8E0D0;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:18px;">'
         with ch1:
             st.markdown(wc_open(),unsafe_allow_html=True)
-            st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
+            st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;font-weight:700;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
             max_v=int(top3["Net_Profit"].max())
             fig=go.Figure(go.Bar(
                 y=top3["Name"],x=top3["Net_Profit"],orientation="h",
@@ -855,7 +861,7 @@ else:
         # MAP
         st.markdown(wc_open(),unsafe_allow_html=True)
         st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>',unsafe_allow_html=True)
-        st.markdown('<div style="font-size:11px;color:#9CA3AF;margin-bottom:12px;">🏠 Farm &nbsp;|&nbsp; ★ Best market (gold) &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
+        st.markdown('<div style="font-size:11px;color:#6B7280;margin-bottom:12px;">🏠 Farm &nbsp;|&nbsp; ★ Best market (gold) &nbsp;|&nbsp; Real road routes</div>',unsafe_allow_html=True)
         with st.spinner("Loading routes..."):
             br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
