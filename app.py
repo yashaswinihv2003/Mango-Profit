@@ -52,6 +52,12 @@ T = {
         "via_lbl":"via","away_lbl2":"km away","roi_sub":"Return on investment","within_lbl":"within 150km",
         "varieties_lbl":"Varieties","markets_lbl":"Market Types","districts_lbl":"Districts","engine_lbl":"AI Engine",
         "live_prices_lbl":"TODAY'S MANGO PRICES",
+        "platform_ready":"✅ PLATFORM READY",
+        "platform_overview":"📊 Platform Overview",
+        "live_lbl":"LIVE",
+        "map_legend":"🏠 Farm &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ Best market (gold)</b> &nbsp;|&nbsp; Real road routes",
+        "loading_routes":"Loading routes...",
+        "mangonav_tag":"🥭 MANGONAV PLATFORM",
     },
     "Telugu": {
         "title":"MangoNav","tagline":"వ్యవసాయ తంత్రజ్ఞాన వేదిక",
@@ -91,6 +97,12 @@ T = {
         "via_lbl":"ద్వారా","away_lbl2":"కి.మీ దూరం","roi_sub":"పెట్టుబడిపై రాబడి","within_lbl":"150 కి.మీ లోపల",
         "varieties_lbl":"రకాలు","markets_lbl":"మార్కెట్ రకాలు","districts_lbl":"జిల్లాలు","engine_lbl":"AI ఇంజన్",
         "live_prices_lbl":"నేటి మామిడి ధరలు",
+        "platform_ready":"✅ ప్లాట్‌ఫామ్ సిద్ధంగా ఉంది",
+        "platform_overview":"📊 ప్లాట్‌ఫామ్ అవలోకనం",
+        "live_lbl":"లైవ్",
+        "map_legend":"🏠 పొలం &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ ఉత్తమ మార్కెట్ (బంగారు)</b> &nbsp;|&nbsp; నిజమైన రహదారి మార్గాలు",
+        "loading_routes":"మార్గాలు లోడ్ అవుతున్నాయి...",
+        "mangonav_tag":"🥭 మాంగోనావ్ ప్లాట్‌ఫామ్",
     },
     "Hindi": {
         "title":"MangoNav","tagline":"कृषि तकनीक मंच",
@@ -130,6 +142,12 @@ T = {
         "via_lbl":"के माध्यम से","away_lbl2":"कि.मी. दूर","roi_sub":"निवेश पर रिटर्न","within_lbl":"150 कि.मी. के भीतर",
         "varieties_lbl":"किस्में","markets_lbl":"बाज़ार प्रकार","districts_lbl":"जिले","engine_lbl":"AI इंजन",
         "live_prices_lbl":"आज के आम के भाव",
+        "platform_ready":"✅ प्लेटफॉर्म तैयार है",
+        "platform_overview":"📊 प्लेटफॉर्म अवलोकन",
+        "live_lbl":"लाइव",
+        "map_legend":"🏠 खेत &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ सर्वोत्तम बाज़ार (सोना)</b> &nbsp;|&nbsp; वास्तविक सड़क मार्ग",
+        "loading_routes":"मार्ग लोड हो रहे हैं...",
+        "mangonav_tag":"🥭 मैंगोनाव प्लेटफॉर्म",
     },
     "Kannada": {
         "title":"MangoNav","tagline":"ಕೃಷಿ ತಂತ್ರಜ್ಞಾನ ವೇದಿಕೆ",
@@ -169,6 +187,12 @@ T = {
         "via_lbl":"ಮೂಲಕ","away_lbl2":"ಕಿ.ಮೀ ದೂರ","roi_sub":"ಹೂಡಿಕೆ ಮೇಲೆ ಲಾಭ","within_lbl":"150 ಕಿ.ಮೀ ಒಳಗೆ",
         "varieties_lbl":"ತಳಿಗಳು","markets_lbl":"ಮಾರುಕಟ್ಟೆ ವಿಧಗಳು","districts_lbl":"ಜಿಲ್ಲೆಗಳು","engine_lbl":"AI ಇಂಜಿನ್",
         "live_prices_lbl":"ಇಂದಿನ ಮಾವಿನ ಬೆಲೆಗಳು",
+        "platform_ready":"✅ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಿದ್ಧವಾಗಿದೆ",
+        "platform_overview":"📊 ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಅವಲೋಕನ",
+        "live_lbl":"ಲೈವ್",
+        "map_legend":"🏠 ಹೊಲ &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ ಉತ್ತಮ ಮಾರುಕಟ್ಟೆ (ಚಿನ್ನ)</b> &nbsp;|&nbsp; ನಿಜವಾದ ರಸ್ತೆ ಮಾರ್ಗಗಳು",
+        "loading_routes":"ಮಾರ್ಗಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        "mangonav_tag":"🥭 ಮ್ಯಾಂಗೋನಾವ್ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್",
     },
 }
 
@@ -762,30 +786,32 @@ st.markdown(f'<div style="background:rgba(6,18,5,0.97);backdrop-filter:blur(24px
     f'<div style="display:flex;align-items:center;gap:10px;">' +
     f'<div style="background:rgba(255,140,0,0.15);border:1.5px solid #FF8C00;border-radius:6px;padding:5px 14px;display:flex;align-items:center;gap:6px;">' +
     f'<div style="width:7px;height:7px;background:#4ade80;border-radius:50%;box-shadow:0 0 6px #4ade80;"></div>' +
-    f'<span style="font-size:10px;font-weight:900;color:#FF8C00;letter-spacing:2px;">LIVE</span></div>' +
+    f'<span style="font-size:10px;font-weight:900;color:#FF8C00;letter-spacing:2px;">{tx["live_lbl"]}</span></div>' +
     f'<span style="font-size:12px;font-weight:900;color:#FFB300;letter-spacing:2px;">{tx["live_prices_lbl"]}</span>' +
     f'</div></div>',
     unsafe_allow_html=True)
 
 # Row 2: price tiles
 def _price_tile(name, price, change, up=True):
-    chg_color = "#4ade80" if up else "#f87171"
-    chg_bg = "rgba(74,222,128,0.15)" if up else "rgba(248,113,113,0.15)"
-    arrow = "↑" if up else "↓"
-    return (
-        f'<div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.07);' +
-        f'border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 18px;flex:1;min-width:140px;">' +
-        f'<div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:700;letter-spacing:1px;margin-bottom:4px;">{name}</div>' +
-        f'<div style="display:flex;align-items:baseline;gap:6px;">' +
-        f'<span style="font-size:24px;font-weight:900;color:#FFFFFF;line-height:1;">{price}</span>' +
-        f'<span style="font-size:12px;font-weight:800;color:{chg_color};background:{chg_bg};padding:2px 8px;border-radius:5px;">{arrow} {change}</span>' +
+    chg_color = "#22c55e" if up else "#ef4444"
+    chg_bg = "rgba(34,197,94,0.3)" if up else "rgba(239,68,68,0.3)"
+    arrow = "▲" if up else "▼"
+    tile = (
+        f'<div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.14);' +
+        f'border:2px solid rgba(255,255,255,0.28);border-radius:12px;padding:12px 22px;flex:1;">' +
+        f'<div style="font-size:11px;color:#FFFFFF;font-weight:800;letter-spacing:1.2px;margin-bottom:6px;">{name}</div>' +
+        f'<div style="display:flex;align-items:baseline;gap:8px;">' +
+        f'<span style="font-size:28px;font-weight:900;color:#FFFFFF;line-height:1;">{price}</span>' +
+        f'<span style="font-size:13px;font-weight:800;color:{chg_color};background:{chg_bg};' +
+        f'border:1.5px solid {chg_color};padding:3px 9px;border-radius:6px;">{arrow} {change}</span>' +
         f'</div></div>'
     )
+    return tile
 
-divider = '<div style="width:1px;height:48px;background:rgba(255,255,255,0.1);flex-shrink:0;align-self:center;"></div>'
+divider = '<div style="width:2px;height:52px;background:rgba(255,255,255,0.25);flex-shrink:0;align-self:center;"></div>'
 
 st.markdown(
-    '<div style="background:rgba(0,0,0,0.5);padding:10px 28px 14px;display:flex;align-items:center;gap:8px;border-bottom:2px solid rgba(255,179,0,0.35);">' +
+    '<div style="background:rgba(0,0,0,0.82);padding:14px 28px 18px;display:flex;align-items:center;gap:10px;">' +
     _price_tile("BANGANAPALLI", "₹28", "+2.1%", True) +
     divider +
     _price_tile("TOTAPURI", "₹18", "-0.8%", False) +
@@ -809,36 +835,6 @@ with tc3:
         st.rerun()
 
 # CONTENT
-# Hero section - full mango orchard background
-HERO_IMG = "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=95&fit=crop&crop=center"
-st.markdown(f"""
-<div style="padding:40px 48px 36px;text-align:center;position:relative;">
-    <!-- Centered dark popup panel with title -->
-    <div style="
-        background:rgba(10,30,8,0.82);
-        backdrop-filter:blur(18px);
-        -webkit-backdrop-filter:blur(18px);
-        border:1px solid rgba(255,200,0,0.25);
-        border-radius:20px;
-        padding:48px 60px 44px;
-        max-width:780px;
-        margin:0 auto;
-        box-shadow:0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05);
-        position:relative;
-        overflow:hidden;">
-        <!-- Gold accent top line -->
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;
-            background:linear-gradient(90deg,transparent,#FFB300,#FF8C00,#FFB300,transparent);"></div>
-        <div style="font-size:10px;letter-spacing:4px;color:#FFB300;text-transform:uppercase;margin-bottom:16px;font-weight:600;">🥭 MANGONAV PLATFORM</div>
-        <h1 style="font-size:44px;color:white;font-weight:900;line-height:1.12;
-            text-shadow:0 4px 20px rgba(0,0,0,0.9);margin:0 auto;
-            letter-spacing:-0.5px;">{tx['hero_title']}</h1>
-        <div style="width:60px;height:3px;background:linear-gradient(90deg,#FFB300,#FF8C00);
-            border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-</div>""", unsafe_allow_html=True)
-st.markdown('<div style="padding:0 28px 40px;background:transparent;">',unsafe_allow_html=True)
-
 def wcard(content,extra=""):
     return f'<div style="background:#FFFFFF;border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.2);{extra}">{content}</div>'
 
@@ -852,14 +848,14 @@ if not st.session_state.get("run",False):
         box-shadow:0 8px 40px rgba(0,0,0,0.6);">
         <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);
             font-size:110px;opacity:0.06;pointer-events:none;">🥭</div>
-        <div style="font-size:10px;letter-spacing:3px;color:#FFB300;margin-bottom:8px;font-weight:700;">✅ PLATFORM READY</div>
+        <div style="font-size:10px;letter-spacing:3px;color:#FFB300;margin-bottom:8px;font-weight:700;">{tx["platform_ready"]}</div>
         <h2 style="font-size:28px;color:#FFFFFF;font-weight:900;margin-bottom:8px;
             text-shadow:0 2px 8px rgba(0,0,0,0.8);">{tx['hero_title']}</h2>
         <p style="font-size:14px;color:#E5E5E5;max-width:480px;line-height:1.7;
             text-shadow:0 1px 4px rgba(0,0,0,0.8);">{tx['hero_sub']}</p>
     </div>""",unsafe_allow_html=True)
 
-    st.markdown('<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">📊 Platform Overview</div>',unsafe_allow_html=True)
+    st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">{tx["platform_overview"]}</div>',unsafe_allow_html=True)
     sc1,sc2,sc3,sc4=st.columns(4)
     for col,icon,lbl,val,bdr,sub in [
         (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00","Banganapalli · Totapuri · Neelam · Rasalu"),
@@ -1021,8 +1017,8 @@ else:
         # MAP
         st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 4px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;">'
             f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
-            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">🏠 Farm &nbsp;|&nbsp; <b style="color:#FF8C00;">★ Best market (gold)</b> &nbsp;|&nbsp; Real road routes</div></div>',unsafe_allow_html=True)
-        with st.spinner("Loading routes..."):
+            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">{tx["map_legend"]}</div></div>',unsafe_allow_html=True)
+        with st.spinner(tx["loading_routes"]):
             br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
             folium.Marker([vlat,vlon],
