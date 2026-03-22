@@ -216,12 +216,7 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
-    background-image:
-        linear-gradient(rgba(10,25,12,0.70),rgba(10,25,12,0.70)),
-        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=90&fit=crop') !important;
-    background-size:cover !important;
-    background-position:center top !important;
-    background-attachment:fixed !important;
+    background: #F5F0E8 !important;
     min-height:100vh !important;
 }
 
@@ -246,20 +241,20 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
     font-family:'Inter',sans-serif!important;
 }
 
-/* ── SIDEBAR BUTTON = orange gradient ── */
+/* ── SIDEBAR BUTTON = golden wheat style ── */
 [data-testid="stSidebar"] .stButton>button{
-    background:linear-gradient(135deg,#FF8C00,#E65100)!important;
+    background:linear-gradient(135deg,#8B6914,#6B4F10)!important;
     color:white!important;border:none!important;
     font-family:'Inter',sans-serif!important;font-weight:700!important;
-    font-size:14px!important;padding:14px!important;border-radius:10px!important;
+    font-size:14px!important;padding:14px!important;border-radius:8px!important;
     width:100%!important;
-    box-shadow:0 4px 18px rgba(255,140,0,0.45)!important;
+    box-shadow:0 4px 18px rgba(139,105,20,0.5)!important;
     cursor:pointer!important;transition:all 0.2s!important;
 }
 [data-testid="stSidebar"] .stButton>button:hover{
-    background:linear-gradient(135deg,#E65100,#BF360C)!important;
+    background:linear-gradient(135deg,#6B4F10,#4A3508)!important;
     transform:translateY(-1px)!important;
-    box-shadow:0 8px 28px rgba(255,140,0,0.55)!important;
+    box-shadow:0 8px 24px rgba(139,105,20,0.6)!important;
 }
 
 /* ── MAIN CONTENT buttons (login etc) ── */
@@ -269,7 +264,7 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
     width:100%!important;transition:all 0.2s!important;
     background:linear-gradient(135deg,#FF8C00,#E65100)!important;
     color:white!important;font-size:14px!important;padding:13px!important;
-    box-shadow:0 4px 16px rgba(255,140,0,0.35)!important;
+    box-shadow:0 4px 16px rgba(139,105,20,0.4)!important;
 }
 .stButton>button:hover{
     background:linear-gradient(135deg,#E65100,#BF360C)!important;
@@ -631,9 +626,9 @@ rt=st.session_state.get("last_tonnes",sel_tonnes)
 # ── TOP FULL-WIDTH BAR: language selector + live prices + sign out ──
 lang_opts=["English","Telugu","Hindi","Kannada"]
 st.markdown(f"""
-<div style="background:rgba(8,20,10,0.85);backdrop-filter:blur(16px);
+<div style="background:#5C3D0A;
     padding:10px 28px;display:flex;align-items:center;justify-content:space-between;
-    border-bottom:1px solid rgba(255,140,0,0.15);position:sticky;top:0;z-index:999;">
+    border-bottom:2px solid #6B4F10;position:sticky;top:0;z-index:999;">
     <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:32px;height:32px;background:linear-gradient(135deg,#FF8C00,#E65100);
             border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🥭</div>
@@ -662,10 +657,23 @@ with tc3:
         st.rerun()
 
 # CONTENT
-st.markdown('<div style="padding:18px 28px 40px;">',unsafe_allow_html=True)
+# Hero section - wheat/farm style like Farming template
+HERO_IMG = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90&fit=crop"
+st.markdown(f"""
+<div style="background-image:linear-gradient(rgba(20,12,2,0.52),rgba(20,12,2,0.52)),url('{HERO_IMG}');
+    background-size:cover;background-position:center;
+    padding:64px 48px;text-align:center;margin-bottom:0;">
+    <div style="font-size:11px;letter-spacing:4px;color:rgba(255,210,100,0.8);text-transform:uppercase;margin-bottom:12px;">MANGONAV PLATFORM</div>
+    <h1 style="font-size:48px;color:white;font-weight:800;line-height:1.1;margin-bottom:16px;text-shadow:0 4px 20px rgba(0,0,0,0.6);">{tx['hero_title']}</h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 28px;">{tx['hero_sub']}</p>
+    <div style="display:inline-block;background:#8B6914;color:white;padding:12px 32px;border-radius:6px;font-size:14px;font-weight:700;letter-spacing:1px;">
+        SELECT CROP DATA IN SIDEBAR &#8594;
+    </div>
+</div>""", unsafe_allow_html=True)
+st.markdown('<div style="padding:24px 28px 40px;background:#F5F0E8;">',unsafe_allow_html=True)
 
 def wcard(content,extra=""):
-    return f'<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 24px rgba(0,0,0,0.15);{extra}">{content}</div>'
+    return f'<div style="background:rgba(255,255,255,0.93);border-radius:14px;border:1px solid #E8E0D0;box-shadow:0 2px 12px rgba(0,0,0,0.08);{extra}">{content}</div>'
 
 if not st.session_state.get("run",False):
     # Hero banner
@@ -690,9 +698,9 @@ if not st.session_state.get("run",False):
     ]:
         with col:
             st.markdown(f"""
-            <div style="background:rgba(255,255,255,0.90);backdrop-filter:blur(12px);border-radius:14px;
-                padding:20px;border-left:4px solid {bdr};border:1px solid rgba(255,255,255,0.5);
-                box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+            <div style="background:white;border-radius:8px;
+                padding:20px;border-left:4px solid {bdr};border:1px solid #E8E0D0;
+                box-shadow:0 2px 10px rgba(0,0,0,0.06);">
                 <div style="font-size:24px;margin-bottom:6px;">{icon}</div>
                 <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;font-weight:600;">{lbl}</div>
                 <div style="font-size:30px;font-weight:800;color:#1B5E20;">{val}</div>
@@ -723,9 +731,9 @@ else:
         ]:
             with col:
                 st.markdown(f"""
-                <div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);
-                    border-radius:14px;padding:18px 20px;border-left:4px solid {bdr};
-                    border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+                <div style="background:white;
+                    border-radius:8px;padding:18px 20px;border-left:4px solid {bdr};
+                    border:1px solid #E8E0D0;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
                         <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">{lbl}</div>
                         <div style="font-size:18px;">{ico}</div>
@@ -737,7 +745,7 @@ else:
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
 
         # TOP 3
-        st.markdown(f'<div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
+        st.markdown(f'<div style="font-size:12px;font-weight:700;color:#3D2B00;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
         medals=[("#FF8C00",tx["highest_profit"],True,"linear-gradient(135deg,#1B5E20,#2E7D32)"),
                 ("#64748b",tx["second_best"],False,"rgba(255,255,255,0.93)"),
                 ("#b45309",tx["third_best"],False,"rgba(255,255,255,0.93)")]
@@ -771,9 +779,9 @@ else:
 
         # TIP
         st.markdown(f"""
-        <div style="background:rgba(255,251,235,0.95);backdrop-filter:blur(12px);border-radius:12px;
+        <div style="background:#FFFBEB;border-radius:12px;
             padding:14px 20px;margin-bottom:18px;border-left:4px solid #FF8C00;
-            border:1px solid rgba(255,237,213,0.9);border-left:4px solid #FF8C00;
+            border:1px solid #FDE68A;border-left:4px solid #FF8C00;
             display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);">
             <span style="font-size:18px;flex-shrink:0;">💡</span>
             <div>
@@ -784,7 +792,7 @@ else:
 
         # CHARTS
         ch1,ch2=st.columns([3,2])
-        def wc_open(): return '<div style="background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.12);margin-bottom:18px;">'
+        def wc_open(): return '<div style="background:white;border-radius:14px;padding:20px;border:1px solid #E8E0D0;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:18px;">'
         with ch1:
             st.markdown(wc_open(),unsafe_allow_html=True)
             st.markdown(f'<div style="font-size:13px;font-weight:700;color:#1B5E20;margin-bottom:14px;">{tx["bar_title"]}</div>',unsafe_allow_html=True)
@@ -803,7 +811,7 @@ else:
                            tickfont=dict(size=10,color="#9CA3AF"),
                            range=[0,max_v*1.38],tickformat=",.0f",tickprefix="₹"),
                 yaxis=dict(autorange="reversed",tickfont=dict(size=12,color="#374151")),
-                paper_bgcolor="rgba(0,0,0,0)",plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="white",plot_bgcolor="white",
                 hoverlabel=dict(bgcolor="#1B5E20",bordercolor="#FF8C00",font=dict(color="white")),
             )
             st.plotly_chart(fig,use_container_width=True)
@@ -824,7 +832,7 @@ else:
                 template="plotly_white",height=210,margin=dict(l=8,r=8,t=4,b=4),
                 legend=dict(font=dict(size=10,family="Inter"),orientation="v",x=1.0,y=0.5),
                 annotations=[dict(text=f"<b>{rvar}</b>",x=0.5,y=0.5,font=dict(size=12,color="#1B5E20"),showarrow=False)],
-                paper_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="white",
                 hoverlabel=dict(bgcolor="#1B5E20",bordercolor="#FF8C00",font=dict(color="white")),
             )
             st.plotly_chart(fig2,use_container_width=True)
