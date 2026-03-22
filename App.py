@@ -52,6 +52,11 @@ T = {
         "via_lbl":"via","away_lbl2":"km away","roi_sub":"Return on investment","within_lbl":"within 150km",
         "varieties_lbl":"Varieties","markets_lbl":"Market Types","districts_lbl":"Districts","engine_lbl":"AI Engine",
         "live_prices_lbl":"TODAY'S MANGO PRICES",
+        "voice_welcome":"Welcome {name}! Your best market is {market}, located {dist} kilometers away. Expected profit is Rupees {profit}.",
+        "voice_btn":"🔊 Hear Results",
+        "voice_btn_welcome":"🔊 Welcome Message",
+        "variety_names":{"Banganapalli": "Banganapalli", "Totapuri": "Totapuri", "Neelam": "Neelam", "Rasalu": "Rasalu"},
+        "cat_names":{"Mandi": "Mandi", "Processing": "Processing", "Pulp": "Pulp", "Pickle": "Pickle", "Local Export": "Local Export", "Abroad Export": "Abroad Export", "Cold Storage": "Cold Storage", "FPO": "FPO"},
         "platform_ready":"✅ PLATFORM READY",
         "platform_overview":"📊 Platform Overview",
         "live_lbl":"LIVE",
@@ -97,6 +102,11 @@ T = {
         "via_lbl":"ద్వారా","away_lbl2":"కి.మీ దూరం","roi_sub":"పెట్టుబడిపై రాబడి","within_lbl":"150 కి.మీ లోపల",
         "varieties_lbl":"రకాలు","markets_lbl":"మార్కెట్ రకాలు","districts_lbl":"జిల్లాలు","engine_lbl":"AI ఇంజన్",
         "live_prices_lbl":"నేటి మామిడి ధరలు",
+        "voice_welcome":"స్వాగతం {name}! మీ ఉత్తమ మార్కెట్ {market}, {dist} కిలోమీటర్ల దూరంలో ఉంది. అంచనా లాభం రూపాయలు {profit}.",
+        "voice_btn":"🔊 ఫలితాలు వినండి",
+        "voice_btn_welcome":"🔊 స్వాగత సందేశం",
+        "variety_names":{"Banganapalli": "బంగినపల్లి", "Totapuri": "తోతాపురి", "Neelam": "నీలం", "Rasalu": "రసాలు"},
+        "cat_names":{"Mandi": "మండి", "Processing": "ప్రాసెసింగ్", "Pulp": "పల్పు", "Pickle": "పచ్చడి", "Local Export": "స్థానిక ఎగుమతి", "Abroad Export": "విదేశీ ఎగుమతి", "Cold Storage": "కోల్డ్ స్టోరేజ్", "FPO": "FPO"},
         "platform_ready":"✅ ప్లాట్‌ఫామ్ సిద్ధంగా ఉంది",
         "platform_overview":"📊 ప్లాట్‌ఫామ్ అవలోకనం",
         "live_lbl":"లైవ్",
@@ -142,6 +152,11 @@ T = {
         "via_lbl":"के माध्यम से","away_lbl2":"कि.मी. दूर","roi_sub":"निवेश पर रिटर्न","within_lbl":"150 कि.मी. के भीतर",
         "varieties_lbl":"किस्में","markets_lbl":"बाज़ार प्रकार","districts_lbl":"जिले","engine_lbl":"AI इंजन",
         "live_prices_lbl":"आज के आम के भाव",
+        "voice_welcome":"स्वागत है {name}! आपका सबसे अच्छा बाज़ार {market} है, जो {dist} किलोमीटर दूर है। अनुमानित लाभ रुपये {profit} है।",
+        "voice_btn":"🔊 परिणाम सुनें",
+        "voice_btn_welcome":"🔊 स्वागत संदेश",
+        "variety_names":{"Banganapalli": "बंगनपल्ली", "Totapuri": "तोतापुरी", "Neelam": "नीलम", "Rasalu": "रसालु"},
+        "cat_names":{"Mandi": "मंडी", "Processing": "प्रसंस्करण", "Pulp": "गूदा", "Pickle": "अचार", "Local Export": "स्थानीय निर्यात", "Abroad Export": "विदेश निर्यात", "Cold Storage": "शीत भंडार", "FPO": "FPO"},
         "platform_ready":"✅ प्लेटफॉर्म तैयार है",
         "platform_overview":"📊 प्लेटफॉर्म अवलोकन",
         "live_lbl":"लाइव",
@@ -187,6 +202,11 @@ T = {
         "via_lbl":"ಮೂಲಕ","away_lbl2":"ಕಿ.ಮೀ ದೂರ","roi_sub":"ಹೂಡಿಕೆ ಮೇಲೆ ಲಾಭ","within_lbl":"150 ಕಿ.ಮೀ ಒಳಗೆ",
         "varieties_lbl":"ತಳಿಗಳು","markets_lbl":"ಮಾರುಕಟ್ಟೆ ವಿಧಗಳು","districts_lbl":"ಜಿಲ್ಲೆಗಳು","engine_lbl":"AI ಇಂಜಿನ್",
         "live_prices_lbl":"ಇಂದಿನ ಮಾವಿನ ಬೆಲೆಗಳು",
+        "voice_welcome":"ಸ್ವಾಗತ {name}! ನಿಮ್ಮ ಉತ್ತಮ ಮಾರುಕಟ್ಟೆ {market}, {dist} ಕಿಲೋಮೀಟರ್ ದೂರದಲ್ಲಿದೆ. ಅಂದಾಜು ಲಾಭ ರೂಪಾಯಿ {profit}.",
+        "voice_btn":"🔊 ಫಲಿತಾಂಶ ಕೇಳಿ",
+        "voice_btn_welcome":"🔊 ಸ್ವಾಗತ ಸಂದೇಶ",
+        "variety_names":{"Banganapalli": "ಬಂಗನಪಲ್ಲಿ", "Totapuri": "ತೋತಾಪುರಿ", "Neelam": "ನೀಲಂ", "Rasalu": "ರಸಾಲು"},
+        "cat_names":{"Mandi": "ಮಂಡಿ", "Processing": "ಸಂಸ್ಕರಣೆ", "Pulp": "ತಿರುಳು", "Pickle": "ಉಪ್ಪಿನಕಾಯಿ", "Local Export": "ಸ್ಥಳೀಯ ರಫ್ತು", "Abroad Export": "ವಿದೇಶಿ ರಫ್ತು", "Cold Storage": "ಶೀತಲ ಸಂಗ್ರಹ", "FPO": "FPO"},
         "platform_ready":"✅ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಿದ್ಧವಾಗಿದೆ",
         "platform_overview":"📊 ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಅವಲೋಕನ",
         "live_lbl":"ಲೈವ್",
@@ -221,9 +241,9 @@ def upd_pw(ph,pw):
     conn.execute("UPDATE users SET password=? WHERE phone=?",(h,ph));conn.commit();conn.close()
 init_db()
 
-for k,v in {"logged_in":False,"auth_mode":"login","otp_mode":False,"otp_sent":False,
-            "otp_code":None,"otp_phone":None,"forgot":False,"f_otp_sent":False,
-            "f_otp_ok":False,"f_code":None,"lang":"English","run":False,
+for k,v in {"logged_in":False,"auth_mode":"login","forgot":False,
+            "forgot_verified":False,"forgot_phone":None,
+            "lang":"English","run":False,"just_logged_in":False,
             "last_village":None,"last_variety":"Banganapalli","last_tonnes":10.0}.items():
     if k not in st.session_state: st.session_state[k]=v
 
@@ -420,6 +440,58 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
     text-shadow: none !important;
 }
 
+/* ── Top nav language selector ── */
+[data-testid="stSelectbox"] > div > div {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1.5px solid rgba(255,255,255,0.2) !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSelectbox"] svg { fill: white !important; }
+
+/* ── Sign out button in top nav ── */
+[data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) .stButton > button {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1.5px solid rgba(255,255,255,0.2) !important;
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 9px !important;
+    box-shadow: none !important;
+}
+[data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) .stButton > button:hover {
+    background: rgba(255,60,60,0.25) !important;
+    border-color: rgba(255,100,100,0.5) !important;
+}
+
+/* ── Selectbox dropdown list ── */
+[data-baseweb="popover"] ul {
+    background: #0D1F0B !important;
+    border: 1px solid rgba(255,179,0,0.3) !important;
+    border-radius: 10px !important;
+}
+[data-baseweb="popover"] li {
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+[data-baseweb="popover"] li:hover {
+    background: rgba(255,140,0,0.2) !important;
+}
+[data-baseweb="menu"] [role="option"][aria-selected="true"] {
+    background: rgba(255,140,0,0.3) !important;
+}
+
+/* ── Hide empty top spacer gap from column row ── */
+[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]:has([data-testid="stSelectbox"]) {
+    background: rgba(0,0,0,0.6) !important;
+    padding: 4px 20px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(255,179,0,0.15) !important;
+}
+
 /* ── Login Sign In / Forgot Password button text ── */
 .stButton > button {
     color: white !important;
@@ -504,55 +576,51 @@ if not st.session_state.logged_in:
         with tb1:
             if st.button(tx["sign_in"],key="tab_si",use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="login" else "secondary"):
-                st.session_state.auth_mode="login";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="login";st.session_state.forgot=False;st.rerun()
         with tb2:
             if st.button(tx["register"],key="tab_ca",use_container_width=True,
                 type="primary" if st.session_state.auth_mode=="register" else "secondary"):
-                st.session_state.auth_mode="register";st.session_state.otp_mode=False;st.session_state.forgot=False;st.rerun()
+                st.session_state.auth_mode="register";st.session_state.forgot=False;st.rerun()
 
         st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
         def lbl(t): st.markdown(f'<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,140,0,0.85);margin-bottom:6px;font-weight:600;">{t}</div>',unsafe_allow_html=True)
 
         if st.session_state.forgot:
-            lbl(tx["reset_pw"]);fph=st.text_input("_fph",placeholder=tx["phone_ph"],key="fp_ph",label_visibility="collapsed")
-            if not st.session_state.f_otp_sent:
-                if st.button(tx["send_otp"],key="fp_send",use_container_width=True):
-                    if fph and len(fph)==10 and fph.isdigit():
+            st.markdown(f'<div style="font-size:14px;color:#FFB300;font-weight:700;margin-bottom:16px;text-align:center;">🔐 {tx["reset_pw"]}</div>',unsafe_allow_html=True)
+            if not st.session_state.forgot_verified:
+                st.markdown('<div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:12px;">Enter your registered phone number and full name to verify identity.</div>',unsafe_allow_html=True)
+                lbl(tx["phone"])
+                fph=st.text_input("_fph",placeholder=tx["phone_ph"],key="fp_ph",label_visibility="collapsed")
+                lbl(tx["name"])
+                fnm=st.text_input("_fnm",placeholder=tx["name"],key="fp_nm",label_visibility="collapsed")
+                if st.button("Verify Identity",key="fp_verify",use_container_width=True):
+                    if fph and len(fph)==10 and fph.isdigit() and fnm.strip():
                         u=get_u(fph)
-                        if u:
-                            code=str(random.randint(100000,999999));st.session_state.f_code=code;st.session_state.f_otp_sent=True;st.session_state.otp_phone=fph
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
-                        else: st.error("No account found.")
-                    else: st.warning("Enter valid 10-digit number.")
-            elif not st.session_state.f_otp_ok:
-                lbl(tx["otp_ph"]);eo=st.text_input("_fov",placeholder=tx["otp_ph"],key="fp_ov",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="fp_ver",use_container_width=True):
-                    if eo==st.session_state.f_code: st.session_state.f_otp_ok=True;st.rerun()
-                    else: st.error("Incorrect OTP.")
+                        if u and u[0].strip().lower()==fnm.strip().lower():
+                            st.session_state.forgot_verified=True
+                            st.session_state.forgot_phone=fph
+                            st.rerun()
+                        else:
+                            st.error("Phone number and name do not match any account.")
+                    else:
+                        st.warning("Enter valid 10-digit phone number and your registered name.")
             else:
-                lbl(tx["new_pw"]);np_=st.text_input("_npw",placeholder=tx["new_pw"],type="password",key="fp_np",label_visibility="collapsed")
-                lbl(tx["conf_pw"]);cp_=st.text_input("_cpw",placeholder=tx["conf_pw"],type="password",key="fp_cp",label_visibility="collapsed")
+                st.markdown('<div style="font-size:12px;color:#4ade80;font-weight:600;margin-bottom:12px;text-align:center;">✅ Identity verified — Set your new password</div>',unsafe_allow_html=True)
+                lbl(tx["new_pw"])
+                np_=st.text_input("_npw",placeholder=tx["new_pw"],type="password",key="fp_np",label_visibility="collapsed")
+                lbl(tx["conf_pw"])
+                cp_=st.text_input("_cpw",placeholder=tx["conf_pw"],type="password",key="fp_cp",label_visibility="collapsed")
                 if st.button(tx["upd_pw"],key="fp_upd",use_container_width=True):
-                    if np_ and np_==cp_: upd_pw(st.session_state.otp_phone,np_);st.success("Updated!");st.session_state.forgot=False;st.session_state.f_otp_sent=False;st.session_state.f_otp_ok=False;st.session_state.f_code=None;st.rerun()
-                    else: st.error("Passwords do not match.")
-            if st.button(tx["back"],key="fp_back",use_container_width=True,type="secondary"): st.session_state.forgot=False;st.rerun()
-        elif st.session_state.auth_mode=="login" and st.session_state.otp_mode:
-            lbl(tx["phone"]);op=st.text_input("_op",placeholder=tx["phone_ph"],key="otp_ph_in",label_visibility="collapsed")
-            if not st.session_state.otp_sent:
-                if st.button(tx["send_otp"],key="s_otp",use_container_width=True):
-                    if op and len(op)==10 and op.isdigit():
-                        u=get_u(op)
-                        if u:
-                            code=str(random.randint(100000,999999));st.session_state.otp_code=code;st.session_state.otp_sent=True;st.session_state.otp_phone=op
-                            st.info(f"Demo OTP: **{code}**");st.rerun()
-                        else: st.error("No account found.")
-                    else: st.warning("Enter valid 10-digit number.")
-            else:
-                lbl(tx["otp_ph"]);eo=st.text_input("_eov",placeholder=tx["otp_ph"],key="otp_v",label_visibility="collapsed")
-                if st.button(tx["verify_otp"],key="v_otp",use_container_width=True):
-                    if eo==st.session_state.otp_code: u=get_u(st.session_state.otp_phone);st.session_state.logged_in=True;st.session_state.user=u;st.session_state.otp_sent=False;st.rerun()
-                    else: st.error("Incorrect OTP.")
-            if st.button(tx["use_pw"],key="use_pw_btn",use_container_width=True,type="secondary"): st.session_state.otp_mode=False;st.rerun()
+                    if np_ and len(np_)>=6 and np_==cp_:
+                        upd_pw(st.session_state.forgot_phone,np_)
+                        st.success("✅ Password updated successfully! Please sign in.")
+                        st.session_state.forgot=False;st.session_state.forgot_verified=False;st.session_state.forgot_phone=None;st.rerun()
+                    elif np_ and len(np_)<6:
+                        st.error("Password must be at least 6 characters.")
+                    else:
+                        st.error("Passwords do not match.")
+            if st.button(tx["back"],key="fp_back",use_container_width=True,type="secondary"):
+                st.session_state.forgot=False;st.session_state.forgot_verified=False;st.session_state.forgot_phone=None;st.rerun()
         elif st.session_state.auth_mode=="login":
             lbl(tx["phone"]);ph=st.text_input("_lph",placeholder=tx["phone_ph"],key="l_ph",label_visibility="collapsed")
             lbl(tx["password"]);pw=st.text_input("_lpw",placeholder=tx["pass_ph"],type="password",key="l_pw",label_visibility="collapsed")
@@ -560,24 +628,22 @@ if not st.session_state.logged_in:
             if st.button(tx["login_btn"],key="do_login",use_container_width=True):
                 if ph and pw:
                     u=login(ph,pw)
-                    if u: st.session_state.logged_in=True;st.session_state.user=u;st.rerun()
+                    if u: st.session_state.logged_in=True;st.session_state.user=u;st.session_state.just_logged_in=True;st.rerun()
                     else: st.error("Incorrect phone or password.")
                 else: st.warning("Fill all fields.")
             st.markdown('<div style="height:10px"></div>',unsafe_allow_html=True)
-            fa,oa=st.columns(2)
-            with fa:
-                if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"): st.session_state.forgot=True;st.rerun()
-            with oa:
-                if st.button(tx["otp_opt"],key="otp_sw",use_container_width=True,type="secondary"): st.session_state.otp_mode=True;st.rerun()
+            if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"):
+                st.session_state.forgot=True;st.rerun()
         else:
             for label,key_,ph_,is_pw in [(tx["name"],"r_nm","Full name",False),(tx["place"],"r_pl","Village, District",False),(tx["phone"],"r_ph",tx["phone_ph"],False),(tx["password"],"r_pw",tx["pass_ph"],True)]:
+                lbl(label)
                 lbl(label)
                 if is_pw: st.text_input(f"_{key_}",placeholder=ph_,key=key_,type="password",label_visibility="collapsed")
                 else: st.text_input(f"_{key_}",placeholder=ph_,key=key_,label_visibility="collapsed")
             if st.button(tx["reg_btn"],key="do_reg",use_container_width=True):
                 n=st.session_state.get("r_nm","");p=st.session_state.get("r_pl","");ph=st.session_state.get("r_ph","");pw=st.session_state.get("r_pw","")
                 if n and p and ph and pw:
-                    if reg(n,p,ph,pw): st.success("Account created! Sign in.");st.session_state.auth_mode="login";st.rerun()
+                    if reg(n,p,ph,pw): st.success("Account created! Sign in.");st.session_state.auth_mode="login";st.session_state.just_logged_in=False;st.rerun()
                     else: st.error("Phone already registered.")
                 else: st.warning("All fields required.")
         st.markdown("</div>",unsafe_allow_html=True)
@@ -603,25 +669,93 @@ def hav(la1,lo1,la2,lo2):
     return R*2*np.arcsin(np.sqrt(np.sin((la2-la1)/2)**2+np.cos(la1)*np.cos(la2)*np.sin((lo2-lo1)/2)**2))
 
 def dcols(df):
+    """Detect name/lat/lon columns. Village CSV: 'gram panchayat','latitude','longitude'."""
+    if df is None or df.empty: return None,None,None
     nm=la=lo=None
-    for c in df.columns:
-        cl=c.lower()
-        if "lat" in cl and la is None: la=c
-        if ("lon" in cl or "lng" in cl) and lo is None: lo=c
-        if any(x in cl for x in ["name","firm","facility","hub","market","place","panchayat","company","unit","mandal"]) and nm is None: nm=c
-    if nm is None and len(df.columns)>0: nm=df.columns[0]
+    cols=list(df.columns)
+    clower=[c.lower().strip() for c in cols]
+
+    # Latitude — exact match first, then partial
+    for pat in ["latitude","lat","village_lat","vlat","farm_lat"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and la is None: la=cols[i]
+    if la is None:
+        for i,cl in enumerate(clower):
+            if "lat" in cl and la is None: la=cols[i]
+
+    # Longitude — exact match first, then partial
+    for pat in ["longitude","lon","lng","village_lon","village_lng","vlon","farm_lon"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and lo is None: lo=cols[i]
+    if lo is None:
+        for pat in ["lon","lng","long"]:
+            for i,cl in enumerate(clower):
+                if pat in cl and lo is None: lo=cols[i]
+
+    # Name — prefer "gram panchayat" / "panchayat" / "village" over "mandal"
+    # Priority order: most specific first
+    for pat in ["gram panchayat","panchayat","village_name","village name",
+                "village","name","firm_name","firm","facility_name","facility",
+                "market_name","market name","market","hub","company","unit",
+                "place","location","area","town","city","taluk","hobli"]:
+        for i,cl in enumerate(clower):
+            if cl==pat and nm is None: nm=cols[i]
+    if nm is None:
+        for pat in ["panchayat","village","name","firm","facility","market",
+                    "hub","company","unit","place","location","area","town"]:
+            for i,cl in enumerate(clower):
+                if pat in cl and nm is None: nm=cols[i]
+    # Last resort: first non-lat/lon text column
+    if nm is None:
+        for c in cols:
+            if c not in [la,lo] and df[c].dtype==object:
+                nm=c; break
+    if nm is None and cols: nm=cols[0]
     return nm,la,lo
 
 def vlist():
-    nc,_,_=dcols(villages)
-    if nc and nc in villages.columns: return sorted(villages[nc].dropna().unique().tolist())
+    """Return all 686 Gram Panchayat names with Mandal context for display."""
+    if villages.empty: return ["Default Village"]
+    # Detect columns (lowercased by load_all)
+    cols = list(villages.columns)
+    clower = [c.lower().strip() for c in cols]
+    # Find gram panchayat column
+    gp_col = next((cols[i] for i,cl in enumerate(clower) if cl=="gram panchayat"), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "panchayat" in cl), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "village" in cl), None)
+    # Find mandal column for grouping display
+    mandal_col = next((cols[i] for i,cl in enumerate(clower) if cl=="mandal"), None)
+    if gp_col:
+        items = sorted(villages[gp_col].dropna().astype(str).str.strip().unique().tolist())
+        return items if items else ["Default Village"]
+    # Final fallback
+    for c in cols:
+        if villages[c].dtype==object:
+            items = sorted(villages[c].dropna().astype(str).unique().tolist())
+            if len(items)>2: return items
     return ["Default Village"]
 
 def vcoords(vn):
-    nc,lc,loc=dcols(villages)
-    if nc and lc and loc:
-        r=villages[villages[nc]==vn]
-        if not r.empty: return float(r.iloc[0][lc]),float(r.iloc[0][loc])
+    """Get lat/lon for a village by Gram Panchayat name."""
+    if villages.empty: return 15.9129,79.7400
+    cols = list(villages.columns)
+    clower = [c.lower().strip() for c in cols]
+    gp_col = next((cols[i] for i,cl in enumerate(clower) if cl=="gram panchayat"), None)
+    if gp_col is None:
+        gp_col = next((cols[i] for i,cl in enumerate(clower) if "panchayat" in cl), None)
+    lat_col = next((cols[i] for i,cl in enumerate(clower) if cl in ["latitude","lat"]), None)
+    if lat_col is None:
+        lat_col = next((cols[i] for i,cl in enumerate(clower) if "lat" in cl), None)
+    lon_col = next((cols[i] for i,cl in enumerate(clower) if cl in ["longitude","lon","lng"]), None)
+    if lon_col is None:
+        lon_col = next((cols[i] for i,cl in enumerate(clower) if "lon" in cl or "lng" in cl), None)
+    if gp_col and lat_col and lon_col:
+        r = villages[villages[gp_col].astype(str).str.strip()==str(vn).strip()]
+        if not r.empty:
+            try: return float(r.iloc[0][lat_col]), float(r.iloc[0][lon_col])
+            except: pass
     return 15.9129,79.7400
 
 def base_price(vlat,vlon):
@@ -643,6 +777,82 @@ def osm_route(lat1,lon1,lat2,lon2):
             return [(c[1],c[0]) for c in r["routes"][0]["geometry"]["coordinates"]]
     except: pass
     return [(lat1,lon1),(lat2,lon2)]
+
+# ══════════════════════════════════════════════════════════════
+# TRANSLITERATION: English place names → Indic scripts
+# ══════════════════════════════════════════════════════════════
+def _build_translit():
+    SCRIPTS = {
+        "Telugu": {
+            "C": {"bh":"భ","ch":"చ","dh":"ధ","gh":"ఘ","jh":"ఝ","kh":"ఖ","ph":"ఫ","sh":"శ","th":"థ","tr":"ట్ర",
+                  "b":"బ","c":"క","d":"డ","f":"ఫ","g":"గ","h":"హ","j":"జ","k":"క","l":"ల","m":"మ",
+                  "n":"న","p":"ప","r":"ర","s":"స","t":"త","v":"వ","w":"వ","y":"య","z":"జ"},
+            "V": {"aa":"ా","ai":"ై","au":"ౌ","ee":"ే","ii":"ీ","oo":"ో","uu":"ూ",
+                  "a":"","e":"ె","i":"ి","o":"ొ","u":"ు"},
+            "SV":{"aa":"ఆ","ai":"ఐ","au":"ఔ","ee":"ఏ","ii":"ఈ","oo":"ఓ","uu":"ఊ",
+                  "a":"అ","e":"ఎ","i":"ఇ","o":"ఒ","u":"ఉ"},
+            "VIR":"్"},
+        "Hindi": {
+            "C": {"bh":"भ","ch":"च","dh":"ध","gh":"घ","jh":"झ","kh":"ख","ph":"फ","sh":"श","th":"थ","tr":"ट्र",
+                  "b":"ब","c":"क","d":"ड","f":"फ","g":"ग","h":"ह","j":"ज","k":"क","l":"ल","m":"म",
+                  "n":"न","p":"प","r":"र","s":"स","t":"त","v":"व","w":"व","y":"य","z":"ज"},
+            "V": {"aa":"ा","ai":"ै","au":"ौ","ee":"ी","ii":"ी","oo":"ू","uu":"ू",
+                  "a":"","e":"े","i":"ि","o":"ो","u":"ु"},
+            "SV":{"aa":"आ","ai":"ऐ","au":"औ","ee":"ई","ii":"ई","oo":"ऊ","uu":"ऊ",
+                  "a":"अ","e":"ए","i":"इ","o":"ओ","u":"उ"},
+            "VIR":"्"},
+        "Kannada": {
+            "C": {"bh":"ಭ","ch":"ಚ","dh":"ಧ","gh":"ಘ","jh":"ಝ","kh":"ಖ","ph":"ಫ","sh":"ಶ","th":"ಥ","tr":"ಟ್ರ",
+                  "b":"ಬ","c":"ಕ","d":"ಡ","f":"ಫ","g":"ಗ","h":"ಹ","j":"ಜ","k":"ಕ","l":"ಲ","m":"ಮ",
+                  "n":"ನ","p":"ಪ","r":"ರ","s":"ಸ","t":"ತ","v":"ವ","w":"ವ","y":"ಯ","z":"ಜ"},
+            "V": {"aa":"ಾ","ai":"ೈ","au":"ೌ","ee":"ೇ","ii":"ೀ","oo":"ೋ","uu":"ೂ",
+                  "a":"","e":"ೆ","i":"ಿ","o":"ೊ","u":"ು"},
+            "SV":{"aa":"ಆ","ai":"ಐ","au":"ಔ","ee":"ಏ","ii":"ಈ","oo":"ಓ","uu":"ಊ",
+                  "a":"ಅ","e":"ಎ","i":"ಇ","o":"ಒ","u":"ಉ"},
+            "VIR":"್"},
+    }
+    return SCRIPTS
+
+_TRANSLIT_SCRIPTS = _build_translit()
+
+def transliterate_place(name, lang):
+    if lang == "English" or lang not in _TRANSLIT_SCRIPTS:
+        return name
+    sc = _TRANSLIT_SCRIPTS[lang]
+    C, V, SV, VIR = sc["C"], sc["V"], sc["SV"], sc["VIR"]
+    cons_keys = sorted(C.keys(), key=len, reverse=True)
+    vowel_keys = sorted(V.keys(), key=len, reverse=True)
+    def _word(w):
+        res = ""; i = 0; wl = w.lower()
+        while i < len(wl):
+            if not wl[i].isalpha():
+                res += wl[i]; i += 1; continue
+            con = next(((ck, C[ck]) for ck in cons_keys if wl[i:i+len(ck)] == ck), None)
+            if con:
+                ck, cs = con; j = i + len(ck)
+                vow = next(((vk, V[vk]) for vk in vowel_keys if wl[j:j+len(vk)] == vk), None)
+                if vow:
+                    res += cs + vow[1]; i = j + len(vow[0])
+                else:
+                    res += cs + VIR; i = j
+            else:
+                vow = next(((vk, SV[vk]) for vk in vowel_keys if wl[i:i+len(vk)] == vk), None)
+                if vow:
+                    res += vow[1]; i += len(vow[0])
+                else:
+                    res += w[i]; i += 1
+        return res
+    parts = name.split()
+    out = []
+    for p in parts:
+        if p.isupper() and len(p) <= 5:
+            out.append(p)  # keep APMC, FPC, FPO etc
+        elif not any(c.isalpha() for c in p):
+            out.append(p)
+        else:
+            out.append(_word(p))
+    return " ".join(out)
+
 
 def analyse(vlat,vlon,variety,tonnes):
     VACC={"Mandi":["Banganapalli","Totapuri","Neelam","Rasalu"],"Processing":["Totapuri","Neelam"],
@@ -693,8 +903,40 @@ lang=st.session_state.get("lang","English");tx=T[lang]
 fname=st.session_state.user[0];fplace=st.session_state.user[1]
 vl=vlist()
 
+# ══ VOICE: Welcome message on login ══
+_LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN"}
+_welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
+_welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
+_lc = _LANG_CODES.get(lang,"en-IN")
+if st.session_state.get("just_logged_in", False):
+    st.markdown(f"""<script>
+(function(){{
+    function speak(){{
+        if(!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        var u=new SpeechSynthesisUtterance("{_welcome_short}");
+        u.lang="{_lc}"; u.rate=0.88; u.pitch=1.05; u.volume=1.0;
+        var vv=window.speechSynthesis.getVoices();
+        var mv=vv.find(v=>v.lang.startsWith("{_lc.split('-')[0]}"));
+        if(mv) u.voice=mv;
+        window.speechSynthesis.speak(u);
+    }}
+    if(window.speechSynthesis.getVoices().length>0){{ speak(); }}
+    else {{ window.speechSynthesis.onvoiceschanged=speak; setTimeout(speak,1000); }}
+}})();
+</script>""", unsafe_allow_html=True)
+    st.session_state.just_logged_in = False
+
 # ══ SIDEBAR — clean, no expanders ══
 with st.sidebar:
+    # ── DEBUG: show detected columns (remove after confirming data works) ──
+    with st.expander("🔧 Data Debug Info", expanded=False):
+        st.markdown(f"""**Village CSV columns:** `{list(villages.columns)}`
+**Total villages loaded:** {len(vl)}
+**Sample villages:** {vl[:5] if vl else 'none'}
+**Villages df shape:** {villages.shape}""")
+        if not villages.empty:
+            st.dataframe(villages.head(5))
     # Logo
     st.markdown(f"""
     <div style="padding:24px 16px 16px;border-bottom:1px solid rgba(255,140,0,0.15);">
@@ -741,11 +983,30 @@ with st.sidebar:
         </div>
     </div>""",unsafe_allow_html=True)
 
-    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin-bottom:4px;">{tx["village_sel"].upper()}</div>',unsafe_allow_html=True)
-    sel_village=st.selectbox("__v",vl,key="sel_v",label_visibility="collapsed")
+    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin-bottom:4px;">MANDAL</div>',unsafe_allow_html=True)
+    # Build mandal list from village data
+    _mandal_col = next((c for c in villages.columns if c.lower().strip()=="mandal"), None)
+    _gp_col = next((c for c in villages.columns if c.lower().strip()=="gram panchayat"), None)
+    if _mandal_col and _gp_col:
+        _mandals = ["-- All Mandals --"] + sorted(villages[_mandal_col].dropna().astype(str).str.strip().unique().tolist())
+        _sel_mandal = st.selectbox("__mandal", _mandals, key="sel_mandal", label_visibility="collapsed")
+        if _sel_mandal == "-- All Mandals --":
+            _filtered_vl = vl
+        else:
+            _filtered_vl = sorted(villages[villages[_mandal_col].astype(str).str.strip()==_sel_mandal][_gp_col].dropna().astype(str).str.strip().unique().tolist())
+    else:
+        _filtered_vl = vl
+    st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:8px 0 4px;">{tx["village_sel"].upper()}</div>',unsafe_allow_html=True)
+    sel_village=st.selectbox("__v", _filtered_vl if _filtered_vl else vl, key="sel_v", label_visibility="collapsed")
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["variety_lbl"].upper()}</div>',unsafe_allow_html=True)
-    sel_variety=st.selectbox("__var",["Banganapalli","Totapuri","Neelam","Rasalu"],key="sel_var",label_visibility="collapsed")
+    _vnames = tx.get("variety_names", {"Banganapalli":"Banganapalli","Totapuri":"Totapuri","Neelam":"Neelam","Rasalu":"Rasalu"})
+    _vkeys = ["Banganapalli","Totapuri","Neelam","Rasalu"]
+    _vlabels = [_vnames[v] for v in _vkeys]
+    _vdefault = _vkeys.index(st.session_state.get("last_variety","Banganapalli"))
+    _vsel_idx = st.selectbox("__var", range(len(_vkeys)), index=_vdefault,
+        format_func=lambda i: _vlabels[i], key="sel_var", label_visibility="collapsed")
+    sel_variety = _vkeys[_vsel_idx]
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["qty_lbl"].upper()}</div>',unsafe_allow_html=True)
     sel_tonnes=st.number_input("__t",min_value=0.5,value=10.0,step=0.5,key="sel_t",label_visibility="collapsed")
@@ -812,25 +1073,26 @@ divider = '<div style="width:2px;height:52px;background:rgba(255,255,255,0.25);f
 
 st.markdown(
     '<div style="background:rgba(0,0,0,0.82);padding:14px 28px 18px;display:flex;align-items:center;gap:10px;">' +
-    _price_tile("BANGANAPALLI", "₹28", "+2.1%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Banganapalli","Banganapalli").upper(), "₹28", "+2.1%", True) +
     divider +
-    _price_tile("TOTAPURI", "₹18", "-0.8%", False) +
+    _price_tile(tx.get("variety_names",{}).get("Totapuri","Totapuri").upper(), "₹18", "-0.8%", False) +
     divider +
-    _price_tile("NEELAM", "₹22", "+1.4%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Neelam","Neelam").upper(), "₹22", "+1.4%", True) +
     divider +
-    _price_tile("RASALU", "₹30", "+3.2%", True) +
+    _price_tile(tx.get("variety_names",{}).get("Rasalu","Rasalu").upper(), "₹30", "+3.2%", True) +
     '</div>',
     unsafe_allow_html=True)
 
-# Language + Sign out in a row just below top bar
-tc1,tc2,tc3=st.columns([1,4,1])
-with tc1:
-    sl2=st.selectbox(tx["select_lang"],["English","Telugu","Hindi","Kannada"],
-                     index=["English","Telugu","Hindi","Kannada"].index(lang),
-                     key="lang_top",label_visibility="collapsed")
-    if sl2!=lang: st.session_state.lang=sl2;st.rerun()
-with tc3:
-    if st.button(f"↩ {tx['logout']}",key="signout_top",use_container_width=True):
+# Language + Sign out — compact row, styled to match the dark bar
+_c1, _c2, _c3, _c4 = st.columns([3, 1, 1, 1])
+with _c3:
+    sl2 = st.selectbox("", ["English","Telugu","Hindi","Kannada"],
+                       index=["English","Telugu","Hindi","Kannada"].index(lang),
+                       key="lang_top", label_visibility="collapsed")
+    if sl2 != lang:
+        st.session_state.lang = sl2; st.rerun()
+with _c4:
+    if st.button(f"↩ {tx['logout']}", key="signout_top", use_container_width=True):
         for k in list(st.session_state.keys()): del st.session_state[k]
         st.rerun()
 
@@ -858,7 +1120,7 @@ if not st.session_state.get("run",False):
     st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">{tx["platform_overview"]}</div>',unsafe_allow_html=True)
     sc1,sc2,sc3,sc4=st.columns(4)
     for col,icon,lbl,val,bdr,sub in [
-        (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00","Banganapalli · Totapuri · Neelam · Rasalu"),
+        (sc1,"🥭",tx["varieties_lbl"],"4","#FF8C00"," · ".join([tx.get("variety_names",{}).get(v,v) for v in ["Banganapalli","Totapuri","Neelam","Rasalu"]])),
         (sc2,"🏪",tx["markets_lbl"],"8","#2E7D32","Mandi · Export · Pulp · FPO · Cold"),
         (sc3,"📍",tx["districts_lbl"],"120+","#1565C0","AP · Telangana · Karnataka"),
         (sc4,"🤖",tx["engine_lbl"],"AI","#FF8C00","Risk-adjusted · Profit-ranked"),
@@ -881,6 +1143,11 @@ else:
     if df_res.empty:
         st.markdown(f'<div style="background:rgba(0,0,0,0.82);border:1.5px solid #FF8C00;border-radius:12px;padding:20px 24px;color:#FFD700;font-size:15px;font-weight:600;text-align:center;backdrop-filter:blur(12px);">⚠️ {{tx["no_results"]}}</div>',unsafe_allow_html=True)
     else:
+        # Translate category names + transliterate place names
+        _cnames = tx.get("cat_names", {})
+        df_res["Type_orig"] = df_res["Type"]
+        df_res["Type"] = df_res["Type"].map(lambda x: _cnames.get(x, x))
+        df_res["Name"] = df_res["Name"].map(lambda x: transliterate_place(str(x), lang))
         top3=df_res.head(3)
         bn=int(top3.iloc[0]["Net_Profit"])
         bd=top3.iloc[0]["Name"]
@@ -910,6 +1177,58 @@ else:
                 </div>""",unsafe_allow_html=True)
 
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
+
+        # ══ VOICE ANNOUNCEMENT — speaks best market result ══
+        _lc2 = _LANG_CODES.get(lang, "en-IN")
+        _profit_fmt = f"{bn:,}"
+        _dist_fmt = str(nearest)
+        # Build the speech text in selected language
+        _voice_tmpl = tx.get("voice_welcome", "Welcome {name}! Your best market is {market}, {dist} km away. Profit is Rupees {profit}.")
+        _speech_text = (_voice_tmpl
+            .replace("{name}", fname)
+            .replace("{market}", top3.iloc[0]["Name"])
+            .replace("{dist}", _dist_fmt)
+            .replace("{profit}", _profit_fmt)
+        )
+        # Escape for JS string
+        _speech_js = _speech_text.replace("\n", " ").replace("'", " ").replace('"', " ")
+        # Auto-speak the result
+        st.markdown(f"""<script>
+(function(){{
+    function speakResult(){{
+        if(!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        var u=new SpeechSynthesisUtterance("{_speech_js}");
+        u.lang="{_lc2}"; u.rate=0.85; u.pitch=1.0; u.volume=1.0;
+        var vv=window.speechSynthesis.getVoices();
+        var mv=vv.find(v=>v.lang.startsWith("{_lc2.split('-')[0]}"));
+        if(mv) u.voice=mv;
+        window.speechSynthesis.speak(u);
+    }}
+    if(window.speechSynthesis.getVoices().length>0){{ speakResult(); }}
+    else {{ window.speechSynthesis.onvoiceschanged=speakResult; setTimeout(speakResult,1200); }}
+    window._mangoSpeak = speakResult;
+}})();
+</script>""", unsafe_allow_html=True)
+
+        # ── Speak button — farmer can replay anytime ──
+        _voice_btn_lbl = tx.get("voice_btn", "🔊 Hear Results")
+        _replay_label = tx.get("voice_btn", "🔊 Hear Results")
+        st.markdown(f"""
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
+            <button onclick="if(window._mangoSpeak)window._mangoSpeak();else window.speechSynthesis&&window.speechSynthesis.speak(new SpeechSynthesisUtterance('{_speech_js}'));"
+                style="background:linear-gradient(135deg,#FF8C00,#E65100);color:white;border:none;
+                border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;
+                box-shadow:0 4px 16px rgba(255,140,0,0.4);letter-spacing:0.5px;">
+                {_replay_label}
+            </button>
+            <button onclick="window.speechSynthesis&&window.speechSynthesis.cancel();"
+                style="background:rgba(255,255,255,0.12);color:white;border:1.5px solid rgba(255,255,255,0.3);
+                border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;">
+                ⏹ Stop
+            </button>
+            <span style="font-size:12px;color:rgba(255,255,255,0.6);">🔊 Auto-reading your results</span>
+        </div>""", unsafe_allow_html=True)
 
         # TOP 3
         st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
@@ -995,7 +1314,7 @@ else:
             fig2.update_layout(
                 template="plotly_white",height=210,margin=dict(l=8,r=8,t=4,b=4),
                 legend=dict(font=dict(size=10,family="Inter"),orientation="v",x=1.0,y=0.5),
-                annotations=[dict(text=f"<b>{rvar}</b>",x=0.5,y=0.5,font=dict(size=12,color="#1B5E20"),showarrow=False)],
+                annotations=[dict(text=f"<b>{tx.get('variety_names',{}).get(rvar,rvar)}</b>",x=0.5,y=0.5,font=dict(size=12,color="#1B5E20"),showarrow=False)],
                 paper_bgcolor="white",
                 hoverlabel=dict(bgcolor="#1B5E20",bordercolor="#FF8C00",font=dict(color="white")),
             )
