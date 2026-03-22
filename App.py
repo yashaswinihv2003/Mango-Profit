@@ -216,13 +216,26 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 
 /* ── APP BACKGROUND: real mango orchard photo ── */
 .stApp{
-    background-image:
-        url('https://source.unsplash.com/1920x1080/?mango,orchard,harvest') !important;
+    background-image: linear-gradient(
+        160deg,
+        #0D2B0A 0%,
+        #1A4D0F 15%,
+        #2D7A1A 28%,
+        #3D9421 35%,
+        #F5A623 42%,
+        #E8920F 48%,
+        #F5A623 54%,
+        #3D9421 62%,
+        #2D7A1A 75%,
+        #1A4D0F 88%,
+        #0D2B0A 100%
+    ) !important;
     background-size: cover !important;
     background-position: center top !important;
     background-attachment: fixed !important;
     min-height: 100vh !important;
 }
+/* JS will override with real mango image */
 
 /* ── SIDEBAR ── */
 [data-testid="stSidebar"]{
@@ -327,12 +340,11 @@ if not st.session_state.logged_in:
     .main .block-container{padding-top:0!important;}
     /* Login page: original green farm fields background */
     .stApp {
-        background-image:
-            linear-gradient(rgba(5,22,8,0.72), rgba(5,22,8,0.72)),
-            url('https://source.unsplash.com/1920x1080/?farm,field,agriculture,sunset') !important;
-        background-size:cover !important;
-        background-position:center !important;
-        background-attachment:fixed !important;
+        background: linear-gradient(
+            135deg,
+            #051A03 0%, #0A3006 20%, #1A5C0A 40%,
+            #2D8A12 55%, #1A5C0A 70%, #0A3006 85%, #051A03 100%
+        ) !important;
     }
     .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.2)!important;color:white!important;border-radius:8px!important;}
     .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
@@ -642,6 +654,38 @@ with st.sidebar:
 # ══════════════════════════════════════════════════════════════
 # MAIN AREA
 # ══════════════════════════════════════════════════════════════
+
+# JavaScript background image loader — runs in user's browser, bypasses server restrictions
+st.markdown("""
+<script>
+(function setBg() {
+    var imgs = [
+        'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=1920&q=80&auto=format',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.jpg/1280px-Hapus_Mango.jpg'
+    ];
+    var tried = 0;
+    function tryImg(i) {
+        var img = new window.parent.Image();
+        img.onload = function() {
+            var app = window.parent.document.querySelector('.stApp');
+            if (app) {
+                app.style.backgroundImage = "url('" + imgs[i] + "')";
+                app.style.backgroundSize = 'cover';
+                app.style.backgroundPosition = 'center top';
+                app.style.backgroundAttachment = 'fixed';
+            }
+        };
+        img.onerror = function() {
+            if (i + 1 < imgs.length) tryImg(i + 1);
+        };
+        img.src = imgs[i];
+    }
+    setTimeout(function(){ tryImg(0); }, 200);
+    setTimeout(function(){ tryImg(0); }, 1000);
+})();
+</script>
+""", unsafe_allow_html=True)
+
 rv=st.session_state.get("last_village",sel_village)
 rvar=st.session_state.get("last_variety",sel_variety)
 rt=st.session_state.get("last_tonnes",sel_tonnes)
