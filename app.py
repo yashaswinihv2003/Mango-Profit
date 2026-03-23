@@ -641,7 +641,7 @@ if not st.session_state.logged_in:
                 st.session_state.auth_mode="register";st.session_state.forgot=False;st.rerun()
 
         st.markdown('<div style="height:20px"></div>',unsafe_allow_html=True)
-        def lbl(t): st.markdown(f'<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,140,0,0.85);margin-bottom:6px;font-weight:600;">{t}</div>',unsafe_allow_html=True)
+        def lbl(t): st.markdown(f'<div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#FF8C00;margin-bottom:6px;font-weight:800;padding:2px 0;background:rgba(0,0,0,0.6);border-left:3px solid #FF8C00;padding-left:8px;border-radius:2px;">{t}</div>',unsafe_allow_html=True)
 
         if st.session_state.forgot:
             st.markdown(f'<div style="font-size:14px;color:#FFB300;font-weight:700;margin-bottom:16px;text-align:center;">🔐 {tx["reset_pw"]}</div>',unsafe_allow_html=True)
