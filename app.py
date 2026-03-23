@@ -64,6 +64,7 @@ T = {
         "map_legend":"🏠 Farm &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ Best market (gold)</b> &nbsp;|&nbsp; Real road routes",
         "loading_routes":"Loading routes...",
         "mangonav_tag":"🥭 MANGONAV PLATFORM",
+        "nav_btn":"📍 View in Google Maps",
     },
     "Telugu": {
         "title":"MangoNav","tagline":"వ్యవసాయ తంత్రజ్ఞాన వేదిక",
@@ -114,6 +115,7 @@ T = {
         "map_legend":"🏠 పొలం &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ ఉత్తమ మార్కెట్ (బంగారు)</b> &nbsp;|&nbsp; నిజమైన రహదారి మార్గాలు",
         "loading_routes":"మార్గాలు లోడ్ అవుతున్నాయి...",
         "mangonav_tag":"🥭 మాంగోనావ్ ప్లాట్‌ఫామ్",
+        "nav_btn":"📍 గూగుల్ మ్యాప్‌లో చూడండి",
     },
     "Hindi": {
         "title":"MangoNav","tagline":"कृषि तकनीक मंच",
@@ -164,6 +166,7 @@ T = {
         "map_legend":"🏠 खेत &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ सर्वोत्तम बाज़ार (सोना)</b> &nbsp;|&nbsp; वास्तविक सड़क मार्ग",
         "loading_routes":"मार्ग लोड हो रहे हैं...",
         "mangonav_tag":"🥭 मैंगोनाव प्लेटफॉर्म",
+        "nav_btn":"📍 Google Maps में देखें",
     },
     "Kannada": {
         "title":"MangoNav","tagline":"ಕೃಷಿ ತಂತ್ರಜ್ಞಾನ ವೇದಿಕೆ",
@@ -214,6 +217,7 @@ T = {
         "map_legend":"🏠 ಹೊಲ &nbsp;|&nbsp; <b style='color:#FF8C00;'>★ ಉತ್ತಮ ಮಾರುಕಟ್ಟೆ (ಚಿನ್ನ)</b> &nbsp;|&nbsp; ನಿಜವಾದ ರಸ್ತೆ ಮಾರ್ಗಗಳು",
         "loading_routes":"ಮಾರ್ಗಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
         "mangonav_tag":"🥭 ಮ್ಯಾಂಗೋನಾವ್ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್",
+        "nav_btn":"📍 Google Maps ನಲ್ಲಿ ವೀಕ್ಷಿಸಿ",
     },
 }
 
@@ -1464,38 +1468,14 @@ else:
             f'<div><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
             f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">{tx["map_legend"]}</div></div>'
             f'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-bottom:6px;">'
-            f'<button onclick="openGoogleMapsGPS(\'{_gmap_dest_lat}\',\'{_gmap_dest_lon}\',\'{_gmap_current}\',\'{_gmap_fallback}\')" '
+            f'<a href="{_gmap_current}" target="_blank" rel="noopener noreferrer" '
             f'style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1a73e8,#0d47a1);'
             f'color:white;border:none;cursor:pointer;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;'
-            f'box-shadow:0 4px 16px rgba(26,115,232,0.4);white-space:nowrap;font-family:Inter,sans-serif;">'
-            f'📍 Navigate to Best Market</button>'
+            f'box-shadow:0 4px 16px rgba(26,115,232,0.4);white-space:nowrap;font-family:Inter,sans-serif;text-decoration:none;">'
+            f'{tx["nav_btn"]}</a>'
             f'<span style="font-size:10px;color:#6B7280;">Opens Google Maps from your current location</span>'
             f'</div></div></div>',unsafe_allow_html=True)
 
-        # JS function for GPS-based Google Maps navigation
-        st.markdown(f"""
-        <script>
-        function openGoogleMapsGPS(destLat, destLon, currentLocUrl, fallbackUrl) {{
-            if (navigator.geolocation) {{
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) {{
-                        var lat = pos.coords.latitude.toFixed(6);
-                        var lon = pos.coords.longitude.toFixed(6);
-                        var url = "https://www.google.com/maps/dir/" + lat + "," + lon + "/" + destLat + "," + destLon + "/";
-                        window.open(url, "_blank");
-                    }},
-                    function(err) {{
-                        // GPS denied or failed — use "Current+Location" magic keyword (Google handles it)
-                        window.open(currentLocUrl, "_blank");
-                    }},
-                    {{ enableHighAccuracy: true, timeout: 6000, maximumAge: 0 }}
-                );
-            }} else {{
-                window.open(currentLocUrl, "_blank");
-            }}
-        }}
-        </script>
-        """, unsafe_allow_html=True)
         with st.spinner(tx["loading_routes"]):
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
             folium.Marker([vlat,vlon],
