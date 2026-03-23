@@ -989,14 +989,6 @@ if st.session_state.get("just_logged_in", False):
 
 # ══ SIDEBAR — clean, no expanders ══
 with st.sidebar:
-    # ── DEBUG: show detected columns (remove after confirming data works) ──
-    with st.expander("🔧 Data Debug Info", expanded=False):
-        st.markdown(f"""**Village CSV columns:** `{list(villages.columns)}`
-**Total villages loaded:** {len(vl)}
-**Sample villages:** {vl[:5] if vl else 'none'}
-**Villages df shape:** {villages.shape}""")
-        if not villages.empty:
-            st.dataframe(villages.head(5))
     # Logo
     st.markdown(f"""
     <div style="padding:24px 16px 16px;border-bottom:1px solid rgba(255,140,0,0.15);">
@@ -1048,16 +1040,23 @@ with st.sidebar:
     _mandal_col = next((c for c in villages.columns if c.lower().strip()=="mandal"), None)
     _gp_col = next((c for c in villages.columns if c.lower().strip()=="gram panchayat"), None)
     if _mandal_col and _gp_col:
-        _mandals = ["-- All Mandals --"] + sorted(villages[_mandal_col].dropna().astype(str).str.strip().unique().tolist())
-        _sel_mandal = st.selectbox("__mandal", _mandals, key="sel_mandal", label_visibility="collapsed")
-        if _sel_mandal == "-- All Mandals --":
+        _mandals_en = sorted(villages[_mandal_col].dropna().astype(str).str.strip().unique().tolist())
+        _mandals_display = ["-- All Mandals --"] + [transliterate_place(m, lang) for m in _mandals_en]
+        _mandals_map = {transliterate_place(m, lang): m for m in _mandals_en}
+        _sel_mandal_display = st.selectbox("__mandal", _mandals_display, key="sel_mandal", label_visibility="collapsed")
+        _sel_mandal = _mandals_map.get(_sel_mandal_display, _sel_mandal_display)
+        if _sel_mandal_display == "-- All Mandals --":
             _filtered_vl = vl
         else:
             _filtered_vl = sorted(villages[villages[_mandal_col].astype(str).str.strip()==_sel_mandal][_gp_col].dropna().astype(str).str.strip().unique().tolist())
     else:
         _filtered_vl = vl
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:8px 0 4px;">{tx["village_sel"].upper()}</div>',unsafe_allow_html=True)
-    sel_village=st.selectbox("__v", _filtered_vl if _filtered_vl else vl, key="sel_v", label_visibility="collapsed")
+    _display_vl = _filtered_vl if _filtered_vl else vl
+    _translit_vl = [transliterate_place(v, lang) for v in _display_vl]
+    _vl_map = {transliterate_place(v, lang): v for v in _display_vl}  # display → English key
+    _sel_display = st.selectbox("__v", _translit_vl, key="sel_v", label_visibility="collapsed")
+    sel_village = _vl_map.get(_sel_display, _sel_display)
 
     st.markdown(f'<div style="font-size:10px;color:rgba(129,199,132,0.65);letter-spacing:0.8px;margin:10px 0 4px;">{tx["variety_lbl"].upper()}</div>',unsafe_allow_html=True)
     _vnames = tx.get("variety_names", {"Banganapalli":"Banganapalli","Totapuri":"Totapuri","Neelam":"Neelam","Rasalu":"Rasalu"})
