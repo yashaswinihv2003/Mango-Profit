@@ -399,12 +399,11 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
 /* ── SPINNER text fix ── */
 [data-testid="stSpinner"] p { color:white!important; text-shadow: 0 2px 8px rgba(0,0,0,0.9)!important; }
 
-/* ── Hide stray zero-height component iframes (keyboard_doub artifact above sidebar) ── */
+/* ── Hide stray zero-height component wrappers ── */
 [data-testid="stCustomComponentV1"][height="0"],
 [data-testid="stCustomComponentV1"][height="1"] {
     position:absolute!important; top:-9999px!important; left:-9999px!important;
-    width:0!important; height:0!important; overflow:hidden!important;
-    pointer-events:none!important;
+    width:0!important; overflow:hidden!important; pointer-events:none!important;
 }
 
 /* ── WARNING / INFO / ERROR boxes ── */
@@ -519,6 +518,43 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
     color: rgba(255,255,255,0.75) !important;
 }
 </style>
+""", unsafe_allow_html=True)
+
+# ── JS: Remove "keyboard_double" ghost label from DOM permanently ──
+st.markdown("""
+<script>
+(function() {
+    function removeKeyboardGhost() {
+        // Walk all text nodes in the document and remove any containing "keyboard_"
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var nodes = [];
+        while (walker.nextNode()) {
+            if (walker.currentNode.nodeValue && walker.currentNode.nodeValue.trim().startsWith("keyboard_")) {
+                nodes.push(walker.currentNode);
+            }
+        }
+        nodes.forEach(function(n) {
+            // Hide the closest block-level parent
+            var p = n.parentElement;
+            while (p && p !== document.body) {
+                var style = window.getComputedStyle(p);
+                if (style.display !== "inline") {
+                    p.style.setProperty("display", "none", "important");
+                    p.style.setProperty("height", "0", "important");
+                    p.style.setProperty("overflow", "hidden", "important");
+                    break;
+                }
+                p = p.parentElement;
+            }
+            n.nodeValue = "";
+        });
+    }
+    // Run immediately and on every DOM mutation
+    removeKeyboardGhost();
+    var obs = new MutationObserver(removeKeyboardGhost);
+    obs.observe(document.body, { childList: true, subtree: true, characterData: true });
+})();
+</script>
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
@@ -1417,21 +1453,49 @@ else:
         _gmap_dest_lon = br["Lon"]
         _gmap_orig_lat = vlat
         _gmap_orig_lon = vlon
-        _gmap_url = f"https://www.google.com/maps/dir/{_gmap_orig_lat},{_gmap_orig_lon}/{_gmap_dest_lat},{_gmap_dest_lon}/"
         _gmap_dest_name = br["Name"]
+        # Fallback URL using farm coords (used if GPS denied)
+        _gmap_fallback = f"https://www.google.com/maps/dir/{_gmap_orig_lat},{_gmap_orig_lon}/{_gmap_dest_lat},{_gmap_dest_lon}/"
+        # Direct "current location → dest" URL (Google Maps handles current location natively)
+        _gmap_current = f"https://www.google.com/maps/dir/Current+Location/{_gmap_dest_lat},{_gmap_dest_lon}/"
 
         st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 4px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;">'
             f'<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">'
             f'<div><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
             f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">{tx["map_legend"]}</div></div>'
-            f'<a href="{_gmap_url}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;'
-            f'background:linear-gradient(135deg,#1a73e8,#0d47a1);color:white;text-decoration:none;'
-            f'padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;'
-            f'box-shadow:0 4px 16px rgba(26,115,232,0.4);white-space:nowrap;margin-bottom:6px;">'
-            f'<img src="https://maps.gstatic.com/mapfiles/maps_lite/images/1x/ic_logo_googlemaps_color_48dp.png" '
-            f'style="width:20px;height:20px;border-radius:3px;" onerror="this.style.display=\'none\'">'
-            f'🗺️ Open in Google Maps</a>'
-            f'</div></div>',unsafe_allow_html=True)
+            f'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-bottom:6px;">'
+            f'<button onclick="openGoogleMapsGPS(\'{_gmap_dest_lat}\',\'{_gmap_dest_lon}\',\'{_gmap_current}\',\'{_gmap_fallback}\')" '
+            f'style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1a73e8,#0d47a1);'
+            f'color:white;border:none;cursor:pointer;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;'
+            f'box-shadow:0 4px 16px rgba(26,115,232,0.4);white-space:nowrap;font-family:Inter,sans-serif;">'
+            f'📍 Navigate to Best Market</button>'
+            f'<span style="font-size:10px;color:#6B7280;">Opens Google Maps from your current location</span>'
+            f'</div></div></div>',unsafe_allow_html=True)
+
+        # JS function for GPS-based Google Maps navigation
+        st.markdown(f"""
+        <script>
+        function openGoogleMapsGPS(destLat, destLon, currentLocUrl, fallbackUrl) {{
+            if (navigator.geolocation) {{
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {{
+                        var lat = pos.coords.latitude.toFixed(6);
+                        var lon = pos.coords.longitude.toFixed(6);
+                        var url = "https://www.google.com/maps/dir/" + lat + "," + lon + "/" + destLat + "," + destLon + "/";
+                        window.open(url, "_blank");
+                    }},
+                    function(err) {{
+                        // GPS denied or failed — use "Current+Location" magic keyword (Google handles it)
+                        window.open(currentLocUrl, "_blank");
+                    }},
+                    {{ enableHighAccuracy: true, timeout: 6000, maximumAge: 0 }}
+                );
+            }} else {{
+                window.open(currentLocUrl, "_blank");
+            }}
+        }}
+        </script>
+        """, unsafe_allow_html=True)
         with st.spinner(tx["loading_routes"]):
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
             folium.Marker([vlat,vlon],
