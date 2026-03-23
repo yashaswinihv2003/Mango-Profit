@@ -399,6 +399,14 @@ h1 a, h2 a, h3 a, [data-testid="stMarkdownContainer"] h1 a { display:none!import
 /* ── SPINNER text fix ── */
 [data-testid="stSpinner"] p { color:white!important; text-shadow: 0 2px 8px rgba(0,0,0,0.9)!important; }
 
+/* ── Hide stray zero-height component iframes (keyboard_doub artifact above sidebar) ── */
+[data-testid="stCustomComponentV1"][height="0"],
+[data-testid="stCustomComponentV1"][height="1"] {
+    position:absolute!important; top:-9999px!important; left:-9999px!important;
+    width:0!important; height:0!important; overflow:hidden!important;
+    pointer-events:none!important;
+}
+
 /* ── WARNING / INFO / ERROR boxes ── */
 [data-testid="stAlert"] { backdrop-filter:blur(8px)!important; }
 
@@ -825,6 +833,7 @@ def base_price(vlat,vlon):
     except: pass
     return 25.0
 
+@st.cache_data(ttl=3600, show_spinner=False)
 def osm_route(lat1,lon1,lat2,lon2):
     try:
         r=requests.get(f"http://router.project-osrm.org/route/v1/driving/{lon1},{lat1};{lon2},{lat2}?overview=full&geometries=geojson",timeout=8).json()
@@ -899,9 +908,10 @@ def transliterate_place(name, lang):
         return res
     parts = name.split()
     out = []
+    _ABBREVS = {"APMC","FPC","FPO","MNC","ITC","CCI","KVK","NGO","SHG","MSP"}
     for p in parts:
-        if p.isupper() and len(p) <= 5:
-            out.append(p)  # keep APMC, FPC, FPO etc
+        if p.isupper() and len(p) <= 4 and p in _ABBREVS:
+            out.append(p)  # keep known abbreviations like APMC, FPC, FPO
         elif not any(c.isalpha() for c in p):
             out.append(p)
         else:
@@ -1402,11 +1412,27 @@ else:
         st.markdown("</div>",unsafe_allow_html=True)
 
         # MAP
+        br=top3.iloc[0]
+        _gmap_dest_lat = br["Lat"]
+        _gmap_dest_lon = br["Lon"]
+        _gmap_orig_lat = vlat
+        _gmap_orig_lon = vlon
+        _gmap_url = f"https://www.google.com/maps/dir/{_gmap_orig_lat},{_gmap_orig_lon}/{_gmap_dest_lat},{_gmap_dest_lon}/"
+        _gmap_dest_name = br["Name"]
+
         st.markdown(f'<div style="background:#FFFFFF;border-radius:14px 14px 0 0;padding:14px 22px 4px;box-shadow:0 -2px 12px rgba(0,0,0,0.1);margin-bottom:0;">'
-            f'<div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
-            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">{tx["map_legend"]}</div></div>',unsafe_allow_html=True)
+            f'<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">'
+            f'<div><div style="font-size:15px;font-weight:900;color:#14532D;margin-bottom:6px;">🗺️ {tx["map_title"]}</div>'
+            f'<div style="font-size:11px;color:#4B5563;font-weight:500;padding-bottom:10px;">{tx["map_legend"]}</div></div>'
+            f'<a href="{_gmap_url}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;'
+            f'background:linear-gradient(135deg,#1a73e8,#0d47a1);color:white;text-decoration:none;'
+            f'padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;'
+            f'box-shadow:0 4px 16px rgba(26,115,232,0.4);white-space:nowrap;margin-bottom:6px;">'
+            f'<img src="https://maps.gstatic.com/mapfiles/maps_lite/images/1x/ic_logo_googlemaps_color_48dp.png" '
+            f'style="width:20px;height:20px;border-radius:3px;" onerror="this.style.display=\'none\'">'
+            f'🗺️ Open in Google Maps</a>'
+            f'</div></div>',unsafe_allow_html=True)
         with st.spinner(tx["loading_routes"]):
-            br=top3.iloc[0]
             m=folium.Map(location=[vlat,vlon],zoom_start=9,tiles="CartoDB Positron")
             folium.Marker([vlat,vlon],
                 popup=folium.Popup(f"<b>{fname}</b><br>📍 {rv}",max_width=200),
@@ -1427,7 +1453,7 @@ else:
                     folium.CircleMarker([row["Lat"],row["Lon"]],radius=11,color=rcol,fill=True,fill_color=rcol,fill_opacity=0.9,weight=3,
                         popup=folium.Popup(f"<b>{row['Name']}</b><br>{row['Type']}<br>₹{int(row['Net_Profit']):,}",max_width=200),
                         tooltip=f"#{i+1} {row['Name']}").add_to(m)
-        st_folium(m,width=None,height=500,use_container_width=True)
+        st_folium(m,width=None,height=500,use_container_width=True,returned_objects=[])
         st.markdown("</div>",unsafe_allow_html=True)
 
 st.markdown("</div>",unsafe_allow_html=True)
