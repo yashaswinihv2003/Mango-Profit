@@ -520,6 +520,53 @@ if not st.session_state.logged_in:
     }
     .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.2)!important;color:white!important;border-radius:8px!important;}
     .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
+
+    /* ── ALL buttons on login page — fully opaque and readable ── */
+    .stButton>button{
+        background:linear-gradient(135deg,#FF8C00,#E65100)!important;
+        color:#FFFFFF!important;
+        font-size:15px!important;font-weight:800!important;
+        padding:14px!important;border-radius:10px!important;
+        border:none!important;width:100%!important;
+        box-shadow:0 4px 20px rgba(230,81,0,0.5)!important;
+        letter-spacing:0.3px!important;
+        text-shadow:0 1px 2px rgba(0,0,0,0.4)!important;
+        opacity:1!important;
+    }
+    .stButton>button:hover{
+        background:linear-gradient(135deg,#E65100,#BF360C)!important;
+        transform:translateY(-1px)!important;
+    }
+    /* Secondary buttons — Forgot Password, Back, Register tab ── */
+    .stButton>button[kind="secondary"]{
+        background:rgba(0,0,0,0.70)!important;
+        color:#FFFFFF!important;
+        border:2px solid rgba(255,140,0,0.6)!important;
+        font-size:14px!important;font-weight:700!important;
+        padding:13px!important;opacity:1!important;
+        text-shadow:0 1px 3px rgba(0,0,0,0.8)!important;
+        box-shadow:0 2px 12px rgba(0,0,0,0.5)!important;
+    }
+    .stButton>button[kind="secondary"]:hover{
+        background:rgba(255,140,0,0.25)!important;
+        border-color:rgba(255,140,0,0.9)!important;
+    }
+    /* Force button text white in all states */
+    .stButton>button p,.stButton>button span,.stButton>button div{
+        color:#FFFFFF!important;font-weight:700!important;
+        text-shadow:0 1px 2px rgba(0,0,0,0.5)!important;
+    }
+    /* Input fields */
+    .stTextInput>div>div>input{
+        background:rgba(0,0,0,0.55)!important;
+        border:1.5px solid rgba(255,140,0,0.4)!important;
+        border-radius:8px!important;color:#FFFFFF!important;
+        font-size:15px!important;padding:13px 16px!important;
+    }
+    .stTextInput>div>div>input:focus{border-color:#FF8C00!important;}
+    .stTextInput>div>div>input::placeholder{color:rgba(255,255,255,0.45)!important;}
+    /* Login card background */
+    .login-card-col .stButton>button{width:100%!important;}
     </style>
     <!-- bg via CSS -->
     """,unsafe_allow_html=True)
@@ -551,7 +598,7 @@ if not st.session_state.logged_in:
         if c!=lang: st.session_state.lang=c;st.rerun()
 
     st.markdown(f"""
-    <div style="text-align:center;padding:50px 20px 36px;">
+    <div style="text-align:center;padding:28px 20px 24px;">
         <div style="background:rgba(0,0,0,0.78);backdrop-filter:blur(12px);
             border:1px solid rgba(255,179,0,0.3);
             border-radius:20px;padding:44px 48px 36px;
@@ -569,9 +616,9 @@ if not st.session_state.logged_in:
 
     _,mc,_=st.columns([1,1.2,1])
     with mc:
-        st.markdown("""<div style="background:rgba(8,20,10,0.90);backdrop-filter:blur(32px);
-            border:1px solid rgba(255,140,0,0.2);border-radius:20px;
-            padding:36px 32px 28px;box-shadow:0 32px 80px rgba(0,0,0,0.55);">""",unsafe_allow_html=True)
+        st.markdown("""<div style="background:rgba(0,0,0,0.82);backdrop-filter:blur(24px);
+            border:2px solid rgba(255,140,0,0.45);border-radius:20px;
+            padding:36px 32px 32px;box-shadow:0 32px 80px rgba(0,0,0,0.7);">""",unsafe_allow_html=True)
 
         tb1,tb2=st.columns(2)
         with tb1:
@@ -633,8 +680,10 @@ if not st.session_state.logged_in:
                     else: st.error("Incorrect phone or password.")
                 else: st.warning("Fill all fields.")
             st.markdown('<div style="height:10px"></div>',unsafe_allow_html=True)
-            if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"):
+            st.markdown('<div style="margin-top:4px;">', unsafe_allow_html=True)
+            if st.button(f"🔑 {tx['forgot']}",key="frg",use_container_width=True,type="secondary"):
                 st.session_state.forgot=True;st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             for label,key_,ph_,is_pw in [(tx["name"],"r_nm","Full name",False),(tx["place"],"r_pl","Village, District",False),(tx["phone"],"r_ph",tx["phone_ph"],False),(tx["password"],"r_pw",tx["pass_ph"],True)]:
                 lbl(label)
