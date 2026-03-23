@@ -626,10 +626,6 @@ if not st.session_state.logged_in:
 
     _,mc,_=st.columns([1,1.2,1])
     with mc:
-        st.markdown("""<div style="background:rgba(0,0,0,0.82);backdrop-filter:blur(24px);
-            border:2px solid rgba(255,140,0,0.45);border-radius:20px;
-            padding:36px 32px 32px;box-shadow:0 32px 80px rgba(0,0,0,0.7);">""",unsafe_allow_html=True)
-
         tb1,tb2=st.columns(2)
         with tb1:
             if st.button(tx["sign_in"],key="tab_si",use_container_width=True,
@@ -706,7 +702,6 @@ if not st.session_state.logged_in:
                     if reg(n,p,ph,pw): st.success("Account created! Sign in.");st.session_state.auth_mode="login";st.session_state.just_logged_in=False;st.rerun()
                     else: st.error("Phone already registered.")
                 else: st.warning("All fields required.")
-        st.markdown("</div>",unsafe_allow_html=True)
     st.stop()
 
 # ══════════════════════════════════════════════════════════════
