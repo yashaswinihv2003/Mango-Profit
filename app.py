@@ -1,5 +1,6 @@
 # MangoNav App v2.1 - Fixed
 import streamlit as st
+import streamlit.components.v1 as components
 import sqlite3, bcrypt, random, requests
 import pandas as pd
 import numpy as np
@@ -52,6 +53,9 @@ T = {
         "via_lbl":"via","away_lbl2":"km away","roi_sub":"Return on investment","within_lbl":"within 150km",
         "varieties_lbl":"Varieties","markets_lbl":"Market Types","districts_lbl":"Districts","engine_lbl":"AI Engine",
         "live_prices_lbl":"TODAY'S MANGO PRICES",
+        "voice_welcome":"Welcome {name}! Your best market is {market}, located {dist} kilometers away. Expected profit is Rupees {profit}.",
+        "voice_btn":"🔊 Hear Results",
+        "voice_btn_welcome":"🔊 Welcome Message",
         "variety_names":{"Banganapalli": "Banganapalli", "Totapuri": "Totapuri", "Neelam": "Neelam", "Rasalu": "Rasalu"},
         "cat_names":{"Mandi": "Mandi", "Processing": "Processing", "Pulp": "Pulp", "Pickle": "Pickle", "Local Export": "Local Export", "Abroad Export": "Abroad Export", "Cold Storage": "Cold Storage", "FPO": "FPO"},
         "platform_ready":"✅ PLATFORM READY",
@@ -99,6 +103,9 @@ T = {
         "via_lbl":"ద్వారా","away_lbl2":"కి.మీ దూరం","roi_sub":"పెట్టుబడిపై రాబడి","within_lbl":"150 కి.మీ లోపల",
         "varieties_lbl":"రకాలు","markets_lbl":"మార్కెట్ రకాలు","districts_lbl":"జిల్లాలు","engine_lbl":"AI ఇంజన్",
         "live_prices_lbl":"నేటి మామిడి ధరలు",
+        "voice_welcome":"స్వాగతం {name}! మీ ఉత్తమ మార్కెట్ {market}, {dist} కిలోమీటర్ల దూరంలో ఉంది. అంచనా లాభం రూపాయలు {profit}.",
+        "voice_btn":"🔊 ఫలితాలు వినండి",
+        "voice_btn_welcome":"🔊 స్వాగత సందేశం",
         "variety_names":{"Banganapalli": "బంగినపల్లి", "Totapuri": "తోతాపురి", "Neelam": "నీలం", "Rasalu": "రసాలు"},
         "cat_names":{"Mandi": "మండి", "Processing": "ప్రాసెసింగ్", "Pulp": "పల్పు", "Pickle": "పచ్చడి", "Local Export": "స్థానిక ఎగుమతి", "Abroad Export": "విదేశీ ఎగుమతి", "Cold Storage": "కోల్డ్ స్టోరేజ్", "FPO": "FPO"},
         "platform_ready":"✅ ప్లాట్‌ఫామ్ సిద్ధంగా ఉంది",
@@ -146,6 +153,9 @@ T = {
         "via_lbl":"के माध्यम से","away_lbl2":"कि.मी. दूर","roi_sub":"निवेश पर रिटर्न","within_lbl":"150 कि.मी. के भीतर",
         "varieties_lbl":"किस्में","markets_lbl":"बाज़ार प्रकार","districts_lbl":"जिले","engine_lbl":"AI इंजन",
         "live_prices_lbl":"आज के आम के भाव",
+        "voice_welcome":"स्वागत है {name}! आपका सबसे अच्छा बाज़ार {market} है, जो {dist} किलोमीटर दूर है। अनुमानित लाभ रुपये {profit} है।",
+        "voice_btn":"🔊 परिणाम सुनें",
+        "voice_btn_welcome":"🔊 स्वागत संदेश",
         "variety_names":{"Banganapalli": "बंगनपल्ली", "Totapuri": "तोतापुरी", "Neelam": "नीलम", "Rasalu": "रसालु"},
         "cat_names":{"Mandi": "मंडी", "Processing": "प्रसंस्करण", "Pulp": "गूदा", "Pickle": "अचार", "Local Export": "स्थानीय निर्यात", "Abroad Export": "विदेश निर्यात", "Cold Storage": "शीत भंडार", "FPO": "FPO"},
         "platform_ready":"✅ प्लेटफॉर्म तैयार है",
@@ -193,6 +203,9 @@ T = {
         "via_lbl":"ಮೂಲಕ","away_lbl2":"ಕಿ.ಮೀ ದೂರ","roi_sub":"ಹೂಡಿಕೆ ಮೇಲೆ ಲಾಭ","within_lbl":"150 ಕಿ.ಮೀ ಒಳಗೆ",
         "varieties_lbl":"ತಳಿಗಳು","markets_lbl":"ಮಾರುಕಟ್ಟೆ ವಿಧಗಳು","districts_lbl":"ಜಿಲ್ಲೆಗಳು","engine_lbl":"AI ಇಂಜಿನ್",
         "live_prices_lbl":"ಇಂದಿನ ಮಾವಿನ ಬೆಲೆಗಳು",
+        "voice_welcome":"ಸ್ವಾಗತ {name}! ನಿಮ್ಮ ಉತ್ತಮ ಮಾರುಕಟ್ಟೆ {market}, {dist} ಕಿಲೋಮೀಟರ್ ದೂರದಲ್ಲಿದೆ. ಅಂದಾಜು ಲಾಭ ರೂಪಾಯಿ {profit}.",
+        "voice_btn":"🔊 ಫಲಿತಾಂಶ ಕೇಳಿ",
+        "voice_btn_welcome":"🔊 ಸ್ವಾಗತ ಸಂದೇಶ",
         "variety_names":{"Banganapalli": "ಬಂಗನಪಲ್ಲಿ", "Totapuri": "ತೋತಾಪುರಿ", "Neelam": "ನೀಲಂ", "Rasalu": "ರಸಾಲು"},
         "cat_names":{"Mandi": "ಮಂಡಿ", "Processing": "ಸಂಸ್ಕರಣೆ", "Pulp": "ತಿರುಳು", "Pickle": "ಉಪ್ಪಿನಕಾಯಿ", "Local Export": "ಸ್ಥಳೀಯ ರಫ್ತು", "Abroad Export": "ವಿದೇಶಿ ರಫ್ತು", "Cold Storage": "ಶೀತಲ ಸಂಗ್ರಹ", "FPO": "FPO"},
         "platform_ready":"✅ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಿದ್ಧವಾಗಿದೆ",
@@ -231,7 +244,7 @@ init_db()
 
 for k,v in {"logged_in":False,"auth_mode":"login","forgot":False,
             "forgot_verified":False,"forgot_phone":None,
-            "lang":"English","run":False,
+            "lang":"English","run":False,"just_logged_in":False,
             "last_village":None,"last_variety":"Banganapalli","last_tonnes":10.0}.items():
     if k not in st.session_state: st.session_state[k]=v
 
@@ -332,6 +345,16 @@ html,body,[class*="css"]{font-family:'Inter',sans-serif!important;}
 .stButton>button[kind="secondary"] p,
 .stButton>button[kind="secondary"] span {
     color:#FFFFFF!important;
+}
+
+/* ── Login input LABELS (Phone Number, Password, etc.) ── */
+.stTextInput>label{
+    color:#FF8C00!important;
+    font-size:11px!important;
+    font-weight:700!important;
+    letter-spacing:1px!important;
+    text-transform:uppercase!important;
+    text-shadow:0 1px 4px rgba(0,0,0,0.8)!important;
 }
 
 /* ── Login inputs ── */
@@ -507,6 +530,53 @@ if not st.session_state.logged_in:
     }
     .stSelectbox>div>div{background:rgba(255,255,255,0.1)!important;border:1.5px solid rgba(255,255,255,0.2)!important;color:white!important;border-radius:8px!important;}
     .stSelectbox>label{color:rgba(255,255,255,0.5)!important;font-size:10px!important;}
+
+    /* ── ALL buttons on login page — fully opaque and readable ── */
+    .stButton>button{
+        background:linear-gradient(135deg,#FF8C00,#E65100)!important;
+        color:#FFFFFF!important;
+        font-size:15px!important;font-weight:800!important;
+        padding:14px!important;border-radius:10px!important;
+        border:none!important;width:100%!important;
+        box-shadow:0 4px 20px rgba(230,81,0,0.5)!important;
+        letter-spacing:0.3px!important;
+        text-shadow:0 1px 2px rgba(0,0,0,0.4)!important;
+        opacity:1!important;
+    }
+    .stButton>button:hover{
+        background:linear-gradient(135deg,#E65100,#BF360C)!important;
+        transform:translateY(-1px)!important;
+    }
+    /* Secondary buttons — Forgot Password, Back, Register tab ── */
+    .stButton>button[kind="secondary"]{
+        background:rgba(0,0,0,0.70)!important;
+        color:#FFFFFF!important;
+        border:2px solid rgba(255,140,0,0.6)!important;
+        font-size:14px!important;font-weight:700!important;
+        padding:13px!important;opacity:1!important;
+        text-shadow:0 1px 3px rgba(0,0,0,0.8)!important;
+        box-shadow:0 2px 12px rgba(0,0,0,0.5)!important;
+    }
+    .stButton>button[kind="secondary"]:hover{
+        background:rgba(255,140,0,0.25)!important;
+        border-color:rgba(255,140,0,0.9)!important;
+    }
+    /* Force button text white in all states */
+    .stButton>button p,.stButton>button span,.stButton>button div{
+        color:#FFFFFF!important;font-weight:700!important;
+        text-shadow:0 1px 2px rgba(0,0,0,0.5)!important;
+    }
+    /* Input fields */
+    .stTextInput>div>div>input{
+        background:rgba(0,0,0,0.55)!important;
+        border:1.5px solid rgba(255,140,0,0.4)!important;
+        border-radius:8px!important;color:#FFFFFF!important;
+        font-size:15px!important;padding:13px 16px!important;
+    }
+    .stTextInput>div>div>input:focus{border-color:#FF8C00!important;}
+    .stTextInput>div>div>input::placeholder{color:rgba(255,255,255,0.45)!important;}
+    /* Login card background */
+    .login-card-col .stButton>button{width:100%!important;}
     </style>
     <!-- bg via CSS -->
     """,unsafe_allow_html=True)
@@ -538,7 +608,7 @@ if not st.session_state.logged_in:
         if c!=lang: st.session_state.lang=c;st.rerun()
 
     st.markdown(f"""
-    <div style="text-align:center;padding:50px 20px 36px;">
+    <div style="text-align:center;padding:28px 20px 24px;">
         <div style="background:rgba(0,0,0,0.78);backdrop-filter:blur(12px);
             border:1px solid rgba(255,179,0,0.3);
             border-radius:20px;padding:44px 48px 36px;
@@ -556,9 +626,9 @@ if not st.session_state.logged_in:
 
     _,mc,_=st.columns([1,1.2,1])
     with mc:
-        st.markdown("""<div style="background:rgba(8,20,10,0.90);backdrop-filter:blur(32px);
-            border:1px solid rgba(255,140,0,0.2);border-radius:20px;
-            padding:36px 32px 28px;box-shadow:0 32px 80px rgba(0,0,0,0.55);">""",unsafe_allow_html=True)
+        st.markdown("""<div style="background:rgba(0,0,0,0.82);backdrop-filter:blur(24px);
+            border:2px solid rgba(255,140,0,0.45);border-radius:20px;
+            padding:36px 32px 32px;box-shadow:0 32px 80px rgba(0,0,0,0.7);">""",unsafe_allow_html=True)
 
         tb1,tb2=st.columns(2)
         with tb1:
@@ -616,12 +686,14 @@ if not st.session_state.logged_in:
             if st.button(tx["login_btn"],key="do_login",use_container_width=True):
                 if ph and pw:
                     u=login(ph,pw)
-                    if u: st.session_state.logged_in=True;st.session_state.user=u;st.rerun()
+                    if u: st.session_state.logged_in=True;st.session_state.user=u;st.session_state.just_logged_in=True;st.rerun()
                     else: st.error("Incorrect phone or password.")
                 else: st.warning("Fill all fields.")
             st.markdown('<div style="height:10px"></div>',unsafe_allow_html=True)
-            if st.button(tx["forgot"],key="frg",use_container_width=True,type="secondary"):
+            st.markdown('<div style="margin-top:4px;">', unsafe_allow_html=True)
+            if st.button(f"🔑 {tx['forgot']}",key="frg",use_container_width=True,type="secondary"):
                 st.session_state.forgot=True;st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             for label,key_,ph_,is_pw in [(tx["name"],"r_nm","Full name",False),(tx["place"],"r_pl","Village, District",False),(tx["phone"],"r_ph",tx["phone_ph"],False),(tx["password"],"r_pw",tx["pass_ph"],True)]:
                 lbl(label)
@@ -631,7 +703,7 @@ if not st.session_state.logged_in:
             if st.button(tx["reg_btn"],key="do_reg",use_container_width=True):
                 n=st.session_state.get("r_nm","");p=st.session_state.get("r_pl","");ph=st.session_state.get("r_ph","");pw=st.session_state.get("r_pw","")
                 if n and p and ph and pw:
-                    if reg(n,p,ph,pw): st.success("Account created! Sign in.");st.session_state.auth_mode="login";st.rerun()
+                    if reg(n,p,ph,pw): st.success("Account created! Sign in.");st.session_state.auth_mode="login";st.session_state.just_logged_in=False;st.rerun()
                     else: st.error("Phone already registered.")
                 else: st.warning("All fields required.")
         st.markdown("</div>",unsafe_allow_html=True)
@@ -891,6 +963,35 @@ lang=st.session_state.get("lang","English");tx=T[lang]
 fname=st.session_state.user[0];fplace=st.session_state.user[1]
 vl=vlist()
 
+# ══ VOICE: Welcome message on login ══
+_LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN"}
+_welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
+_welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
+_lc = _LANG_CODES.get(lang,"en-IN")
+if st.session_state.get("just_logged_in", False):
+    components.html(f"""
+    <script>
+    (function(){{
+        function speak(){{
+            var tgt = window.parent || window;
+            var synth = tgt.speechSynthesis;
+            if(!synth) return;
+            synth.cancel();
+            var u = new tgt.SpeechSynthesisUtterance("{_welcome_short}");
+            u.lang = "{_lc}"; u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
+            var vv = synth.getVoices();
+            var mv = vv.find(v => v.lang.startsWith("{_lc.split('-')[0]}"));
+            if(mv) u.voice = mv;
+            synth.speak(u);
+        }}
+        var synth = (window.parent||window).speechSynthesis;
+        if(synth && synth.getVoices().length > 0){{ speak(); }}
+        else {{ if(synth) synth.onvoiceschanged = speak; setTimeout(speak, 800); }}
+    }})();
+    </script>
+    """, height=0)
+    st.session_state.just_logged_in = False
+
 # ══ SIDEBAR — clean, no expanders ══
 with st.sidebar:
     # ── DEBUG: show detected columns (remove after confirming data works) ──
@@ -1141,6 +1242,67 @@ else:
                 </div>""",unsafe_allow_html=True)
 
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
+
+        # ══ VOICE ANNOUNCEMENT — speaks best market result ══
+        _lc2 = _LANG_CODES.get(lang, "en-IN")
+        _profit_fmt = f"{bn:,}"
+        _dist_fmt = str(nearest)
+        # Build the speech text in selected language
+        _voice_tmpl = tx.get("voice_welcome", "Welcome {name}! Your best market is {market}, {dist} km away. Profit is Rupees {profit}.")
+        _speech_text = (_voice_tmpl
+            .replace("{name}", fname)
+            .replace("{market}", top3.iloc[0]["Name"])
+            .replace("{dist}", _dist_fmt)
+            .replace("{profit}", _profit_fmt)
+        )
+        # Escape for JS string
+        _speech_js = _speech_text.replace("\n", " ").replace("'", " ").replace('"', " ")
+        # ── Voice announcement + buttons (uses components.html so JS actually runs) ──
+        _replay_label = tx.get("voice_btn", "🔊 Hear Results")
+        _stop_label   = "⏹ Stop"
+        _lc2_root     = _lc2.split("-")[0]
+        components.html(f"""
+        <script>
+        var SYNTH = window.parent ? window.parent.speechSynthesis : window.speechSynthesis;
+        var UCLASS = window.parent ? window.parent.SpeechSynthesisUtterance : SpeechSynthesisUtterance;
+        var TEXT  = "{_speech_js}";
+        var LANG  = "{_lc2}";
+        var ROOT  = "{_lc2_root}";
+
+        function doSpeak(){{
+            if(!SYNTH) return;
+            SYNTH.cancel();
+            var u = new UCLASS(TEXT);
+            u.lang = LANG; u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
+            var voices = SYNTH.getVoices();
+            var match  = voices.find(v => v.lang.startsWith(ROOT));
+            if(match) u.voice = match;
+            SYNTH.speak(u);
+        }}
+        function doStop(){{
+            if(SYNTH) SYNTH.cancel();
+        }}
+        if(SYNTH && SYNTH.getVoices().length > 0){{ doSpeak(); }}
+        else {{ if(SYNTH) SYNTH.onvoiceschanged = doSpeak; setTimeout(doSpeak, 1000); }}
+        </script>
+
+        <style>
+        body{{margin:0;background:transparent;}}
+        .vrow{{display:flex;gap:12px;align-items:center;padding:4px 0;}}
+        .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;
+            border:none;border-radius:10px;padding:12px 26px;font-size:15px;
+            font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;}}
+        .btn-stop{{background:rgba(0,0,0,0.55);color:white;
+            border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;
+            padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;}}
+        .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
+        </style>
+        <div class="vrow">
+            <button class="btn-speak" onclick="doSpeak()">{_replay_label}</button>
+            <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
+            <span class="hint">🔊 Auto-reading your results</span>
+        </div>
+        """, height=70)
 
         # TOP 3
         st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
