@@ -1013,49 +1013,34 @@ _LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN
 _welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
 _welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
 _lc = _LANG_CODES.get(lang,"en-IN")
-# Phonetic welcome — fully in words, no digits, prefers female en-IN voice
-_WELCOME_PHONETIC = {
-    "Kannada": f"Swagata {fname}! MangoNav ge swaagata!",
-    "Telugu":  f"Swaagatam {fname}! MangoNav ki swaagatam!",
-    "Hindi":   f"Swagat hai {fname}! MangoNav mein aapka swagat hai!",
+# Google Translate TTS — native accent welcome on login
+_GTTS_LANG = {"English": "en", "Telugu": "te", "Hindi": "hi", "Kannada": "kn"}
+_WELCOME_TEXT = {
+    "Kannada": f"ಸ್ವಾಗತ {fname}! ಮ್ಯಾಂಗೋನಾವ್ ಗೆ ಸ್ವಾಗತ!",
+    "Telugu":  f"స్వాగతం {fname}! మ్యాంగోనావ్ కి స్వాగతం!",
+    "Hindi":   f"स्वागत है {fname}! मैंगोनाव में आपका स्वागत है!",
     "English": f"Welcome {fname} to MangoNav!",
 }
-_welcome_speak = _WELCOME_PHONETIC.get(lang, f"Welcome {fname} to MangoNav!")
-def _jse(s): return s.replace("\n"," ").replace("'","").replace('"',"").replace("\\","")
+_welcome_tts_text = _WELCOME_TEXT.get(lang, f"Welcome {fname} to MangoNav!")
+_welcome_tts_lang = _GTTS_LANG.get(lang, "en")
+
+def _url_encode(s):
+    import urllib.parse
+    return urllib.parse.quote(s)
 
 if st.session_state.get("just_logged_in", False):
-    _wsafe = _jse(_welcome_speak)
+    _w_encoded = _url_encode(_welcome_tts_text)
+    _w_gtts_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={_w_encoded}&tl={_welcome_tts_lang}&client=tw-ob"
     components.html(f"""
     <script>
     (function(){{
-        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
-        var synth = _win.speechSynthesis;
-        var TEXT  = "{_wsafe}";
-        function pickFemale(vv){{
-            var v = vv.find(function(x){{ return x.lang==="en-IN" && /priya|veena|aditi|lekha|raveena|heera|neerja/i.test(x.name); }});
-            if(!v) v = vv.find(function(x){{ return x.lang==="en-IN"; }});
-            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-") && /zira|siri|samantha|victoria|karen|moira|tessa|fiona|allison|ava|kate|hazel/i.test(x.name); }});
-            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-"); }});
-            return v||null;
-        }}
-        function speakNow(vv){{
-            if(!synth) return;
-            synth.cancel();
-            var u = new _win.SpeechSynthesisUtterance(TEXT);
-            u.lang="en-IN"; u.rate=0.85; u.pitch=1.15; u.volume=1.0;
-            var fv = pickFemale(vv); if(fv) u.voice=fv;
-            synth.speak(u);
-        }}
-        function trySpeak(){{
-            if(!synth) return;
-            var vv=synth.getVoices();
-            if(vv.length>0){{ speakNow(vv); return; }}
-            var t=0, poll=setInterval(function(){{
-                vv=synth.getVoices(); t++;
-                if(vv.length>0||t>25){{ clearInterval(poll); speakNow(vv); }}
-            }},120);
-        }}
-        trySpeak();
+        var url = "{_w_gtts_url}";
+        var audio = new Audio(url);
+        audio.volume = 1.0;
+        audio.play().catch(function(e){{
+            // autoplay blocked — silently ignore, user can use button
+            console.log("Autoplay blocked:", e);
+        }});
     }})();
     </script>
     """, height=0)
@@ -1311,89 +1296,101 @@ else:
 
         st.markdown('<div style="height:18px"></div>',unsafe_allow_html=True)
 
-        # ══ VOICE ANNOUNCEMENT — speaks best market result ══
-        _lc2 = _LANG_CODES.get(lang, "en-IN")
+        # ══ VOICE ANNOUNCEMENT — Google Translate TTS (native accent) ══
+        import urllib.parse as _ulp
 
-        # ── Number-to-spoken-words helpers ──
+        _GTTS_LANG2 = {"English": "en", "Telugu": "te", "Hindi": "hi", "Kannada": "kn"}
+        _tts_lang = _GTTS_LANG2.get(lang, "en")
+
+        # ── Number-to-native-script helpers (digits read correctly by native TTS) ──
         def _nkn(n):
             n=int(n)
-            O=["","ondu","eradu","mooru","naalku","aidu","aaru","eelu","entu","ombattu","hattu","hadinondu","hadineradu","hadinmooru","hadinaalku","hadnaidu","hadinaru","hadiNeelu","hadineTtu","hattonombattu"]
-            T=["","hattu","ippattu","muvvattu","naalvattu","aivvattu","aravattu","ettattu","embattu","tombattu"]
-            if n==0: return "sonne"
+            O=["","ಒಂದು","ಎರಡು","ಮೂರು","ನಾಲ್ಕು","ಐದು","ಆರು","ಏಳು","ಎಂಟು","ಒಂಬತ್ತು",
+               "ಹತ್ತು","ಹನ್ನೊಂದು","ಹನ್ನೆರಡು","ಹದಿಮೂರು","ಹದಿನಾಲ್ಕು","ಹದಿನೈದು",
+               "ಹದಿನಾರು","ಹದಿನೇಳು","ಹದಿನೆಂಟು","ಹತ್ತೊಂಬತ್ತು"]
+            T=["","ಹತ್ತು","ಇಪ್ಪತ್ತು","ಮೂವತ್ತು","ನಲವತ್ತು","ಐವತ್ತು",
+               "ಅರವತ್ತು","ಎಪ್ಪತ್ತು","ಎಂಬತ್ತು","ತೊಂಬತ್ತು"]
+            if n==0: return "ಸೊನ್ನೆ"
             if n<20: return O[n]
             if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
-            if n<1000: return O[n//100]+" nooru"+(" "+_nkn(n%100) if n%100 else "")
-            if n<100000: return _nkn(n//1000)+" saavira"+(" "+_nkn(n%1000) if n%1000 else "")
-            if n<10000000: return _nkn(n//100000)+" laksha"+(" "+_nkn(n%100000) if n%100000 else "")
+            if n<1000: return O[n//100]+" ನೂರು"+(" "+_nkn(n%100) if n%100 else "")
+            if n<100000: return _nkn(n//1000)+" ಸಾವಿರ"+(" "+_nkn(n%1000) if n%1000 else "")
+            if n<10000000: return _nkn(n//100000)+" ಲಕ್ಷ"+(" "+_nkn(n%100000) if n%100000 else "")
             return str(n)
 
         def _nte(n):
             n=int(n)
-            O=["","okati","rendu","moodu","naalugu","aidu","aaru","edu","enimidi","tommidi","padi","padakonu","pannendu","padamoodu","padanaalugu","padaihanu","padaaru","padihenu","padhenimidi","pantombhai"]
-            T=["","padi","iruvai","muppai","nalabhai","yabhai","aravai","ebbhai","tombhai","thombhai"]
-            if n==0: return "sunna"
+            O=["","ఒకటి","రెండు","మూడు","నాలుగు","ఐదు","ఆరు","ఏడు","ఎనిమిది","తొమ్మిది",
+               "పది","పదకొండు","పన్నెండు","పదమూడు","పదనాలుగు","పదిహేను",
+               "పదహారు","పదిహేడు","పద్దెనిమిది","పంతొమ్మిది"]
+            T=["","పది","ఇరవై","ముప్పై","నలభై","యాభై","అరవై","డెబ్భై","ఎనభై","తొంభై"]
+            if n==0: return "సున్న"
             if n<20: return O[n]
             if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
-            if n<1000: return O[n//100]+" vandalu"+(" "+_nte(n%100) if n%100 else "")
-            if n<100000: return _nte(n//1000)+" velu"+(" "+_nte(n%1000) if n%1000 else "")
-            if n<10000000: return _nte(n//100000)+" lakshaalu"+(" "+_nte(n%100000) if n%100000 else "")
+            if n<1000: return O[n//100]+" వందల"+(" "+_nte(n%100) if n%100 else "")
+            if n<100000: return _nte(n//1000)+" వేలు"+(" "+_nte(n%1000) if n%1000 else "")
+            if n<10000000: return _nte(n//100000)+" లక్షలు"+(" "+_nte(n%100000) if n%100000 else "")
             return str(n)
 
         def _nhi(n):
             n=int(n)
-            O=["","ek","do","teen","chaar","paanch","chhah","saat","aath","nau","das","gyarah","barah","terah","chaudah","pandrah","solah","satrah","atharah","unnees"]
-            T=["","das","bees","tees","chalees","pachaas","saath","sattar","assi","nabbe"]
-            if n==0: return "shunya"
+            O=["","एक","दो","तीन","चार","पाँच","छह","सात","आठ","नौ",
+               "दस","ग्यारह","बारह","तेरह","चौदह","पंद्रह",
+               "सोलह","सत्रह","अठारह","उन्नीस"]
+            T=["","दस","बीस","तीस","चालीस","पचास","साठ","सत्तर","अस्सी","नब्बे"]
+            if n==0: return "शून्य"
             if n<20: return O[n]
             if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
-            if n<1000: return O[n//100]+" sau"+(" "+_nhi(n%100) if n%100 else "")
-            if n<100000: return _nhi(n//1000)+" hazaar"+(" "+_nhi(n%1000) if n%1000 else "")
-            if n<10000000: return _nhi(n//100000)+" lakh"+(" "+_nhi(n%100000) if n%100000 else "")
+            if n<1000: return O[n//100]+" सौ"+(" "+_nhi(n%100) if n%100 else "")
+            if n<100000: return _nhi(n//1000)+" हज़ार"+(" "+_nhi(n%1000) if n%1000 else "")
+            if n<10000000: return _nhi(n//100000)+" लाख"+(" "+_nhi(n%100000) if n%100000 else "")
             return str(n)
-
-        def _nen(n):
-            n=int(n)
-            lakh=n//100000; thou=(n%100000)//1000; rem=n%1000
-            parts=[]
-            if lakh: parts.append(f"{lakh} lakh")
-            if thou: parts.append(f"{thou} thousand")
-            if rem:  parts.append(str(rem))
-            return " ".join(parts) if parts else "zero"
 
         def _dist_w(d, language):
             km=int(float(d))
-            if language=="Kannada": return _nkn(km)+" kilo meetar"
-            if language=="Telugu":  return _nte(km)+" kilomeetarlu"
-            if language=="Hindi":   return _nhi(km)+" kilometre"
-            return _nen(km)+" kilometres"
+            if language=="Kannada": return _nkn(km)+" ಕಿಲೋಮೀಟರ್"
+            if language=="Telugu":  return _nte(km)+" కిలోమీటర్లు"
+            if language=="Hindi":   return _nhi(km)+" किलोमीटर"
+            lakh=km//100000; thou=(km%100000)//1000; rem=km%1000
+            parts=[]
+            if lakh: parts.append(f"{lakh} lakh")
+            if thou: parts.append(f"{thou} thousand")
+            if rem: parts.append(str(rem))
+            return (" ".join(parts) if parts else "0")+" kilometres"
 
         def _profit_w(p, language):
             p=int(str(p).replace(",",""))
-            if language=="Kannada": return "rupaayi "+_nkn(p)
-            if language=="Telugu":  return "rupaayalu "+_nte(p)
-            if language=="Hindi":   return "rupaye "+_nhi(p)
-            return _nen(p)+" rupees"
+            if language=="Kannada": return "ರೂಪಾಯಿ "+_nkn(p)
+            if language=="Telugu":  return "రూపాయలు "+_nte(p)
+            if language=="Hindi":   return "रुपये "+_nhi(p)
+            lakh=p//100000; thou=(p%100000)//1000; rem=p%1000
+            parts=[]
+            if lakh: parts.append(f"{lakh} lakh")
+            if thou: parts.append(f"{thou} thousand")
+            if rem: parts.append(str(rem))
+            return (" ".join(parts) if parts else "0")+" rupees"
 
         _market_name_voice = top3.iloc[0]["Name"]
 
+        # Build native-script sentences — Google TTS reads these perfectly
         _VOICE_SENTENCES = {
             "Kannada": (
-                f"Swagata {fname}. "
-                f"Nimma uttama maruvanthige {_market_name_voice}, "
-                f"{_dist_w(nearest, 'Kannada')} dooradalli ide. "
-                f"Andaajitha laabha {_profit_w(bn, 'Kannada')}."
+                f"ಸ್ವಾಗತ {fname}. "
+                f"ನಿಮ್ಮ ಅತ್ಯುತ್ತಮ ಮಾರುಕಟ್ಟೆ {_market_name_voice}, "
+                f"{_dist_w(nearest, 'Kannada')} ದೂರದಲ್ಲಿದೆ. "
+                f"ಅಂದಾಜು ಲಾಭ {_profit_w(bn, 'Kannada')}."
             ),
             "Telugu": (
-                f"Swaagatam {fname}. "
-                f"Meeru uttama market {_market_name_voice}, "
-                f"{_dist_w(nearest, 'Telugu')} dooramlo undi. "
-                f"Andajeena laabham {_profit_w(bn, 'Telugu')}."
+                f"స్వాగతం {fname}. "
+                f"మీ ఉత్తమ మార్కెట్ {_market_name_voice}, "
+                f"{_dist_w(nearest, 'Telugu')} దూరంలో ఉంది. "
+                f"అంచనా లాభం {_profit_w(bn, 'Telugu')}."
             ),
             "Hindi": (
-                f"Swagat hai {fname}. "
-                f"Aapka sabse achha market {_market_name_voice} hai, "
-                f"jo {_dist_w(nearest, 'Hindi')} door hai. "
-                f"Anumaanat laabh {_profit_w(bn, 'Hindi')} hai."
+                f"स्वागत है {fname}. "
+                f"आपका सबसे अच्छा बाज़ार {_market_name_voice} है, "
+                f"जो {_dist_w(nearest, 'Hindi')} दूर है. "
+                f"अनुमानित लाभ {_profit_w(bn, 'Hindi')} है."
             ),
             "English": (
                 f"Welcome {fname}. "
@@ -1402,66 +1399,96 @@ else:
                 f"Expected profit is {_profit_w(bn, 'English')}."
             ),
         }
-        _speak_sentence = _VOICE_SENTENCES.get(lang, _VOICE_SENTENCES["English"])
-
-        def _jss(s): return s.replace("\n"," ").replace("'","").replace('"',"").replace("\\","")
-        _speak_js = _jss(_speak_sentence)
+        _speak_text = _VOICE_SENTENCES.get(lang, _VOICE_SENTENCES["English"])
+        _speak_encoded = _ulp.quote(_speak_text)
+        _gtts_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={_speak_encoded}&tl={_tts_lang}&client=tw-ob"
 
         _replay_label = tx.get("voice_btn", "🔊 Hear Results")
         _stop_label   = "⏹ Stop"
         components.html(f"""
-        <script>
-        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
-        var SYNTH = _win.speechSynthesis;
-        var TEXT  = "{_speak_js}";
-
-        function pickFemale(vv){{
-            var v = vv.find(function(x){{ return x.lang==="en-IN" && /priya|veena|aditi|lekha|raveena|heera|neerja/i.test(x.name); }});
-            if(!v) v = vv.find(function(x){{ return x.lang==="en-IN"; }});
-            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-") && /zira|siri|samantha|victoria|karen|moira|tessa|fiona|allison|ava|kate|hazel/i.test(x.name); }});
-            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-"); }});
-            return v||null;
-        }}
-
-        function speakNow(vv){{
-            if(!SYNTH) return;
-            SYNTH.cancel();
-            var u = new _win.SpeechSynthesisUtterance(TEXT);
-            u.lang="en-IN"; u.rate=0.82; u.pitch=1.15; u.volume=1.0;
-            var fv=pickFemale(vv); if(fv) u.voice=fv;
-            SYNTH.speak(u);
-        }}
-
-        function doSpeak_whenReady(){{
-            if(!SYNTH) return;
-            var vv=SYNTH.getVoices();
-            if(vv.length>0){{ speakNow(vv); return; }}
-            var t=0, poll=setInterval(function(){{
-                vv=SYNTH.getVoices(); t++;
-                if(vv.length>0||t>25){{ clearInterval(poll); speakNow(vv); }}
-            }},120);
-        }}
-
-        function doStop(){{ if(SYNTH) SYNTH.cancel(); }}
-        </script>
-
         <style>
         body{{margin:0;background:transparent;}}
-        .vrow{{display:flex;gap:12px;align-items:center;padding:4px 0;flex-wrap:wrap;}}
+        .vrow{{display:flex;gap:12px;align-items:center;padding:6px 0;flex-wrap:wrap;}}
         .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;
             border:none;border-radius:10px;padding:12px 26px;font-size:15px;
-            font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;}}
+            font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;
+            display:inline-flex;align-items:center;gap:8px;}}
         .btn-stop{{background:rgba(0,0,0,0.55);color:white;
             border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;
             padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;}}
         .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
+        .spin{{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);
+            border-top:2px solid white;border-radius:50%;
+            animation:spin 0.7s linear infinite;}}
+        @keyframes spin{{to{{transform:rotate(360deg)}}}}
         </style>
+
+        <audio id="ttsAudio" style="display:none"></audio>
         <div class="vrow">
-            <button class="btn-speak" onclick="doSpeak_whenReady()">{_replay_label}</button>
-            <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
-            <span class="hint">🔊 Click to hear results</span>
+            <button class="btn-speak" id="speakBtn" onclick="doSpeak()">
+                <span id="spinEl" class="spin"></span>
+                <span id="btnLabel">{_replay_label}</span>
+            </button>
+            <button class="btn-stop" onclick="doStop()">{_stop_label}</button>
+            <span class="hint" id="hintEl">🔊 Click to hear results in native voice</span>
         </div>
-        """, height=70)
+
+        <script>
+        var AUDIO = document.getElementById("ttsAudio");
+        var GTTS_URL = "{_gtts_url}";
+        var btnLabel = document.getElementById("btnLabel");
+        var spinEl   = document.getElementById("spinEl");
+        var hintEl   = document.getElementById("hintEl");
+
+        function doSpeak(){{
+            spinEl.style.display = "inline-block";
+            btnLabel.textContent = "Loading...";
+            hintEl.textContent   = "⏳ Fetching native voice...";
+            AUDIO.pause(); AUDIO.currentTime = 0;
+
+            // Fetch via proxy to avoid CORS — use a fetch with no-cors or just set src directly
+            // Google TTS works as direct audio src (no CORS for audio elements)
+            AUDIO.src = GTTS_URL;
+            AUDIO.load();
+            AUDIO.oncanplaythrough = function(){{
+                spinEl.style.display = "none";
+                btnLabel.textContent = "🔊 Playing...";
+                hintEl.textContent   = "🎵 Speaking in native voice";
+                AUDIO.play();
+            }};
+            AUDIO.onended = function(){{
+                btnLabel.textContent = "{_replay_label}";
+                hintEl.textContent   = "🔊 Click to hear again";
+            }};
+            AUDIO.onerror = function(){{
+                // Google TTS blocked — fall back to Web Speech API
+                spinEl.style.display = "none";
+                btnLabel.textContent = "{_replay_label}";
+                hintEl.textContent   = "⚠️ Using browser voice (network blocked Google TTS)";
+                fallbackSpeak();
+            }};
+        }}
+
+        function fallbackSpeak(){{
+            var _win = (window.parent && window.parent !== window) ? window.parent : window;
+            var synth = _win.speechSynthesis;
+            if(!synth) return;
+            synth.cancel();
+            var u = new _win.SpeechSynthesisUtterance("{_speak_text.replace(chr(39),'').replace(chr(34),'')}");
+            u.lang = "{_tts_lang}"; u.rate = 0.85; u.pitch = 1.1; u.volume = 1.0;
+            synth.speak(u);
+        }}
+
+        function doStop(){{
+            AUDIO.pause(); AUDIO.currentTime = 0;
+            btnLabel.textContent = "{_replay_label}";
+            hintEl.textContent   = "🔊 Click to hear results in native voice";
+            spinEl.style.display = "none";
+            var _win = (window.parent && window.parent !== window) ? window.parent : window;
+            if(_win.speechSynthesis) _win.speechSynthesis.cancel();
+        }}
+        </script>
+        """, height=75)
 
         # TOP 3
         st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
