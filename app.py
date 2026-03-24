@@ -1010,55 +1010,79 @@ vl=vlist()
 
 # ══ VOICE: Welcome message on login ══
 _LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN"}
-_welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
-_welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
 _lc = _LANG_CODES.get(lang,"en-IN")
+_lc_root = _lc.split("-")[0]
+
+# Native-script welcome (used only if browser has the voice)
+_welcome_native = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
+
+# Phonetic romanized welcome (fallback when native voice is missing)
+_WELCOME_PHONETIC = {
+    "Kannada": f"Swagata {fname}! MangoNav ge swaagata!",
+    "Telugu":  f"Swaagatam {fname}! MangoNav ki swaagatam!",
+    "Hindi":   f"Swagat hai {fname}! MangoNav mein aapka swagat hai!",
+    "English": f"Welcome {fname} to MangoNav!",
+}
+_welcome_phonetic = _WELCOME_PHONETIC.get(lang, f"Welcome {fname} to MangoNav!")
+
+def _jsesc(s): return s.replace("\n"," ").replace("'","").replace('"','').replace("\\","")
+
 if st.session_state.get("just_logged_in", False):
-    _lc_root = _lc.split("-")[0]
+    _wn_js = _jsesc(_welcome_native)
+    _wp_js = _jsesc(_welcome_phonetic)
     components.html(f"""
     <script>
     (function(){{
-        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
-        var synth = _win.speechSynthesis;
-        var LANG  = "{_lc}";
-        var ROOT  = "{_lc_root}";
-        var TEXT  = "{_welcome_short.replace(chr(39), ' ').replace(chr(34), ' ')}";
+        var _win   = (window.parent && window.parent !== window) ? window.parent : window;
+        var synth  = _win.speechSynthesis;
+        var LANG   = "{_lc}";
+        var ROOT   = "{_lc_root}";
+        var NATIVE   = "{_wn_js}";
+        var PHONETIC = "{_wp_js}";
+        var IS_EN  = (ROOT === "en");
 
-        function pickVoice(voices){{
-            var v = voices.find(function(x){{ return x.lang === LANG; }});
-            if(!v) v = voices.find(function(x){{ return x.lang.startsWith(ROOT + "-"); }});
-            if(!v) v = voices.find(function(x){{ return x.lang === ROOT; }});
-            if(!v) v = voices.find(function(x){{ return x.lang.toLowerCase().indexOf(ROOT) === 0; }});
+        function findNative(vv){{
+            var v = vv.find(function(x){{ return x.lang === LANG; }});
+            if(!v) v = vv.find(function(x){{ return x.lang.startsWith(ROOT+"-"); }});
+            if(!v) v = vv.find(function(x){{ return x.lang === ROOT; }});
+            return v || null;
+        }}
+        function findEnIN(vv){{
+            var v = vv.find(function(x){{ return x.lang === "en-IN"; }});
+            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-"); }});
             return v || null;
         }}
 
-        function speak(){{
+        function speakNow(vv){{
             if(!synth) return;
             synth.cancel();
-            var u = new _win.SpeechSynthesisUtterance(TEXT);
-            u.lang = LANG; u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
-            var vv = synth.getVoices();
-            if(vv.length > 0){{
-                var mv = pickVoice(vv);
-                if(mv) u.voice = mv;
-                synth.speak(u);
-                return;
+            var nv = IS_EN ? null : findNative(vv);
+            var u;
+            if(nv){{
+                u = new _win.SpeechSynthesisUtterance(NATIVE);
+                u.lang = LANG; u.voice = nv;
+                u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
+            }} else {{
+                u = new _win.SpeechSynthesisUtterance(PHONETIC);
+                u.lang = "en-IN";
+                var ev = findEnIN(vv);
+                if(ev) u.voice = ev;
+                u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
             }}
-            // Poll until voices are available
-            var tries = 0;
-            var poll = setInterval(function(){{
-                vv = synth.getVoices();
-                tries++;
-                if(vv.length > 0 || tries > 20){{
-                    clearInterval(poll);
-                    var mv2 = pickVoice(vv);
-                    if(mv2) u.voice = mv2;
-                    synth.speak(u);
-                }}
-            }}, 150);
+            synth.speak(u);
         }}
 
-        speak();
+        function trySpeak(){{
+            if(!synth) return;
+            var vv = synth.getVoices();
+            if(vv.length > 0){{ speakNow(vv); return; }}
+            var tries = 0;
+            var poll = setInterval(function(){{
+                vv = synth.getVoices(); tries++;
+                if(vv.length > 0 || tries > 20){{ clearInterval(poll); speakNow(vv); }}
+            }}, 150);
+        }}
+        trySpeak();
     }})();
     </script>
     """, height=0)
@@ -1318,51 +1342,79 @@ else:
         _lc2 = _LANG_CODES.get(lang, "en-IN")
         _profit_fmt = f"{bn:,}"
         _dist_fmt = str(nearest)
-        # Build the speech text in selected language
+        _market_name_en = top3.iloc[0]["Name"]
+
+        # Native-script speech text (used only when browser HAS the native voice)
         _voice_tmpl = tx.get("voice_welcome", "Welcome {name}! Your best market is {market}, {dist} km away. Profit is Rupees {profit}.")
         _speech_text = (_voice_tmpl
             .replace("{name}", fname)
-            .replace("{market}", top3.iloc[0]["Name"])
+            .replace("{market}", _market_name_en)
             .replace("{dist}", _dist_fmt)
             .replace("{profit}", _profit_fmt)
         )
-        # Escape for JS string
-        _speech_js = _speech_text.replace("\n", " ").replace("'", " ").replace('"', " ")
+
+        # Phonetic fallback (romanized) — spoken with en-IN voice when native voice is missing
+        _PHONETIC = {
+            "Kannada": f"Swagata {fname}! Nimma uttama market {_market_name_en}, {_dist_fmt} kilo meetar dooradalli ide. Andaajitha labha rupaayi {_profit_fmt}.",
+            "Telugu":  f"Swaagatam {fname}! Meeru uttama market {_market_name_en}, {_dist_fmt} kilomeetarlu dooramlo undi. Andajeena laabham rupaayalu {_profit_fmt}.",
+            "Hindi":   f"Swagat hai {fname}! Aapka sabse accha market {_market_name_en} hai, jo {_dist_fmt} kilometre door hai. Anumaanat laabh rupaye {_profit_fmt} hai.",
+            "English": f"Welcome {fname}! Your best market is {_market_name_en}, located {_dist_fmt} kilometres away. Expected profit is Rupees {_profit_fmt}.",
+        }
+        _phonetic_text = _PHONETIC.get(lang, _PHONETIC["English"])
+
+        def _js_str(s):
+            return s.replace("\n", " ").replace("'", " ").replace('"', " ").replace("\\", " ")
+
+        _speech_js   = _js_str(_speech_text)
+        _phonetic_js = _js_str(_phonetic_text)
+
         # ── Voice announcement + buttons (uses components.html so JS actually runs) ──
         _replay_label = tx.get("voice_btn", "🔊 Hear Results")
         _stop_label   = "⏹ Stop"
         _lc2_root     = _lc2.split("-")[0]
         components.html(f"""
         <script>
-        // ── Robust cross-frame TTS with correct accent ──
-        var _win   = (window.parent && window.parent !== window) ? window.parent : window;
-        var SYNTH  = _win.speechSynthesis;
-        var UCLASS = _win.SpeechSynthesisUtterance;
-        var TEXT   = "{_speech_js}";
-        var LANG   = "{_lc2}";       // e.g. "kn-IN", "te-IN", "hi-IN", "en-IN"
-        var ROOT   = "{_lc2_root}";  // e.g. "kn", "te", "hi", "en"
+        // ── Smart TTS: use native voice if available, else phonetic romanized fallback ──
+        var _win      = (window.parent && window.parent !== window) ? window.parent : window;
+        var SYNTH     = _win.speechSynthesis;
+        var UCLASS    = _win.SpeechSynthesisUtterance;
+        var NATIVE    = "{_speech_js}";    // native script text (Kannada/Telugu/Hindi/English)
+        var PHONETIC  = "{_phonetic_js}";  // romanized fallback spoken with en-IN accent
+        var LANG      = "{_lc2}";          // e.g. "kn-IN"
+        var ROOT      = "{_lc2_root}";     // e.g. "kn"
+        var IS_ENGLISH = (ROOT === "en");
 
-        function pickVoice(voices){{
-            // 1. Exact locale match  (e.g. "kn-IN")
+        function findNativeVoice(voices){{
             var v = voices.find(function(x){{ return x.lang === LANG; }});
-            // 2. Same root language  (e.g. "kn-*")
             if(!v) v = voices.find(function(x){{ return x.lang.startsWith(ROOT + "-"); }});
-            // 3. Root only           (e.g. "kn")
             if(!v) v = voices.find(function(x){{ return x.lang === ROOT; }});
-            // 4. Any voice with that root anywhere in the lang string
-            if(!v) v = voices.find(function(x){{ return x.lang.toLowerCase().indexOf(ROOT) === 0; }});
             return v || null;
         }}
 
-        function doSpeak(){{
-            if(!SYNTH || !UCLASS) {{ alert("Speech not supported in this browser."); return; }}
+        function findEnIN(voices){{
+            var v = voices.find(function(x){{ return x.lang === "en-IN"; }});
+            if(!v) v = voices.find(function(x){{ return x.lang.startsWith("en-"); }});
+            return v || null;
+        }}
+
+        function speakNow(voices){{
+            if(!SYNTH || !UCLASS) return;
             SYNTH.cancel();
-            var u = new UCLASS(TEXT);
-            u.lang = LANG; u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
-            var voices = SYNTH.getVoices();
-            if(voices.length > 0){{
-                var match = pickVoice(voices);
-                if(match) u.voice = match;
+            var nativeVoice = IS_ENGLISH ? null : findNativeVoice(voices);
+            var u;
+            if(nativeVoice){{
+                // Browser has the real Kannada/Telugu/Hindi voice — use native script
+                u = new UCLASS(NATIVE);
+                u.lang = LANG;
+                u.voice = nativeVoice;
+                u.rate = 0.82; u.pitch = 1.0; u.volume = 1.0;
+            }} else {{
+                // No native voice — speak romanized text with en-IN accent (sounds natural)
+                u = new UCLASS(PHONETIC);
+                u.lang = "en-IN";
+                var enVoice = findEnIN(voices);
+                if(enVoice) u.voice = enVoice;
+                u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
             }}
             SYNTH.speak(u);
         }}
@@ -1370,25 +1422,19 @@ else:
         function doSpeak_whenReady(){{
             if(!SYNTH) return;
             var voices = SYNTH.getVoices();
-            if(voices.length > 0){{ doSpeak(); return; }}
-            // Poll until voices load (handles Chrome lazy-load)
+            if(voices.length > 0){{ speakNow(voices); return; }}
             var tries = 0;
             var poll = setInterval(function(){{
                 voices = SYNTH.getVoices();
                 tries++;
                 if(voices.length > 0 || tries > 20){{
                     clearInterval(poll);
-                    doSpeak();
+                    speakNow(voices);
                 }}
             }}, 150);
         }}
 
-        function doStop(){{
-            if(SYNTH) SYNTH.cancel();
-        }}
-
-        // Wire up voiceschanged for browsers that need it (Firefox)
-        if(SYNTH){{ SYNTH.onvoiceschanged = null; }}  // clear stale handlers
+        function doStop(){{ if(SYNTH) SYNTH.cancel(); }}
         </script>
 
         <style>
