@@ -2,6 +2,12 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import sqlite3, bcrypt, random, requests
+try:
+    from gtts import gTTS
+    import io as _gtts_io, base64 as _gtts_b64mod
+    _GTTS_OK = True
+except ImportError:
+    _GTTS_OK = False
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -1010,13 +1016,24 @@ vl=vlist()
 
 # ══ VOICE: Welcome message on login ══
 _LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN"}
-_welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
-_welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
-_lc = _LANG_CODES.get(lang,"en-IN")
-# Google Translate TTS — native accent welcome on login
 _GTTS_LANG = {"English": "en", "Telugu": "te", "Hindi": "hi", "Kannada": "kn"}
+
+@st.cache_data(show_spinner=False)
+def _make_audio_b64(text, lang_code):
+    """Generate speech server-side via gTTS, return base64 mp3 data URI."""
+    if not _GTTS_OK:
+        return None
+    try:
+        buf = _gtts_io.BytesIO()
+        gTTS(text=text, lang=lang_code, slow=False).write_to_fp(buf)
+        buf.seek(0)
+        b64 = _gtts_b64mod.b64encode(buf.read()).decode()
+        return f"data:audio/mp3;base64,{b64}"
+    except Exception:
+        return None
+
 _WELCOME_TEXT = {
-    "Kannada": f"ಸ್ವಾಗತ {fname}! ಮ್ಯಾಂಗೋನಾವ್ ಗೆ ಸ್ವಾಗತ!",
+    "Kannada": f"స್ವಾಗತ {fname}! ಮ್ಯಾಂಗೋನಾವ್ ಗೆ స್ವಾಗತ!",
     "Telugu":  f"స్వాగతం {fname}! మ్యాంగోనావ్ కి స్వాగతం!",
     "Hindi":   f"स्वागत है {fname}! मैंगोनाव में आपका स्वागत है!",
     "English": f"Welcome {fname} to MangoNav!",
@@ -1024,26 +1041,16 @@ _WELCOME_TEXT = {
 _welcome_tts_text = _WELCOME_TEXT.get(lang, f"Welcome {fname} to MangoNav!")
 _welcome_tts_lang = _GTTS_LANG.get(lang, "en")
 
-def _url_encode(s):
-    import urllib.parse
-    return urllib.parse.quote(s)
-
 if st.session_state.get("just_logged_in", False):
-    _w_encoded = _url_encode(_welcome_tts_text)
-    _w_gtts_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={_w_encoded}&tl={_welcome_tts_lang}&client=tw-ob"
-    components.html(f"""
-    <script>
-    (function(){{
-        var url = "{_w_gtts_url}";
-        var audio = new Audio(url);
-        audio.volume = 1.0;
-        audio.play().catch(function(e){{
-            // autoplay blocked — silently ignore, user can use button
-            console.log("Autoplay blocked:", e);
-        }});
-    }})();
-    </script>
-    """, height=0)
+    _w_src = _make_audio_b64(_welcome_tts_text, _welcome_tts_lang)
+    if _w_src:
+        components.html(f"""
+        <audio id="wa" style="display:none"></audio>
+        <script>
+        var a=document.getElementById("wa"); a.src="{_w_src}";
+        a.play().catch(function(){{}});
+        </script>
+        """, height=0)
     st.session_state.just_logged_in = False
 
 # ══ SIDEBAR — clean, no expanders ══
@@ -1400,95 +1407,72 @@ else:
             ),
         }
         _speak_text = _VOICE_SENTENCES.get(lang, _VOICE_SENTENCES["English"])
-        _speak_encoded = _ulp.quote(_speak_text)
-        _gtts_url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={_speak_encoded}&tl={_tts_lang}&client=tw-ob"
 
         _replay_label = tx.get("voice_btn", "🔊 Hear Results")
         _stop_label   = "⏹ Stop"
-        components.html(f"""
-        <style>
-        body{{margin:0;background:transparent;}}
-        .vrow{{display:flex;gap:12px;align-items:center;padding:6px 0;flex-wrap:wrap;}}
-        .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;
-            border:none;border-radius:10px;padding:12px 26px;font-size:15px;
-            font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;
-            display:inline-flex;align-items:center;gap:8px;}}
-        .btn-stop{{background:rgba(0,0,0,0.55);color:white;
-            border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;
-            padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;}}
-        .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
-        .spin{{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);
-            border-top:2px solid white;border-radius:50%;
-            animation:spin 0.7s linear infinite;}}
-        @keyframes spin{{to{{transform:rotate(360deg)}}}}
-        </style>
+        _tts_lang2 = _GTTS_LANG.get(lang, "en")
+        _audio_src = _make_audio_b64(_speak_text, _tts_lang2)
 
-        <audio id="ttsAudio" style="display:none"></audio>
-        <div class="vrow">
-            <button class="btn-speak" id="speakBtn" onclick="doSpeak()">
-                <span id="spinEl" class="spin"></span>
-                <span id="btnLabel">{_replay_label}</span>
-            </button>
-            <button class="btn-stop" onclick="doStop()">{_stop_label}</button>
-            <span class="hint" id="hintEl">🔊 Click to hear results in native voice</span>
-        </div>
-
-        <script>
-        var AUDIO = document.getElementById("ttsAudio");
-        var GTTS_URL = "{_gtts_url}";
-        var btnLabel = document.getElementById("btnLabel");
-        var spinEl   = document.getElementById("spinEl");
-        var hintEl   = document.getElementById("hintEl");
-
-        function doSpeak(){{
-            spinEl.style.display = "inline-block";
-            btnLabel.textContent = "Loading...";
-            hintEl.textContent   = "⏳ Fetching native voice...";
-            AUDIO.pause(); AUDIO.currentTime = 0;
-
-            // Fetch via proxy to avoid CORS — use a fetch with no-cors or just set src directly
-            // Google TTS works as direct audio src (no CORS for audio elements)
-            AUDIO.src = GTTS_URL;
-            AUDIO.load();
-            AUDIO.oncanplaythrough = function(){{
-                spinEl.style.display = "none";
-                btnLabel.textContent = "🔊 Playing...";
-                hintEl.textContent   = "🎵 Speaking in native voice";
-                AUDIO.play();
-            }};
-            AUDIO.onended = function(){{
-                btnLabel.textContent = "{_replay_label}";
-                hintEl.textContent   = "🔊 Click to hear again";
-            }};
-            AUDIO.onerror = function(){{
-                // Google TTS blocked — fall back to Web Speech API
-                spinEl.style.display = "none";
-                btnLabel.textContent = "{_replay_label}";
-                hintEl.textContent   = "⚠️ Using browser voice (network blocked Google TTS)";
-                fallbackSpeak();
-            }};
-        }}
-
-        function fallbackSpeak(){{
-            var _win = (window.parent && window.parent !== window) ? window.parent : window;
-            var synth = _win.speechSynthesis;
-            if(!synth) return;
-            synth.cancel();
-            var u = new _win.SpeechSynthesisUtterance("{_speak_text.replace(chr(39),'').replace(chr(34),'')}");
-            u.lang = "{_tts_lang}"; u.rate = 0.85; u.pitch = 1.1; u.volume = 1.0;
-            synth.speak(u);
-        }}
-
-        function doStop(){{
-            AUDIO.pause(); AUDIO.currentTime = 0;
-            btnLabel.textContent = "{_replay_label}";
-            hintEl.textContent   = "🔊 Click to hear results in native voice";
-            spinEl.style.display = "none";
-            var _win = (window.parent && window.parent !== window) ? window.parent : window;
-            if(_win.speechSynthesis) _win.speechSynthesis.cancel();
-        }}
-        </script>
-        """, height=75)
+        if _audio_src:
+            components.html(f"""
+            <style>
+            body{{margin:0;background:transparent;}}
+            .vrow{{display:flex;gap:12px;align-items:center;padding:6px 0;flex-wrap:wrap;}}
+            .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;border:none;border-radius:10px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:sans-serif;}}
+            .btn-stop{{background:rgba(0,0,0,0.55);color:white;border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;}}
+            .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
+            </style>
+            <audio id="rA" style="display:none"></audio>
+            <div class="vrow">
+                <button class="btn-speak" onclick="doSpeak()">{_replay_label}</button>
+                <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
+                <span class="hint" id="hintEl">🔊 Native voice — click to hear</span>
+            </div>
+            <script>
+            var au=document.getElementById("rA"), hint=document.getElementById("hintEl");
+            au.src="{_audio_src}";
+            au.onended=function(){{hint.textContent="🔊 Click to hear again";}};
+            function doSpeak(){{
+                au.currentTime=0;
+                hint.textContent="🎵 Speaking...";
+                au.play().catch(function(e){{hint.textContent="⚠️ Click again to play";}});
+            }}
+            function doStop(){{
+                au.pause(); au.currentTime=0;
+                hint.textContent="🔊 Native voice — click to hear";
+            }}
+            </script>
+            """, height=75)
+        else:
+            def _jss(s): return s.replace("\n"," ").replace("'",'').replace('"','').replace("\\","")
+            _speak_js = _jss(_speak_text)
+            components.html(f"""
+            <style>
+            body{{margin:0;background:transparent;}}
+            .vrow{{display:flex;gap:12px;align-items:center;padding:6px 0;}}
+            .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;border:none;border-radius:10px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:sans-serif;}}
+            .btn-stop{{background:rgba(0,0,0,0.55);color:white;border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;padding:12px 20px;font-size:14px;cursor:pointer;font-family:sans-serif;}}
+            .hint{{font-size:12px;color:rgba(255,255,255,0.55);font-family:sans-serif;}}
+            </style>
+            <div class="vrow">
+                <button class="btn-speak" onclick="doSpeak()">{_replay_label}</button>
+                <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
+                <span class="hint">⚠️ Run: pip install gtts  to enable native voice</span>
+            </div>
+            <script>
+            function doSpeak(){{
+                var w=(window.parent&&window.parent!==window)?window.parent:window;
+                var s=w.speechSynthesis; if(!s) return; s.cancel();
+                var u=new w.SpeechSynthesisUtterance("{_speak_js}");
+                u.lang="{_tts_lang2}"; u.rate=0.85; u.pitch=1.1; u.volume=1.0;
+                s.speak(u);
+            }}
+            function doStop(){{
+                var w=(window.parent&&window.parent!==window)?window.parent:window;
+                if(w.speechSynthesis) w.speechSynthesis.cancel();
+            }}
+            </script>
+            """, height=75)
 
         # TOP 3
         st.markdown(f'<div style="display:inline-block;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);color:#FFD700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-size:12px;font-weight:900;padding:10px 22px;border-radius:10px;border:1.5px solid rgba(255,215,0,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.5);">🏅 {tx["top3"]}</div>',unsafe_allow_html=True)
