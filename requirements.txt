@@ -1,8 +1,9 @@
-bcrypt
 streamlit
+bcrypt
 pandas
 numpy
 plotly
 folium
 streamlit-folium
 requests
+gtts
