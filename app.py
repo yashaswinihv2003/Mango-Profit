@@ -1010,77 +1010,50 @@ vl=vlist()
 
 # ══ VOICE: Welcome message on login ══
 _LANG_CODES={"English":"en-IN","Telugu":"te-IN","Hindi":"hi-IN","Kannada":"kn-IN"}
+_welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
+_welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
 _lc = _LANG_CODES.get(lang,"en-IN")
-_lc_root = _lc.split("-")[0]
-
-# Native-script welcome (used only if browser has the voice)
-_welcome_native = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname).replace("{market}","").replace("{dist}","").replace("{profit}","")
-
-# Phonetic romanized welcome (fallback when native voice is missing)
+# Phonetic welcome — fully in words, no digits, prefers female en-IN voice
 _WELCOME_PHONETIC = {
     "Kannada": f"Swagata {fname}! MangoNav ge swaagata!",
     "Telugu":  f"Swaagatam {fname}! MangoNav ki swaagatam!",
     "Hindi":   f"Swagat hai {fname}! MangoNav mein aapka swagat hai!",
     "English": f"Welcome {fname} to MangoNav!",
 }
-_welcome_phonetic = _WELCOME_PHONETIC.get(lang, f"Welcome {fname} to MangoNav!")
-
-def _jsesc(s): return s.replace("\n"," ").replace("'","").replace('"','').replace("\\","")
+_welcome_speak = _WELCOME_PHONETIC.get(lang, f"Welcome {fname} to MangoNav!")
+def _jse(s): return s.replace("\n"," ").replace("'","").replace('"',"").replace("\\","")
 
 if st.session_state.get("just_logged_in", False):
-    _wn_js = _jsesc(_welcome_native)
-    _wp_js = _jsesc(_welcome_phonetic)
+    _wsafe = _jse(_welcome_speak)
     components.html(f"""
     <script>
     (function(){{
-        var _win   = (window.parent && window.parent !== window) ? window.parent : window;
-        var synth  = _win.speechSynthesis;
-        var LANG   = "{_lc}";
-        var ROOT   = "{_lc_root}";
-        var NATIVE   = "{_wn_js}";
-        var PHONETIC = "{_wp_js}";
-        var IS_EN  = (ROOT === "en");
-
-        function findNative(vv){{
-            var v = vv.find(function(x){{ return x.lang === LANG; }});
-            if(!v) v = vv.find(function(x){{ return x.lang.startsWith(ROOT+"-"); }});
-            if(!v) v = vv.find(function(x){{ return x.lang === ROOT; }});
-            return v || null;
-        }}
-        function findEnIN(vv){{
-            var v = vv.find(function(x){{ return x.lang === "en-IN"; }});
+        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
+        var synth = _win.speechSynthesis;
+        var TEXT  = "{_wsafe}";
+        function pickFemale(vv){{
+            var v = vv.find(function(x){{ return x.lang==="en-IN" && /priya|veena|aditi|lekha|raveena|heera|neerja/i.test(x.name); }});
+            if(!v) v = vv.find(function(x){{ return x.lang==="en-IN"; }});
+            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-") && /zira|siri|samantha|victoria|karen|moira|tessa|fiona|allison|ava|kate|hazel/i.test(x.name); }});
             if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-"); }});
-            return v || null;
+            return v||null;
         }}
-
         function speakNow(vv){{
             if(!synth) return;
             synth.cancel();
-            var nv = IS_EN ? null : findNative(vv);
-            var u;
-            if(nv){{
-                u = new _win.SpeechSynthesisUtterance(NATIVE);
-                u.lang = LANG; u.voice = nv;
-                u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
-            }} else {{
-                u = new _win.SpeechSynthesisUtterance(PHONETIC);
-                u.lang = "en-IN";
-                var ev = findEnIN(vv);
-                if(ev) u.voice = ev;
-                u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
-            }}
+            var u = new _win.SpeechSynthesisUtterance(TEXT);
+            u.lang="en-IN"; u.rate=0.85; u.pitch=1.15; u.volume=1.0;
+            var fv = pickFemale(vv); if(fv) u.voice=fv;
             synth.speak(u);
         }}
-
         function trySpeak(){{
             if(!synth) return;
-            var vv = synth.getVoices();
-            if(vv.length > 0){{ speakNow(vv); return; }}
-            var tries = 0;
-            var poll = setInterval(function(){{
-                vv = synth.getVoices(); tries++;
-                if(vv.length > 0 || tries > 20){{ clearInterval(poll); speakNow(vv); }}
-            }}, 150);
+            var vv=synth.getVoices();
+            if(vv.length>0){{ speakNow(vv); return; }}
+            var t=0, poll=setInterval(function(){{
+                vv=synth.getVoices(); t++;
+                if(vv.length>0||t>25){{ clearInterval(poll); speakNow(vv); }}
+            }},120);
         }}
         trySpeak();
     }})();
@@ -1340,98 +1313,133 @@ else:
 
         # ══ VOICE ANNOUNCEMENT — speaks best market result ══
         _lc2 = _LANG_CODES.get(lang, "en-IN")
-        _profit_fmt = f"{bn:,}"
-        _dist_fmt = str(nearest)
-        _market_name_en = top3.iloc[0]["Name"]
 
-        # Native-script speech text (used only when browser HAS the native voice)
-        _voice_tmpl = tx.get("voice_welcome", "Welcome {name}! Your best market is {market}, {dist} km away. Profit is Rupees {profit}.")
-        _speech_text = (_voice_tmpl
-            .replace("{name}", fname)
-            .replace("{market}", _market_name_en)
-            .replace("{dist}", _dist_fmt)
-            .replace("{profit}", _profit_fmt)
-        )
+        # ── Number-to-spoken-words helpers ──
+        def _nkn(n):
+            n=int(n)
+            O=["","ondu","eradu","mooru","naalku","aidu","aaru","eelu","entu","ombattu","hattu","hadinondu","hadineradu","hadinmooru","hadinaalku","hadnaidu","hadinaru","hadiNeelu","hadineTtu","hattonombattu"]
+            T=["","hattu","ippattu","muvvattu","naalvattu","aivvattu","aravattu","ettattu","embattu","tombattu"]
+            if n==0: return "sonne"
+            if n<20: return O[n]
+            if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
+            if n<1000: return O[n//100]+" nooru"+(" "+_nkn(n%100) if n%100 else "")
+            if n<100000: return _nkn(n//1000)+" saavira"+(" "+_nkn(n%1000) if n%1000 else "")
+            if n<10000000: return _nkn(n//100000)+" laksha"+(" "+_nkn(n%100000) if n%100000 else "")
+            return str(n)
 
-        # Phonetic fallback (romanized) — spoken with en-IN voice when native voice is missing
-        _PHONETIC = {
-            "Kannada": f"Swagata {fname}! Nimma uttama market {_market_name_en}, {_dist_fmt} kilo meetar dooradalli ide. Andaajitha labha rupaayi {_profit_fmt}.",
-            "Telugu":  f"Swaagatam {fname}! Meeru uttama market {_market_name_en}, {_dist_fmt} kilomeetarlu dooramlo undi. Andajeena laabham rupaayalu {_profit_fmt}.",
-            "Hindi":   f"Swagat hai {fname}! Aapka sabse accha market {_market_name_en} hai, jo {_dist_fmt} kilometre door hai. Anumaanat laabh rupaye {_profit_fmt} hai.",
-            "English": f"Welcome {fname}! Your best market is {_market_name_en}, located {_dist_fmt} kilometres away. Expected profit is Rupees {_profit_fmt}.",
+        def _nte(n):
+            n=int(n)
+            O=["","okati","rendu","moodu","naalugu","aidu","aaru","edu","enimidi","tommidi","padi","padakonu","pannendu","padamoodu","padanaalugu","padaihanu","padaaru","padihenu","padhenimidi","pantombhai"]
+            T=["","padi","iruvai","muppai","nalabhai","yabhai","aravai","ebbhai","tombhai","thombhai"]
+            if n==0: return "sunna"
+            if n<20: return O[n]
+            if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
+            if n<1000: return O[n//100]+" vandalu"+(" "+_nte(n%100) if n%100 else "")
+            if n<100000: return _nte(n//1000)+" velu"+(" "+_nte(n%1000) if n%1000 else "")
+            if n<10000000: return _nte(n//100000)+" lakshaalu"+(" "+_nte(n%100000) if n%100000 else "")
+            return str(n)
+
+        def _nhi(n):
+            n=int(n)
+            O=["","ek","do","teen","chaar","paanch","chhah","saat","aath","nau","das","gyarah","barah","terah","chaudah","pandrah","solah","satrah","atharah","unnees"]
+            T=["","das","bees","tees","chalees","pachaas","saath","sattar","assi","nabbe"]
+            if n==0: return "shunya"
+            if n<20: return O[n]
+            if n<100: return T[n//10]+(" "+O[n%10] if n%10 else "")
+            if n<1000: return O[n//100]+" sau"+(" "+_nhi(n%100) if n%100 else "")
+            if n<100000: return _nhi(n//1000)+" hazaar"+(" "+_nhi(n%1000) if n%1000 else "")
+            if n<10000000: return _nhi(n//100000)+" lakh"+(" "+_nhi(n%100000) if n%100000 else "")
+            return str(n)
+
+        def _nen(n):
+            n=int(n)
+            lakh=n//100000; thou=(n%100000)//1000; rem=n%1000
+            parts=[]
+            if lakh: parts.append(f"{lakh} lakh")
+            if thou: parts.append(f"{thou} thousand")
+            if rem:  parts.append(str(rem))
+            return " ".join(parts) if parts else "zero"
+
+        def _dist_w(d, language):
+            km=int(float(d))
+            if language=="Kannada": return _nkn(km)+" kilo meetar"
+            if language=="Telugu":  return _nte(km)+" kilomeetarlu"
+            if language=="Hindi":   return _nhi(km)+" kilometre"
+            return _nen(km)+" kilometres"
+
+        def _profit_w(p, language):
+            p=int(str(p).replace(",",""))
+            if language=="Kannada": return "rupaayi "+_nkn(p)
+            if language=="Telugu":  return "rupaayalu "+_nte(p)
+            if language=="Hindi":   return "rupaye "+_nhi(p)
+            return _nen(p)+" rupees"
+
+        _market_name_voice = top3.iloc[0]["Name"]
+
+        _VOICE_SENTENCES = {
+            "Kannada": (
+                f"Swagata {fname}. "
+                f"Nimma uttama maruvanthige {_market_name_voice}, "
+                f"{_dist_w(nearest, 'Kannada')} dooradalli ide. "
+                f"Andaajitha laabha {_profit_w(bn, 'Kannada')}."
+            ),
+            "Telugu": (
+                f"Swaagatam {fname}. "
+                f"Meeru uttama market {_market_name_voice}, "
+                f"{_dist_w(nearest, 'Telugu')} dooramlo undi. "
+                f"Andajeena laabham {_profit_w(bn, 'Telugu')}."
+            ),
+            "Hindi": (
+                f"Swagat hai {fname}. "
+                f"Aapka sabse achha market {_market_name_voice} hai, "
+                f"jo {_dist_w(nearest, 'Hindi')} door hai. "
+                f"Anumaanat laabh {_profit_w(bn, 'Hindi')} hai."
+            ),
+            "English": (
+                f"Welcome {fname}. "
+                f"Your best market is {_market_name_voice}, "
+                f"{_dist_w(nearest, 'English')} away. "
+                f"Expected profit is {_profit_w(bn, 'English')}."
+            ),
         }
-        _phonetic_text = _PHONETIC.get(lang, _PHONETIC["English"])
+        _speak_sentence = _VOICE_SENTENCES.get(lang, _VOICE_SENTENCES["English"])
 
-        def _js_str(s):
-            return s.replace("\n", " ").replace("'", " ").replace('"', " ").replace("\\", " ")
+        def _jss(s): return s.replace("\n"," ").replace("'","").replace('"',"").replace("\\","")
+        _speak_js = _jss(_speak_sentence)
 
-        _speech_js   = _js_str(_speech_text)
-        _phonetic_js = _js_str(_phonetic_text)
-
-        # ── Voice announcement + buttons (uses components.html so JS actually runs) ──
         _replay_label = tx.get("voice_btn", "🔊 Hear Results")
         _stop_label   = "⏹ Stop"
-        _lc2_root     = _lc2.split("-")[0]
         components.html(f"""
         <script>
-        // ── Smart TTS: use native voice if available, else phonetic romanized fallback ──
-        var _win      = (window.parent && window.parent !== window) ? window.parent : window;
-        var SYNTH     = _win.speechSynthesis;
-        var UCLASS    = _win.SpeechSynthesisUtterance;
-        var NATIVE    = "{_speech_js}";    // native script text (Kannada/Telugu/Hindi/English)
-        var PHONETIC  = "{_phonetic_js}";  // romanized fallback spoken with en-IN accent
-        var LANG      = "{_lc2}";          // e.g. "kn-IN"
-        var ROOT      = "{_lc2_root}";     // e.g. "kn"
-        var IS_ENGLISH = (ROOT === "en");
+        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
+        var SYNTH = _win.speechSynthesis;
+        var TEXT  = "{_speak_js}";
 
-        function findNativeVoice(voices){{
-            var v = voices.find(function(x){{ return x.lang === LANG; }});
-            if(!v) v = voices.find(function(x){{ return x.lang.startsWith(ROOT + "-"); }});
-            if(!v) v = voices.find(function(x){{ return x.lang === ROOT; }});
-            return v || null;
+        function pickFemale(vv){{
+            var v = vv.find(function(x){{ return x.lang==="en-IN" && /priya|veena|aditi|lekha|raveena|heera|neerja/i.test(x.name); }});
+            if(!v) v = vv.find(function(x){{ return x.lang==="en-IN"; }});
+            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-") && /zira|siri|samantha|victoria|karen|moira|tessa|fiona|allison|ava|kate|hazel/i.test(x.name); }});
+            if(!v) v = vv.find(function(x){{ return x.lang.startsWith("en-"); }});
+            return v||null;
         }}
 
-        function findEnIN(voices){{
-            var v = voices.find(function(x){{ return x.lang === "en-IN"; }});
-            if(!v) v = voices.find(function(x){{ return x.lang.startsWith("en-"); }});
-            return v || null;
-        }}
-
-        function speakNow(voices){{
-            if(!SYNTH || !UCLASS) return;
+        function speakNow(vv){{
+            if(!SYNTH) return;
             SYNTH.cancel();
-            var nativeVoice = IS_ENGLISH ? null : findNativeVoice(voices);
-            var u;
-            if(nativeVoice){{
-                // Browser has the real Kannada/Telugu/Hindi voice — use native script
-                u = new UCLASS(NATIVE);
-                u.lang = LANG;
-                u.voice = nativeVoice;
-                u.rate = 0.82; u.pitch = 1.0; u.volume = 1.0;
-            }} else {{
-                // No native voice — speak romanized text with en-IN accent (sounds natural)
-                u = new UCLASS(PHONETIC);
-                u.lang = "en-IN";
-                var enVoice = findEnIN(voices);
-                if(enVoice) u.voice = enVoice;
-                u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
-            }}
+            var u = new _win.SpeechSynthesisUtterance(TEXT);
+            u.lang="en-IN"; u.rate=0.82; u.pitch=1.15; u.volume=1.0;
+            var fv=pickFemale(vv); if(fv) u.voice=fv;
             SYNTH.speak(u);
         }}
 
         function doSpeak_whenReady(){{
             if(!SYNTH) return;
-            var voices = SYNTH.getVoices();
-            if(voices.length > 0){{ speakNow(voices); return; }}
-            var tries = 0;
-            var poll = setInterval(function(){{
-                voices = SYNTH.getVoices();
-                tries++;
-                if(voices.length > 0 || tries > 20){{
-                    clearInterval(poll);
-                    speakNow(voices);
-                }}
-            }}, 150);
+            var vv=SYNTH.getVoices();
+            if(vv.length>0){{ speakNow(vv); return; }}
+            var t=0, poll=setInterval(function(){{
+                vv=SYNTH.getVoices(); t++;
+                if(vv.length>0||t>25){{ clearInterval(poll); speakNow(vv); }}
+            }},120);
         }}
 
         function doStop(){{ if(SYNTH) SYNTH.cancel(); }}
@@ -1439,7 +1447,7 @@ else:
 
         <style>
         body{{margin:0;background:transparent;}}
-        .vrow{{display:flex;gap:12px;align-items:center;padding:4px 0;}}
+        .vrow{{display:flex;gap:12px;align-items:center;padding:4px 0;flex-wrap:wrap;}}
         .btn-speak{{background:linear-gradient(135deg,#FF8C00,#E65100);color:white;
             border:none;border-radius:10px;padding:12px 26px;font-size:15px;
             font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:sans-serif;}}
