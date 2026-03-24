@@ -1014,24 +1014,51 @@ _welcome_msg = tx.get("voice_welcome","Welcome {name}!").replace("{name}", fname
 _welcome_short = f"Welcome {fname} to MangoNav!" if lang=="English" else tx.get("voice_welcome","").split("!")[0].replace("{name}",fname) + "!"
 _lc = _LANG_CODES.get(lang,"en-IN")
 if st.session_state.get("just_logged_in", False):
+    _lc_root = _lc.split("-")[0]
     components.html(f"""
     <script>
     (function(){{
+        var _win  = (window.parent && window.parent !== window) ? window.parent : window;
+        var synth = _win.speechSynthesis;
+        var LANG  = "{_lc}";
+        var ROOT  = "{_lc_root}";
+        var TEXT  = "{_welcome_short.replace(chr(39), ' ').replace(chr(34), ' ')}";
+
+        function pickVoice(voices){{
+            var v = voices.find(function(x){{ return x.lang === LANG; }});
+            if(!v) v = voices.find(function(x){{ return x.lang.startsWith(ROOT + "-"); }});
+            if(!v) v = voices.find(function(x){{ return x.lang === ROOT; }});
+            if(!v) v = voices.find(function(x){{ return x.lang.toLowerCase().indexOf(ROOT) === 0; }});
+            return v || null;
+        }}
+
         function speak(){{
-            var tgt = window.parent || window;
-            var synth = tgt.speechSynthesis;
             if(!synth) return;
             synth.cancel();
-            var u = new tgt.SpeechSynthesisUtterance("{_welcome_short}");
-            u.lang = "{_lc}"; u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
+            var u = new _win.SpeechSynthesisUtterance(TEXT);
+            u.lang = LANG; u.rate = 0.88; u.pitch = 1.05; u.volume = 1.0;
             var vv = synth.getVoices();
-            var mv = vv.find(v => v.lang.startsWith("{_lc.split('-')[0]}"));
-            if(mv) u.voice = mv;
-            synth.speak(u);
+            if(vv.length > 0){{
+                var mv = pickVoice(vv);
+                if(mv) u.voice = mv;
+                synth.speak(u);
+                return;
+            }}
+            // Poll until voices are available
+            var tries = 0;
+            var poll = setInterval(function(){{
+                vv = synth.getVoices();
+                tries++;
+                if(vv.length > 0 || tries > 20){{
+                    clearInterval(poll);
+                    var mv2 = pickVoice(vv);
+                    if(mv2) u.voice = mv2;
+                    synth.speak(u);
+                }}
+            }}, 150);
         }}
-        var synth = (window.parent||window).speechSynthesis;
-        if(synth && synth.getVoices().length > 0){{ speak(); }}
-        else {{ if(synth) synth.onvoiceschanged = speak; setTimeout(speak, 800); }}
+
+        speak();
     }})();
     </script>
     """, height=0)
@@ -1307,27 +1334,61 @@ else:
         _lc2_root     = _lc2.split("-")[0]
         components.html(f"""
         <script>
-        var SYNTH = window.parent ? window.parent.speechSynthesis : window.speechSynthesis;
-        var UCLASS = window.parent ? window.parent.SpeechSynthesisUtterance : SpeechSynthesisUtterance;
-        var TEXT  = "{_speech_js}";
-        var LANG  = "{_lc2}";
-        var ROOT  = "{_lc2_root}";
+        // ── Robust cross-frame TTS with correct accent ──
+        var _win   = (window.parent && window.parent !== window) ? window.parent : window;
+        var SYNTH  = _win.speechSynthesis;
+        var UCLASS = _win.SpeechSynthesisUtterance;
+        var TEXT   = "{_speech_js}";
+        var LANG   = "{_lc2}";       // e.g. "kn-IN", "te-IN", "hi-IN", "en-IN"
+        var ROOT   = "{_lc2_root}";  // e.g. "kn", "te", "hi", "en"
+
+        function pickVoice(voices){{
+            // 1. Exact locale match  (e.g. "kn-IN")
+            var v = voices.find(function(x){{ return x.lang === LANG; }});
+            // 2. Same root language  (e.g. "kn-*")
+            if(!v) v = voices.find(function(x){{ return x.lang.startsWith(ROOT + "-"); }});
+            // 3. Root only           (e.g. "kn")
+            if(!v) v = voices.find(function(x){{ return x.lang === ROOT; }});
+            // 4. Any voice with that root anywhere in the lang string
+            if(!v) v = voices.find(function(x){{ return x.lang.toLowerCase().indexOf(ROOT) === 0; }});
+            return v || null;
+        }}
 
         function doSpeak(){{
-            if(!SYNTH) return;
+            if(!SYNTH || !UCLASS) {{ alert("Speech not supported in this browser."); return; }}
             SYNTH.cancel();
             var u = new UCLASS(TEXT);
             u.lang = LANG; u.rate = 0.85; u.pitch = 1.0; u.volume = 1.0;
             var voices = SYNTH.getVoices();
-            var match  = voices.find(v => v.lang.startsWith(ROOT));
-            if(match) u.voice = match;
+            if(voices.length > 0){{
+                var match = pickVoice(voices);
+                if(match) u.voice = match;
+            }}
             SYNTH.speak(u);
         }}
+
+        function doSpeak_whenReady(){{
+            if(!SYNTH) return;
+            var voices = SYNTH.getVoices();
+            if(voices.length > 0){{ doSpeak(); return; }}
+            // Poll until voices load (handles Chrome lazy-load)
+            var tries = 0;
+            var poll = setInterval(function(){{
+                voices = SYNTH.getVoices();
+                tries++;
+                if(voices.length > 0 || tries > 20){{
+                    clearInterval(poll);
+                    doSpeak();
+                }}
+            }}, 150);
+        }}
+
         function doStop(){{
             if(SYNTH) SYNTH.cancel();
         }}
-        if(SYNTH && SYNTH.getVoices().length > 0){{ doSpeak(); }}
-        else {{ if(SYNTH) SYNTH.onvoiceschanged = doSpeak; setTimeout(doSpeak, 1000); }}
+
+        // Wire up voiceschanged for browsers that need it (Firefox)
+        if(SYNTH){{ SYNTH.onvoiceschanged = null; }}  // clear stale handlers
         </script>
 
         <style>
@@ -1342,9 +1403,9 @@ else:
         .hint{{font-size:12px;color:rgba(255,255,255,0.65);font-family:sans-serif;}}
         </style>
         <div class="vrow">
-            <button class="btn-speak" onclick="doSpeak()">{_replay_label}</button>
+            <button class="btn-speak" onclick="doSpeak_whenReady()">{_replay_label}</button>
             <button class="btn-stop"  onclick="doStop()">{_stop_label}</button>
-            <span class="hint">🔊 Auto-reading your results</span>
+            <span class="hint">🔊 Click to hear results</span>
         </div>
         """, height=70)
 
